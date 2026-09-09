@@ -1,0 +1,318 @@
+{
+  "1": {
+    "status": "Active",
+    "title": "ClimateSERV 2.0"
+  },
+  "10": {
+    "status": "Active",
+    "title": "Radar Mining Monitoring Tool"
+  },
+  "11": {
+    "status": "Active",
+    "title": "TerraOnTrack"
+  },
+  "12": {
+    "status": "Active",
+    "title": "Invasive Species Digital Database"
+  },
+  "13": {
+    "status": "Active",
+    "title": "Land-Cover Mapping for Greenhouse Gas Emissions Inventory in Africa"
+  },
+  "14": {
+    "status": "Active",
+    "title": "Mapping Sea Grass and Mangroves in Eastern Africa"
+  },
+  "15": {
+    "status": "Inactive",
+    "title": "GeoPortal"
+  },
+  "16": {
+    "status": "Active",
+    "title": "GEE Tethys Tutorial"
+  },
+  "17": {
+    "status": "Active",
+    "title": "THREDDS Tethys App Tutorial"
+  },
+  "18": {
+    "status": "Inactive",
+    "title": "Land Use/Land Cover Inventory for Africa"
+  },
+  "19": {
+    "status": "Active",
+    "title": "HydraFloods"
+  },
+  "2": {
+    "status": "Active",
+    "title": "RHEAS Viewer Beta"
+  },
+  "20": {
+    "status": "Active",
+    "title": "Southeast Asia Air Quality Explorer"
+  },
+  "21": {
+    "status": "Active",
+    "title": "Rangelands Decision Support System in Pakistan"
+  },
+  "22": {
+    "status": "Inactive",
+    "title": "REDD information system"
+  },
+  "23": {
+    "status": "Inactive",
+    "title": "AgriSERV"
+  },
+  "24": {
+    "status": "Active",
+    "title": "E&S Africa Early Warning Explorer (EWX)"
+  },
+  "25": {
+    "status": "Active",
+    "title": "WENDOU"
+  },
+  "26": {
+    "status": "Active",
+    "title": "Reservoir Assessment Tool for Lower Mekong Basin (RAT-Mekong)"
+  },
+  "27": {
+    "status": "Active",
+    "title": "Amazon Dashboard"
+  },
+  "28": {
+    "status": "Active",
+    "title": "RLCMS - Mekong"
+  },
+  "29": {
+    "status": "Active",
+    "title": "RLCMS - HKH"
+  },
+  "3": {
+    "status": "Active",
+    "title": "HIWAT Model Viewer"
+  },
+  "30": {
+    "status": "Active",
+    "title": "Rangelands Decision Support System"
+  },
+  "31": {
+    "status": "Active",
+    "title": "Bangladesh Flash Flood Prediction Tool"
+  },
+  "32": {
+    "status": "Active",
+    "title": "Nepal Flash Flood Prediction Tool"
+  },
+  "33": {
+    "status": "Active",
+    "title": "Grace Groundwater Subsetting Tool"
+  },
+  "34": {
+    "status": "Active",
+    "title": "Groundwater Data Mapper"
+  },
+  "35": {
+    "status": "Active",
+    "title": "CoMiMo"
+  },
+  "36": {
+    "status": "Active",
+    "title": "Streamflow Monitoring and Forecasting Tool"
+  },
+  "37": {
+    "status": "Active",
+    "title": "Regional Drought Monitoring and Outlook System (RDMOS)"
+  },
+  "38": {
+    "status": "Active",
+    "title": "Flood Inundation Mapping (HydroSAR)"
+  },
+  "39": {
+    "status": "Active",
+    "title": "Biophysical M&E Dashboard"
+  },
+  "4": {
+    "status": "Active",
+    "title": "TKMS"
+  },
+  "40": {
+    "status": "Active",
+    "title": "Eco-Dash"
+  },
+  "41": {
+    "status": "Active",
+    "title": "Water Quality Viewer for Inland Lakes in Eastern and Southern Africa (Tethys)"
+  },
+  "42": {
+    "status": "Active",
+    "title": "In-land Satellite-based Water-Quality Indicators Monitoring Tool (iSWIM)"
+  },
+  "43": {
+    "status": "Active",
+    "title": "Forest Conservation Evaluation Tool"
+  },
+  "44": {
+    "status": "Active",
+    "title": "Forest Conservation Targeting Tool"
+  },
+  "45": {
+    "status": "Active",
+    "title": "Mekong X-Ray"
+  },
+  "46": {
+    "status": "Active",
+    "title": "Landslide Hazard Assessment for Situational Awareness"
+  },
+  "47": {
+    "status": "Active",
+    "title": "Hydro-Met Box"
+  },
+  "49": {
+    "status": "Active",
+    "title": "Air Quality Watch HKH"
+  },
+  "5": {
+    "status": "Active",
+    "title": "HIWAT HKH (SCO Instance)"
+  },
+  "50": {
+    "status": "Active",
+    "title": "Cambodia Protected Area Alerts System"
+  },
+  "51": {
+    "status": "Active",
+    "title": "Application Template 2023"
+  },
+  "52": {
+    "status": "Active",
+    "title": "DRIP Groundwater Use"
+  },
+  "53": {
+    "status": "Active",
+    "title": "MANGLEE"
+  },
+  "54": {
+    "status": "Active",
+    "title": "Virtual Rain and Stream Gauge Data Service"
+  },
+  "55": {
+    "status": "Active",
+    "title": "Altimetry Explorer"
+  },
+  "56": {
+    "status": "Active",
+    "title": "Agricultural Production and Climate Dashboard"
+  },
+  "57": {
+    "status": "Active",
+    "title": "Malawi Community Based Flood Early Warning System"
+  },
+  "58": {
+    "status": "Active",
+    "title": "Cerro Cantil Monitoring"
+  },
+  "59": {
+    "status": "Active",
+    "title": "IDEAM GEOGloWS Portal"
+  },
+  "6": {
+    "status": "Active",
+    "title": "Carbon Monitoring Pilot (S-CAP)"
+  },
+  "60": {
+    "status": "Active",
+    "title": "SENAMHI Tethys Portal"
+  },
+  "61": {
+    "status": "Active",
+    "title": "CEMADEN Tethys Portal"
+  },
+  "62": {
+    "status": "Active",
+    "title": "ACES: Agricultural Classification and Estimation Service"
+  },
+  "65": {
+    "status": "Active",
+    "title": "Artisanal Small Scale Gold Mining Monitoring Portal"
+  },
+  "66": {
+    "status": "Active",
+    "title": "Communal-level Development Portal"
+  },
+  "67": {
+    "status": "Active",
+    "title": "Malawi Hazards and Vulnerability Modelling Tool"
+  },
+  "68": {
+    "status": "Active",
+    "title": "Guyana Mangrove Monitoring"
+  },
+  "69": {
+    "status": "Active",
+    "title": "Locust monitoring"
+  },
+  "7": {
+    "status": "Active",
+    "title": "Collect Earth Online (CEO)"
+  },
+  "70": {
+    "status": "Active",
+    "title": "GeoFairy Server"
+  },
+  "71": {
+    "status": "Active",
+    "title": "Streamflow Prediction Systems"
+  },
+  "72": {
+    "status": "Active",
+    "title": "Farm Action Toolkit"
+  },
+  "73": {
+    "status": "Active",
+    "title": "GEOGLOWS ECMWF Streamflow Service"
+  },
+  "74": {
+    "status": "Active",
+    "title": "Forest Fire Detection and Monitoring System in Nepal"
+  },
+  "75": {
+    "status": "Active",
+    "title": "DSSAT Viewer"
+  },
+  "76": {
+    "status": "Active",
+    "title": "MOCAF"
+  },
+  "77": {
+    "status": "Inactive",
+    "title": "SWARM (Supporting Water Resources Management)"
+  },
+  "78": {
+    "status": "Active",
+    "title": "Land and Agriculture Monitoring Project (LAMP)"
+  },
+  "79": {
+    "status": "Active",
+    "title": "Charcoal Production Site Monitoring Service"
+  },
+  "8": {
+    "status": "Active",
+    "title": "SWAT - Lower Mekong"
+  },
+  "80": {
+    "status": "Active",
+    "title": "INAMHI GEOGLOWS Portal"
+  },
+  "81": {
+    "status": "Active",
+    "title": "National agricultural drought watch - Nepal"
+  },
+  "82": {
+    "status": "Active",
+    "title": "EF-5 Viewer"
+  },
+  "9": {
+    "status": "Active",
+    "title": "Service Catalog"
+  }
+}
