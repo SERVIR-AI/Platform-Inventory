@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>03 GeoAI Strategy Alignment — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html" class="active">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="geoai">
+<div class="wrap">
+<div class="section-head"><span class="section-num">03</span><h2>GeoAI Strategy Alignment</h2></div>
+<p class="section-dek">Every engineering decision in §04–08 traces back to one of six design principles and six strategic pillars set out in SIG-NAL's cross-platform GeoAI Strategy. They're restated here as the checklist each platform section is built against, not as background reading.</p>
+<h3 class="subhead">Six design principles</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">01</span><h4>Bottom-up, case-driven</h4><p>Capabilities are built from a real case a hub already has, not from a generic capability roadmap handed down centrally.</p></div>
+<div class="card"><span class="tag">02</span><h4>Replication &amp; transferability</h4><p>A model or workflow built for one region is designed, from the start, to be recalibrated for another — not rebuilt.</p></div>
+<div class="card"><span class="tag">03</span><h4>Open &amp; FAIR science</h4><p>Findable, accessible, interoperable, reusable — data and models publish through Source Cooperative and open standards, not siloed stores.</p></div>
+<div class="card"><span class="tag">04</span><h4>Human-centered design</h4><p>Practitioners shape the tool's workflow; the model serves a decision a person already needs to make.</p></div>
+<div class="card"><span class="tag">05</span><h4>Ethical &amp; responsible AI</h4><p>Groundedness gates, receipts, and regional-sensitivity review are load-bearing, not optional add-ons late in the build.</p></div>
+<div class="card"><span class="tag">06</span><h4>Institutional capacity</h4><p>A hub that adopts a capability also gains the ability to maintain and extend it — capacity transfer is a deliverable, not a side effect.</p></div>
+</div>
+<h3 class="subhead">Six strategic pillars</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Pillar</th><th>What it commits the plan to</th></tr></thead>
+<tbody>
+<tr><td><b>Bottom-up, domain-grounded development</b></td><td>Each platform section below (§04–06) starts from the hub's own case, per Principle 01.</td></tr>
+<tr><td><b>Transferability &amp; shared tech ecosystem</b></td><td>One shared capability layer (§07) rather than three independently-built stacks.</td></tr>
+<tr><td><b>Operational integration</b></td><td>Capabilities ship as MCP-wrapped services reachable through the gateway (§02), not as standalone notebooks.</td></tr>
+<tr><td><b>Open science</b></td><td>Source Cooperative as the storage/publication layer; STAC/OGC/CF conventions as the interoperability layer.</td></tr>
+<tr><td><b>Human capital</b></td><td>The tiered capacity-building model below is a build deliverable alongside the software.</td></tr>
+<tr><td><b>Infrastructure &amp; compute sustainability</b></td><td>Hybrid SOCRATES + commercial-cloud compute, with data kept near the compute that uses it.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Shared technology stack</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Layer</th><th>Components</th></tr></thead>
+<tbody>
+<tr><td><b>Foundation models</b></td><td class="mono">Prithvi · DOFA · TerraMind · CROMA · OlmoEarth · Satlas · Tessera · Clay · AlphaEarth</td></tr>
+<tr><td><b>Tooling</b></td><td class="mono">TorchGeo · TerraTorch · Raster Vision · eo-learn · PANGAEA</td></tr>
+<tr><td><b>Compute</b></td><td>Hybrid: SIG's own <b>SOCRATES</b> cluster plus a commercial "core-3" (AWS / Google Cloud / Azure), chosen per-workload so data stays near the compute that processes it.</td></tr>
+<tr><td><b>Storage &amp; publication</b></td><td><a href="https://source.coop" rel="noopener" target="_blank">Source Cooperative</a>, org instance <code class="mono">source.coop/737847</code> — the open-FAIR-science commitment made concrete.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Governance mechanisms carried into every agent</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Mechanism</span><h4>Post-processing style agent</h4><p>A dedicated agent trained on regional style guides reviews outputs for culturally and politically sensitive framing before anything publishes — same family of gate as <code>SERVIR-AI/global-platform</code>'s groundedness check.</p></div>
+<div class="card"><span class="tag">Mechanism</span><h4>Permission-level sandboxing</h4><p>Knowledge-management agents run inside sandboxes scoped to a permission level, so a capability's blast radius is bounded by what its caller is actually allowed to see or change.</p></div>
+<div class="card"><span class="tag">Mechanism</span><h4>Federated model stewardship</h4><p>Distributed, hub-level model stewardship — rather than one central authority holding every model — is the named mitigation against over-centralization risk.</p></div>
+</div>
+<h3 class="subhead">Tiered capacity-building model</h3>
+<p>Human capital is built as a ladder, not a single training event, and each tier trains the next — a hub that only ever receives training never becomes able to sustain the capability once outside support ends.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Tier</th><th>Capability transferred</th></tr></thead>
+<tbody>
+<tr><td><b>Practitioner</b></td><td>Uses a deployed capability to answer a real operational question — runs the tool, reads the output, knows its limits.</td></tr>
+<tr><td><b>Engineer</b></td><td>Recalibrates and extends a capability for a new region or dataset — the transferability principle made operational.</td></tr>
+<tr><td><b>Research lead</b></td><td>Trains the next practitioner and engineer cohort — train-the-trainer, so capacity compounds rather than resets with each program cycle.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+<strong>Where this shows up later.</strong> The four-phase roadmap (Phase I 2026 platform development, already underway; Phase II 2027–28 case-study expansion; Phase III 2028–29 generalization and platform integration; Phase IV 2029–30 institutionalization and sustainability) is carried in full in §08, aligned against the Decisions Log rather than repeated here.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="02-gateway.html"><span class="lbl">← Previous</span>02 · Gateway &amp; Integration Architecture</a>
+<a href="04-global-risk.html" style="text-align:right;"><span class="lbl">Next →</span>04 · Global Risk Platform — Engineering Detail</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

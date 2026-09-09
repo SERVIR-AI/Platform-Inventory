@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>04 Global Risk Platform — Engineering Detail — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html" class="active">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="global-risk">
+<div class="wrap">
+<div class="section-head"><span class="section-num">04</span><h2>Global Risk Platform — Engineering Detail</h2></div>
+<p class="section-dek"><b>RiskMap.</b> Twelve perils under one MVP scope (Decision #1, resolved), each of which has to be answered on <b>three different clocks</b>: what is happening now, what the annualized baseline risk is, and how that baseline shifts under climate change. The matrix below is the build list — thirty-six cells, each one an element that has to exist, be wrapped, and interoperate with the other thirty-five.</p>
+<h3 class="subhead">Fig. 2 — The build matrix</h3>
+<div class="mx-wrap">
+<div class="mx">
+<div class="mx-corner"></div>
+<div class="mx-colhead"><b>Clock 1 · Near-real-time</b>What is happening now — event-triggered, minutes to days</div>
+<div class="mx-colhead"><b>Clock 2 · Annualized baseline</b>What it costs in an average year — AAL, PML, exceedance curves</div>
+<div class="mx-colhead"><b>Clock 3 · Climate-adjusted</b>How the baseline moves — CMIP6 / ISIMIP forced</div>
+<div class="mx-rowhead">Earthquake<span>not climate-driven</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>USGS ShakeMap / PAGER event feed → shaking footprint</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>OpenQuake (GEM) hazard + fragility curves → AAL</div>
+<div class="mx-cell s-na"><span class="lab">Out of scope</span>Seismicity is not climate-forced — baseline only</div>
+<div class="mx-rowhead">Flood<span>fluvial · pluvial</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>HydraFloods SAR/optical extent + GEOGloWS discharge</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>CLIMADA river-flood on the GloFAS/JRC historical event set</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>ISIMIP-forced discharge; recompute return periods per scenario</div>
+<div class="mx-rowhead">Drought<span>meteorological · agricultural</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>ClimateSERV SPI (CHIRPS/IMERG) + NOAA VHI/ESI; <code>rendvi</code></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>SPI/SPEI return periods over the 40-year CHIRPS record</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>CMIP6 SPEI / ISIMIP drought indices, bias-corrected</div>
+<div class="mx-rowhead">Wildfire<span>behavior · burn probability</span></div>
+<div class="mx-cell s-build"><span class="lab">Reuse + build</span>FIRMS active fire (global, today) + <code>pyretechnics</code> spread engine. The engine is portable; its <b>fuel-model input is not</b> — Pyrecast runs on LANDFIRE, which is US-only. A fuels layer per SERVIR region is the actual Clock 1 blocker.</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Burn probability — <code>pyretechnics</code> is deterministic, with no ensemble driver, so this is Monte Carlo <i>over</i> it: ignition and weather sampling, thousands of runs (Westerling precedent).</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>Fire Weather Index under CMIP6 — season length and severity</div>
+<div class="mx-rowhead">Storm / tropical cyclone<span>wind · track</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>NOAA NHC / JTWC advisories, IBTrACS best-track</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>CLIMADA TC module — synthetic track sets, wind fields</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>CLIMADA TC under CMIP6 SST forcing — frequency and intensity shift</div>
+<div class="mx-rowhead">Heatwave<span>humid heat</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>ERA5 + GFS/ECMWF heat index; no reusable SERVIR tool today</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Heat-index exceedance return periods from the ERA5 record</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>CMIP6 wet-bulb globe temperature — the highest-signal climate peril</div>
+<div class="mx-rowhead">Air pollution<span>PM2.5 · haze</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>SE Asia AQ Explorer + FIRMS hotspots + Sentinel-5P</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Annual PM2.5 exposure-days against a WHO threshold</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>No accepted climate-adjusted AQ method — ship clocks 1 and 2 only, say so</div>
+<div class="mx-rowhead">Storm surge<span>coastal</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>NOAA STOFS-2D, global, ~6-hourly</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span><code>climada_petals</code> TC-surge on the same synthetic tracks</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>Compound surge + SLR — the joint distribution, not two separate layers</div>
+<div class="mx-rowhead">Sea level rise<span>trend, not event</span></div>
+<div class="mx-cell s-na"><span class="lab">Out of scope</span>A trend has no event clock — nothing to monitor in near-real-time</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Copernicus Marine altimetry trend × coastal DEM inundation</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>IPCC AR6 / NASA sea level projections by scenario and year</div>
+<div class="mx-rowhead">Tornado<span>global gap</span></div>
+<div class="mx-cell s-gap"><span class="lab">Gap — regional</span>NOAA SPC (US) / ESWD (EU, sparse); CAPE-shear proxy elsewhere</div>
+<div class="mx-cell s-gap"><span class="lab">Gap — regional</span>No global catalogue exists to compute a return period from</div>
+<div class="mx-cell s-gap"><span class="lab">Gap — research</span>CMIP6 convective proxies are research-stage, not operational</div>
+<div class="mx-rowhead">Wind gust<span>global gap</span></div>
+<div class="mx-cell s-gap"><span class="lab">Gap — proxy</span>ECMWF / GFS gust forecast fields — modeled, never observed</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>ERA5 gust return periods — computable, just not yet computed</div>
+<div class="mx-cell s-gap"><span class="lab">Gap — low confidence</span>CMIP6 wind extremes carry wide model spread</div>
+<div class="mx-rowhead">Extreme cold<span>cold spell</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>ERA5 + GFS cold index, mirroring the heat index code path</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Cold-spell return periods from ERA5</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>CMIP6 cold extremes — declining in frequency, shifting in place</div>
+</div>
+</div>
+<div class="legend">
+<span><i class="lg-live"></i>Built inside SERVIR — reuse, do not rebuild</span>
+<span><i class="lg-partner"></i>Adopt an external open tool or dataset</span>
+<span><i class="lg-build"></i>New build work, on top of an open foundation</span>
+<span><i class="lg-gap"></i>Genuine gap — ship with an explicit confidence flag</span>
+<span><i class="lg-na"></i>Deliberately out of scope for this clock</span>
+</div>
+<div class="note">
+<strong>What the matrix says at a glance.</strong> Four cells are already built and only need wrapping. Twelve are adopt-a-partner. Eleven are real build work. Six are gaps that should ship labelled rather than quietly proxied. Three are deliberately empty. The <b>bottom-left corner is the risk</b>: tornado and wind gust are weak on every clock, and they were added to scope by Decision #1 with that risk explicitly accepted — this is the picture that decision was accepting.
+    </div>
+<h3 class="subhead">Fig. 3 — How the thirty-six elements interact</h3>
+<div class="diagram-wrap">
+<svg aria-label="Interaction diagram: sources feed ingestion and a STAC catalog, twelve peril modules emit one hazard footprint schema, a shared exposure join adds people, nature and assets, two risk clocks compute from the same data model, peril agents register with Agent2Agent, and an orchestrator routes everything through a human approval checkpoint to the access layer." height="auto" role="img" viewbox="0 0 1060 700" width="100%">
+<defs>
+<marker id="ar" markerheight="9" markerwidth="9" orient="auto" refx="7" refy="4.5">
+<path class="dg-arrow" d="M0,1 L7,4.5 L0,8 Z" fill="currentColor"></path>
+</marker>
+</defs>
+<style>.dg-arrow{fill:var(--ink-faint);}</style>
+<!-- sources -->
+<g>
+<rect class="dg-chip" height="32" rx="6" width="160" x="20" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="100" y="34">Copernicus CDS / GloFAS</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="192" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="272" y="34">NASA FIRMS</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="364" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="444" y="34">NOAA NHC / SPC / STOFS</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="536" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="616" y="34">ECMWF / GFS</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="708" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="788" y="34">USGS ShakeMap</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="880" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="960" y="34">IBTrACS / ERA5</text>
+</g>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="46" y2="74"></line>
+<!-- ingestion -->
+<rect class="dg-box-space" height="42" rx="8" width="1020" x="20" y="76"></rect>
+<text class="dg-title" x="40" y="102">Ingestion → common staging, every product cataloged as a STAC item</text>
+<text class="dg-label" text-anchor="end" x="1020" y="102">§07 SHARED LAYER</text>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="118" y2="140"></line>
+<!-- hazard modules -->
+<rect class="dg-box-accent" height="78" rx="8" width="1020" x="20" y="142"></rect>
+<text class="dg-title" x="40" y="166">Hazard modeling — twelve peril modules, three clocks each</text>
+<g>
+<rect class="dg-chip" height="24" rx="5" width="74" x="40" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="77" y="196">EQ</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="122" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="159" y="196">FLOOD</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="204" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="241" y="196">DROUGHT</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="286" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="323" y="196">FIRE</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="368" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="405" y="196">CYCLONE</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="450" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="487" y="196">HEAT</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="532" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="569" y="196">AIR</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="614" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="651" y="196">SURGE</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="696" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="733" y="196">SLR</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="778" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="815" y="196">TORNADO</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="860" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="897" y="196">GUST</text>
+<rect class="dg-chip" height="24" rx="5" width="74" x="942" y="180"></rect><text class="dg-chip-text" text-anchor="middle" x="979" y="196">COLD</text>
+</g>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="240">every module emits the same object — HazardFootprint (E1)</text>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="246" y2="268"></line>
+<!-- exposure -->
+<rect class="dg-box" height="76" rx="8" width="1020" x="20" y="270"></rect>
+<text class="dg-title" x="40" y="294">Shared exposure join (E3) — resolved once, consumed by every peril and every clock</text>
+<g>
+<rect class="dg-chip" height="26" rx="5" width="318" x="40" y="306"></rect><text class="dg-chip-text" text-anchor="middle" x="199" y="323">PEOPLE — WorldPop · age/sex · Relative Wealth Index</text>
+<rect class="dg-chip" height="26" rx="5" width="318" x="371" y="306"></rect><text class="dg-chip-text" text-anchor="middle" x="530" y="323">NATURE — WDPA/IBAT · RLCMS land cover (§06)</text>
+<rect class="dg-chip" height="26" rx="5" width="318" x="702" y="306"></rect><text class="dg-chip-text" text-anchor="middle" x="861" y="323">ASSETS — Open Buildings · LitPop · OSM lifelines</text>
+</g>
+<line class="dg-line" marker-end="url(#ar)" x1="280" x2="280" y1="346" y2="376"></line>
+<line class="dg-line" marker-end="url(#ar)" x1="780" x2="780" y1="346" y2="376"></line>
+<!-- two clocks -->
+<rect class="dg-box-gold" height="74" rx="8" width="500" x="20" y="378"></rect>
+<text class="dg-title" x="40" y="402">Clock 1 — near-real-time engine</text>
+<text class="dg-sub" x="40" y="422">Event-triggered. CLIMADA <tspan font-family="'IBM Plex Mono',monospace">Forecast</tspan> pattern.</text>
+<text class="dg-sub" x="40" y="440">Answers: who is affected, right now.</text>
+<rect class="dg-box-gold" height="74" rx="8" width="500" x="540" y="378"></rect>
+<text class="dg-title" x="560" y="402">Clocks 2 &amp; 3 — annualized + climate-adjusted engine</text>
+<text class="dg-sub" x="560" y="422">AAL, PML, exceedance curves. CMIP6 / ISIMIP forcing.</text>
+<text class="dg-sub" x="560" y="440">Answers: what to plan and finance against.</text>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="470">one H-E-V data model, two computations — never two data models (E2)</text>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="476" y2="498"></line>
+<!-- agents -->
+<rect class="dg-box-accent" height="76" rx="8" width="1020" x="20" y="500"></rect>
+<text class="dg-title" x="40" y="524">Peril agents, MCP-wrapped (E4) — registered in the Agent2Agent registry (§02)</text>
+<g>
+<rect class="dg-chip" height="26" rx="5" width="238" x="40" y="536"></rect><text class="dg-chip-text" text-anchor="middle" x="159" y="553">Flood Risk Agent</text>
+<rect class="dg-chip" height="26" rx="5" width="238" x="291" y="536"></rect><text class="dg-chip-text" text-anchor="middle" x="410" y="553">Wildfire Risk Agent</text>
+<rect class="dg-chip" height="26" rx="5" width="238" x="542" y="536"></rect><text class="dg-chip-text" text-anchor="middle" x="661" y="553">Probabilistic Loss Agent</text>
+<rect class="dg-chip" height="26" rx="5" width="227" x="793" y="536"></rect><text class="dg-chip-text" text-anchor="middle" x="906" y="553">Global Alert Watch Agent</text>
+</g>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="576" y2="598"></line>
+<!-- orchestrator -->
+<rect class="dg-box-space" height="52" rx="8" width="600" x="230" y="600"></rect>
+<text class="dg-title" text-anchor="middle" x="530" y="622">Global Risk Orchestrator Agent — RiskMap's NL interface</text>
+<text class="dg-label" text-anchor="middle" x="530" y="641">HUMAN-APPROVAL CHECKPOINT · NEVER AUTONOMOUS PUBLICATION</text>
+<line class="dg-line" marker-end="url(#ar)" x1="530" x2="530" y1="652" y2="670"></line>
+<!-- access -->
+<rect class="dg-box" height="26" rx="6" width="1020" x="20" y="672"></rect>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="689">ACCESS — OGC API · STAC catalog · CAP alert feeds · HXL/HDX humanitarian exports (E6)</text>
+</svg>
+<p class="diagram-caption">Fig. 3 — The interaction contract. Elements E1–E6 are specified below; every peril module plugs into the same three seams.</p>
+</div>
+<h3 class="subhead">The companion exposure layer</h3>
+<p>The matrix above answers <em>what hazard, on what clock</em>. It deliberately does not carry exposure, because exposure is not a per-peril question — the same population grid, the same protected-area layer and the same building footprints are joined against all twelve perils on all three clocks. Building it once, as a service rather than a per-peril lookup, is what keeps thirty-six cells from becoming thirty-six data pipelines.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Stack</th><th>Layer</th><th>Source &amp; licence</th><th>Resolution / currency</th><th>Open question</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><b>People</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">who is exposed</span></td><td>Population count &amp; density</td><td><b>WorldPop</b> — CC BY 4.0</td><td>100 m gridded, annual</td><td>Refresh cadence not agreed (Decision #17)</td></tr>
+<tr><td>Social vulnerability</td><td><b>WorldPop age/sex structures</b> + <b>Meta Relative Wealth Index</b></td><td>100 m – 2.4 km, static-ish</td><td>Which vulnerability index is authoritative — unresolved</td></tr>
+<tr><td rowspan="2"><b>Nature</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">what ecosystems are exposed</span></td><td>Protected areas &amp; species range</td><td><b>WDPA / IUCN via IBAT</b> (paid) <em>or</em> open <b>GBIF + Planetary Computer</b></td><td>Vector, quarterly (WDPA)</td><td>Genuine licence-vs-build decision (Decision #17)</td></tr>
+<tr><td>Ecosystem extent</td><td><b>RLCMS</b> + ESA CCI land cover — <em>shared straight from §06</em></td><td>10–30 m, annual</td><td>None — NRM already owns this pipeline</td></tr>
+<tr><td rowspan="3"><b>Assets</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">what physical stock is exposed</span></td><td>Building footprints</td><td><b>Google Open Buildings</b> + <b>Microsoft GlobalMLBuildingFootprints</b></td><td>Footprint-level; Global South coverage strongest</td><td>Deduplication where both cover the same area</td></tr>
+<tr><td>Economic value proxy</td><td><b>LitPop</b> — nightlights × population, CLIMADA-native</td><td>~1 km, periodic</td><td>None — CLIMADA-native, comes free with Clock 2</td></tr>
+<tr><td>Critical infrastructure</td><td><b>OpenStreetMap</b> — roads, health facilities, schools, power</td><td>Vector, continuous</td><td>Completeness varies by country; needs a coverage flag</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note gold">
+<strong>The exposure layer is the reuse point, not the hazard layer.</strong> <code>SERVIR-AI/global-platform</code> already overlays OpenStreetMap exposure assets against hazard rasters, under the stated guarantee that "every number is computed from real data, never generated by the model." That is this element, already running for one region. The build here is generalising it — not inventing it (Decision #12).
+    </div>
+<h3 class="subhead">Build detail — the six seams that make the elements interoperate</h3>
+<p>Thirty-six hazard cells, three exposure stacks and five agents only add up to a platform if they meet at defined seams. These six are the whole of the interoperability story; everything else is a peril specialist's business.</p>
+<div class="elem accent">
+<h4><span class="eid">E1</span> The HazardFootprint contract</h4>
+<p>Every one of the thirty-six cells — a Sentinel-1 flood extent, an OpenQuake shaking grid, a CMIP6 heat projection — emits the same object. This is the single most load-bearing decision in the platform: it is what lets the exposure join, the risk engine, and the agents be written once instead of twelve times.</p>
+<div class="contract">HazardFootprint
+  peril          enum(12)          # the matrix row
+  clock          enum(nrt|annual|climate)   # the matrix column
+  geometry       raster | vector   # COG or GeoParquet, STAC-catalogued
+  intensity      float + unit      # m depth, m/s wind, PGA g, °C WBGT …
+  time           instant | period | return_period | scenario+horizon
+  provenance     source, model, version, run_time
+  confidence     enum(observed|modeled|proxy) + note   # E5
+</div>
+<p><b>Why the enum matters.</b> <code>confidence</code> is not decoration. It is what lets tornado and wind gust ship at all: a CAPE-shear proxy enters the system as <code>proxy</code>, is rendered differently, and can never be silently averaged into a number labelled <code>observed</code>.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">E2</span> The two-clock risk engine, one data model</h4>
+<p>Near-real-time monitoring and annualized baseline risk are genuinely different computations, and the temptation is to build them as two systems with two data models. Do not. CLIMADA already demonstrates the correct shape: <code>Hazard</code>, <code>Exposure</code> and <code>Impact</code> classes shared across both, with a separate <code>Forecast</code> class for the event-triggered path. Clock 3 is not a third engine — it is Clock 2 with a different forcing dataset and a scenario label attached.</p>
+<div class="contract">impact = f(HazardFootprint, ExposureBundle, VulnerabilityCurve)
+
+  clock 1  →  one footprint, now          →  affected counts, per exposure stack
+  clock 2  →  event set + frequencies     →  AAL, PML, exceedance curve
+  clock 3  →  clock 2, forced by CMIP6/ISIMIP, tagged scenario + horizon
+</div>
+<p>The practical test: adding storm surge to Clock 3 should be a configuration and a dataset, not a new codebase. If it is not, E1 has been violated somewhere upstream.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">E3</span> The exposure join service</h4>
+<p>A service, not a table. It takes a footprint and a requested exposure stack and returns the intersection with its own provenance and currency attached — so a downstream agent can state <em>"1.2 M people, WorldPop 2024, 100 m"</em> rather than an unsourced number. It resolves the People / Nature / Assets stacks specified above, and it is the same service the Food Security and NRM platforms call for their own exposure questions (§07).</p>
+<div class="contract">join(footprint, stacks[], threshold) → ExposureBundle
+  per stack: count | area | value
+             source, licence, vintage, resolution
+             coverage_flag   # OSM completeness, WorldPop age
+</div>
+</div>
+<div class="elem accent">
+<h4><span class="eid">E4</span> The peril-agent contract</h4>
+<p>Each agent MCP-wraps its peril's tools and encodes the workflow a specialist actually follows — not a thin model wrapper. The Flood Risk Agent reconciles a GEOGloWS forecast against an observed HydraFloods extent and <em>flags the divergence</em> rather than picking a winner; that reconciliation logic is the domain expertise, and it is what makes the agent worth building. Registration with the gateway (§02) is what makes it callable by the other platforms' agents.</p>
+<div class="contract">agent.tools    MCP tools — run, query, explain
+agent.resources  the context it can offer another agent
+agent.card     peril, clocks served, data currency, known limitations
+agent.gate     groundedness check before any number is published</div>
+</div>
+<div class="elem accent">
+<h4><span class="eid">E5</span> The confidence and provenance envelope</h4>
+<p>Six of the thirty-six cells are gaps. The platform's credibility depends on those six being visibly different from the other thirty, all the way through to the UI and the API — not just in a footnote. <code>SERVIR-AI/global-platform</code>'s replayable, litestream-backed <em>receipt</em>, gated by a groundedness check before publishing, is the working precedent to generalise rather than reinvent.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">E6</span> The access layer</h4>
+<p>Two consumption modes off one capability: LLM and agent applications reach it via MCP; dashboards, national warning systems and backend services reach the same computation via curated APIs. The standards below are not aspirational — CAP in particular is the format that carries an alert into a national warning channel, which is the difference between a risk platform and a warning system.</p>
+</div>
+<h3 class="subhead">Interoperability standards</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Standard</th><th>Solves</th><th>Adoption</th></tr></thead>
+<tbody>
+<tr><td class="mono">STAC</td><td>Discovering time/space-indexed hazard and EO data across sources</td><td>Near-default for cloud-native EO</td></tr>
+<tr><td class="mono">OGC API</td><td>Web-native access to vector/raster risk layers</td><td>Strong and growing</td></tr>
+<tr><td class="mono">CAP</td><td>One alert format into many national warning channels</td><td>Backbone of WMO/UNDRR Early Warnings for All</td></tr>
+<tr><td class="mono">CF Conventions</td><td>Self-describing climate/forecast NetCDF output</td><td>De facto standard for climate/NWP output</td></tr>
+<tr><td class="mono">HXL / HDX</td><td>Machine-readable humanitarian tabular exchange</td><td>Widely used across OCHA/cluster system</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Already built, not to be re-built</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Flagship</span><h4>RiskMap</h4><p>With ADPC, SE Asia hub — satellite + street-level imagery + grey literature behind an NL interface.</p></div>
+<div class="card"><span class="tag">Flood</span><h4>HydraFloods + GEOGloWS</h4><p>SAR/optical surface-water extent, and discharge forecasting — complementary, not competing. Repo: <code class="mono" style="font-size:0.85em;">Servir-Mekong/hydra-floods</code>, active July 2025.</p></div>
+<div class="card"><span class="tag">Fire</span><h4>Pyregence / <code class="mono" style="font-size:0.9em;">pyretechnics</code></h4><p>Built by SIG-GIS — wildfire behavior forecasting, HRRR/NAM/RTMA-driven. Repo: <code class="mono" style="font-size:0.85em;">github.com/pyregence</code>, 8 repos, active Sept 2026. <b>Reviewed §04.</b> The library is genuinely reusable — pip-installable, EPL-2.0, in-house authorship. Pyrecast the <i>service</i> is California/US grid-safety scoped; what transfers to SERVIR regions is the library, not the service.</p></div>
+<div class="card"><span class="tag">Prototype</span><h4>SERVIR-AI/global-platform</h4><p>Live MCP server answering NL disaster-risk questions across 9 perils for SE Asia today — the only repo of 230 with an MCP endpoint.</p></div>
+</div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Plus <b>ClimateSERV</b> (precipitation, active since 2015 — <code class="mono" style="font-size:0.9em;">SERVIR/ClimateSERV2</code>, updated June 2026), and a deep bench of hazard code in the hub orgs: <code class="mono" style="font-size:0.9em;">flood_mapping_intercomparison</code>, <code class="mono" style="font-size:0.9em;">fierpy</code>, <code class="mono" style="font-size:0.9em;">RHEAS</code>, <code class="mono" style="font-size:0.9em;">lhasa</code>, <code class="mono" style="font-size:0.9em;">mrc_ffgs</code>, <code class="mono" style="font-size:0.9em;">hiwat_model_viewer</code> — inventoried repo by repo in §02.</p>
+<h3 class="subhead">Where to partner, what to build</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Gap</th><th>Status</th><th>Partner</th></tr></thead>
+<tbody>
+<tr><td>Probabilistic / annualized loss (AAL, PML)</td><td><span class="pill pill-partner">Partner</span></td><td><b>RiskLayer</b> — already the named in-development partnership.</td></tr>
+<tr><td>Open-source fallback / benchmark</td><td><span class="pill pill-partner">Partner</span></td><td><b>CLIMADA</b> (ETH Zurich) — free, GPLv3, covers most perils via <code>climada_petals</code>.</td></tr>
+<tr><td>Global multi-hazard alerting</td><td><span class="pill pill-partner">Partner</span></td><td><b>GDACS</b> — free, global, not yet integrated anywhere internally.</td></tr>
+<tr><td>Storm surge, sea level rise</td><td><span class="pill pill-partner">Partner</span></td><td><b>NOAA STOFS-2D</b> / <b>Copernicus Marine</b> — open data, near-term risk accepted per Decision #1.</td></tr>
+<tr><td>Tornado / wind gust</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>NOAA SPC</b>, <b>ECMWF</b> — genuine global coverage gap, new detection logic on open forecast fields.</td></tr>
+<tr><td>Heat and cold index (all three clocks)</td><td><span class="pill pill-new">New build</span></td><td>ERA5 + CMIP6 WBGT — no reusable SERVIR asset exists; nine matrix cells depend on it.</td></tr>
+<tr><td>H-E-V fusion engine</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>OpenQuake</b> (earthquake) + <b>CLIMADA</b> (climate perils) + <b>IBF-system</b> (trigger/alert layer).</td></tr>
+<tr><td>Shared feature-extraction / eval harness</td><td><span class="pill pill-new">New build</span></td><td><b>TorchGeo</b> + <b>TerraTorch</b> (IBM/NASA) + <b>PANGAEA-bench</b>.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Domain agents</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Agent</th><th>MCP-wrapped tools</th><th>Workflow it encodes</th></tr></thead>
+<tbody>
+<tr><td><b>Flood Risk Agent</b></td><td>HydraFloods (extent) + GEOGloWS (discharge)</td><td>Forecast → observed extent → reconcile → overlay exposure → flag divergence for review.</td></tr>
+<tr><td><b>Wildfire Risk Agent</b></td><td>Pyregence / Pyrecast</td><td>Fuel/weather inputs → spread forecast → overlay exposure → escalate past threshold.</td></tr>
+<tr><td><b>Probabilistic Loss Agent</b></td><td>RiskLayer + CLIMADA (same interface contract)</td><td>Take H-E-V bundle → run RiskLayer → cross-check CLIMADA → surface material disagreement.</td></tr>
+<tr><td><b>Global Alert Watch Agent</b></td><td>GDACS feed</td><td>Poll → dedupe against native hazard agents → surface only new signals.</td></tr>
+<tr><td><b>Global Risk Orchestrator Agent</b></td><td>OpenQuake + CLIMADA + IBF-system (RiskMap's NL interface)</td><td>Parse query → call peril agents via A2A → fuse → route through IBF-system triggers → cite sources and limitations → human-approval checkpoint, never autonomous.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Use cases from the SERVIR archive</h3>
+<p>These are documented services with a named institution and a named decision — the demand evidence this platform is being built against. They are also the acceptance tests: if the matrix above is built correctly, every one of these becomes a query the orchestrator can answer rather than a bespoke tool someone has to maintain.</p>
+<div class="uc-grid">
+<div class="uc">
+<span class="uc-hub">Mekong / Southeast Asia</span>
+<h4>Flood emergency preparedness — Myanmar</h4>
+<dl>
+<dt>User</dt><dd><b>Department of Disaster Management (DDM)</b>, Ministry of Social Welfare, Relief &amp; Resettlement</dd>
+<dt>Tool</dt><dd>Historical Flood Analysis Tool — Landsat 5/7/8 + JRC flood frequency + population</dd>
+<dt>Decision</dt><dd>Where to pre-position emergency supplies, shelters and personnel, by ranking flood-prone areas instead of relying on manually collected local knowledge</dd>
+<dt>Matrix</dt><dd>Flood × Clock 2 · People + Assets</dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/supporting-flood-emergency-preparedness-myanmar">servirglobal.net/services/supporting-flood-emergency-preparedness-myanmar</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>HIWAT severe-weather forecasting — Bangladesh</h4>
+<dl>
+<dt>User</dt><dd><b>Bangladesh Meteorological Department (BMD)</b> — "has adopted the toolkit to enhance its operational forecasting"</dd>
+<dt>Tool</dt><dd>HIWAT — 54-hour probabilistic rainfall, lightning, hail and supercell forecast</dd>
+<dt>Decision</dt><dd>Whether and when BMD issues severe-weather warnings during the pre-monsoon and monsoon season</dd>
+<dt>Matrix</dt><dd>Storm × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://servir.icimod.org/science-applications/high-impact-weather-assessment-toolkit-hiwat-bangladesh/">servir.icimod.org/science-applications/high-impact-weather-assessment-toolkit-hiwat-bangladesh</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>Streamflow + Flash Flood Prediction — Nepal</h4>
+<dl>
+<dt>User</dt><dd><b>Department of Hydrology and Meteorology (DHM)</b>, Ministry of Energy, Water Resources and Irrigation</dd>
+<dt>Tool</dt><dd>Streamflow Prediction Tool (10-day, 519 reaches) + HIWAT-driven Flash Flood Tool (48-hour, 12,428 reaches)</dd>
+<dt>Decision</dt><dd>What goes into DHM's daily monsoon flood bulletin, and the forecast-based-financing actions triggered off it</dd>
+<dt>Matrix</dt><dd>Flood × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://servir.icimod.org/science-applications/streamflow-prediction-tool-nepal/">servir.icimod.org/science-applications/streamflow-prediction-tool-nepal</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">South Asia</span>
+<h4>Satellite flood forecasting — Bangladesh</h4>
+<dl>
+<dt>User</dt><dd><b>Bangladesh Water Development Board</b> — Flood Forecasting and Warning Centre (FFWC)</dd>
+<dt>Tool</dt><dd>Jason-2 altimetry over the Ganges and Brahmaputra basins</dd>
+<dt>Decision</dt><dd>How far ahead FFWC issues warnings — lead time extended from 3–5 days to 8 days, for an audience of ~80 million people</dd>
+<dt>Matrix</dt><dd>Flood × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://science.nasa.gov/earth/water-on-earth/bangladesh-to-use-servir-satellite-based-flood-forecasting-warning-system/">science.nasa.gov — Bangladesh flood forecasting</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa · RCMRD</span>
+<h4>Community flood early warning — Malawi</h4>
+<dl>
+<dt>Users</dt><dd><b>DoDMA</b>, <b>Department of Water Resources</b>, <b>DCCMS</b>, <b>Malawi Red Cross Society</b></dd>
+<dt>Tool</dt><dd>GEOGloWS–ECMWF streamflow + telemetric water-level sensors, 21 rivers across 8 districts</dd>
+<dt>Decision</dt><dd>When to activate community warnings and evacuation — during Cyclone Ana (Jan 2022) lead time went "from hours to days"</dd>
+<dt>Matrix</dt><dd>Flood × Clock 1 · People</dd>
+<dt>Status</dt><dd><span class="pill pill-resolved">Listed active</span> — App Center entry <code>/detail/57</code>, read directly from the live page 9 Sep 2026: one of 79 services, and not among the 5 marked inactive. Corroborated independently by WMO (Apr 2026) for the <i>national</i> EWS and the same institutions — DCCMS, DoDMA, Malawi Red Cross — though that source does not name the GEOGloWS/21-river component. The RCMRD confirmation is still worth having; it is no longer blocking.</dd>
+</dl>
+<span class="src"><a href="https://old.earthobservations.org/uploads/gwp/31709/malawi_cbfews_geoglows_ecmwf_integration.pdf">earthobservations.org — Malawi CBFEWS/GEOGloWS integration</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia · ADPC</span>
+<h4>Air Quality Explorer — Thailand, Laos, regional</h4>
+<dl>
+<dt>Users</dt><dd><b>Thai Pollution Control Department</b>, <b>GISTDA</b>, <b>Laos MONRE</b>, <b>UN ESCAP</b></dd>
+<dt>Tool</dt><dd>SE Asia AQ Explorer / AQ Tracker — fire hotspots plus PM2.5, CO, CO₂, methane</dd>
+<dt>Decision</dt><dd>How authorities regulate and time agricultural burning, and what advisories they issue during haze episodes</dd>
+<dt>Matrix</dt><dd>Air pollution × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://servir.adpc.net/tools/aq_detail.html">servir.adpc.net/tools/aq_detail.html</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Mesoamerica</span>
+<h4>Air quality forecasting — El Salvador, Costa Rica</h4>
+<dl>
+<dt>Users</dt><dd><b>MARN</b> (El Salvador); <b>IMN</b> (Costa Rica)</dd>
+<dt>Tool</dt><dd>MODIS aerosol optical depth visualisation plus a nationally customised CMAQ forecast system</dd>
+<dt>Decision</dt><dd>When MARN issues public air-quality alerts and which emissions-control and public-health measures to trigger</dd>
+<dt>Matrix</dt><dd>Air pollution × Clocks 1–2 · People</dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/news/nasa-data-helps-mesoamerican-officials-address-air-quality">servirglobal.net/news — Mesoamerica air quality</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>Forest Fire Detection and Monitoring — Nepal</h4>
+<dl>
+<dt>User</dt><dd><b>Department of Forests and Soil Conservation (DoFSC)</b>, Ministry of Forests and Environment</dd>
+<dt>Tool</dt><dd>Forest Fire Detection and Monitoring System, including a fire-danger outlook module</dd>
+<dt>Decision</dt><dd>Where forest managers allocate suppression resources and when to schedule controlled burns</dd>
+<dt>Matrix</dt><dd>Wildfire × Clocks 1–2 · Nature + People</dd>
+</dl>
+<span class="src"><a href="https://servir.icimod.org/science-applications/forest-fire-detection-and-monitoring-in-nepal/">servir.icimod.org — Nepal forest fire monitoring</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia</span>
+<h4>Anticipatory action for disaster and climate resilience</h4>
+<dl>
+<dt>Users</dt><dd><b>Mekong River Commission</b>; <b>ASEAN AHA Centre</b></dd>
+<dt>Tool</dt><dd>Satellite and geospatial early-warning products feeding impact-oriented warnings</dd>
+<dt>Decision</dt><dd>What anticipatory, pre-impact actions member countries take ahead of floods and droughts</dd>
+<dt>Matrix</dt><dd>Flood + Drought × Clock 1 · all three exposure stacks</dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/enhancing-anticipatory-actions-disaster-and-climate-resilience">servirglobal.net/services/enhancing-anticipatory-actions-disaster-and-climate-resilience</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia</span>
+<h4>Reservoir Assessment Tool — Lower Mekong</h4>
+<dl>
+<dt>User</dt><dd><b>Mekong River Commission</b> and its member countries</dd>
+<dt>Tool</dt><dd>RAT-Mekong — reservoir storage and outflow assessment and forecasting</dd>
+<dt>Decision</dt><dd>Reservoir operation and basin planning for flood and drought management</dd>
+<dt>Matrix</dt><dd>Flood + Drought × Clocks 1–2 · Assets</dd>
+</dl>
+<span class="src"><a href="https://servir.adpc.net/tools/rat_detail.html">servir.adpc.net/tools/rat_detail.html</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>Hydrometeorological monitoring — Colombia</h4>
+<dl>
+<dt>Users</dt><dd><b>IDEAM</b>; <b>UNGRD</b> (National Disaster Risk Management Unit) as designated end-user</dd>
+<dt>Tool</dt><dd>IDEAM GEOGloWS portal, under the IDEAM–CIAT agreement for SERVIR Amazonia</dd>
+<dt>Decision</dt><dd>National hydrological forecasting and disaster-risk-management action by UNGRD</dd>
+<dt>Matrix</dt><dd>Flood × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://appcenter.servirglobal.net/detail/59">appcenter.servirglobal.net/detail/59</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>National hydromet portals — Peru, Ecuador, Brazil</h4>
+<dl>
+<dt>Users</dt><dd><b>SENAMHI</b> (Peru); <b>INAMHI</b> (Ecuador); <b>CEMADEN</b> (Brazil)</dd>
+<dt>Tool</dt><dd>GEOGloWS ECMWF Streamflow Service delivered through national Tethys portals</dd>
+<dt>Decision</dt><dd>Water-resource management and flood forecasting by the national hydromet agencies themselves — explicitly built so they operate and maintain the tools independently</dd>
+<dt>Matrix</dt><dd>Flood × Clock 1 · People + Assets</dd>
+</dl>
+<span class="src"><a href="https://appliedsciences.nasa.gov/our-impact/story/servir-boosts-forecasting-power-south-america">appliedsciences.nasa.gov — SERVIR boosts forecasting power in South America</a></span>
+</div>
+</div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Four further Global Risk services are documented as tools without a named downstream government user on their public pages, and are carried here as capability evidence rather than demand evidence: <b>HYDRAFloods</b> (Lower Mekong flood mapping), <b>LHASA-Mekong</b> (landslide situational awareness), <b>Mekong X-Ray</b> (multidimensional flood vulnerability) and <b>West Africa Flash Flood Vulnerability Mapping</b> (ICRISAT-led consortium).</p>
+<div class="note">
+<strong>Landscape differentiation.</strong> No existing platform combines near-real-time multi-hazard monitoring with annualized, climate-adjusted risk across 12 perils in one system — which is precisely what the three columns of the matrix are. GDACS alerts but has no annualized baseline; ThinkHazard/RDLS and INFORM are static or index-level; Copernicus EMS is activation-based, not continuous. Today an analyst manually stitches these together.
+    </div>
+<div class="note open">
+<strong>Governance question (Decision #18).</strong> Regional hubs should be co-producers: a hub's locally-calibrated hazard model plugs into the matrix as a first-class override of the global default for its own region — which the E1 contract makes technically trivial. Who is accountable for an override, and how quality disputes are handled, is unresolved.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="03-geoai.html"><span class="lbl">← Previous</span>03 · GeoAI Strategy Alignment</a>
+<a href="05-food-security.html" style="text-align:right;"><span class="lbl">Next →</span>05 · Food Security Platform — Engineering Detail</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

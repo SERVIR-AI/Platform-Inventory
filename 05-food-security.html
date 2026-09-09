@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>05 Food Security Platform — Engineering Detail — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html" class="active">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="food-security">
+<div class="wrap">
+<div class="section-head"><span class="section-num">05</span><h2>Food Security Platform — Engineering Detail</h2></div>
+<p class="section-dek"><b>GeoAI AgriNexus</b> (Google.org-funded). Climate-driver-led, not commodity-led — but the <em>build list</em> is commodity-shaped, because what has to be constructed is a crop-type layer, a yield method and a calendar per commodity. Same three-clock structure as Global Risk: what the crop is doing now, what this season will produce, and how the calendar itself moves under climate change. Currently maize-centric; EUDR compliance is confirmed scope (Decision #3, resolved).</p>
+<h3 class="subhead">Fig. 4 — The build matrix</h3>
+<div class="mx-wrap">
+<div class="mx mx-4">
+<div class="mx-corner"></div>
+<div class="mx-colhead"><b>Clock 1 · In-season</b>What the crop is doing now — extent, condition, anomaly</div>
+<div class="mx-colhead"><b>Clock 2 · Seasonal outlook</b>What this season will produce — yield to harvest</div>
+<div class="mx-colhead"><b>Clock 3 · Climate-adjusted</b>How the calendar and suitability move — CMIP6 forced</div>
+<div class="mx-rowhead">Maize<span>current platform focus</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>WorldCereal 10 m + NDVI/EVI condition; GEOGLAM Crop Monitor</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>NASA Harvest in-season yield methodology (NDVI/EVI/SIF)</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>DSSAT or PCSE/WOFOST calendar shift — engine choice is Decision #13</div>
+<div class="mx-rowhead">Rice<span>SAR-favourable</span></div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span><code>servir-aces</code> (Bhutan precedent) + Sentinel-1 flooding signal; RLCMS Vietnam rice extent</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Transfer the Harvest methodology to rice — not a like-for-like port</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>DSSAT rice against monsoon-onset shift</div>
+<div class="mx-rowhead">Wheat<span>strongest existing method</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>ICIMOD in-season wheat mapping on GEE — &gt;85% accuracy midseason</div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>Same pipeline, finalised at harvest — ~90% for rainfed area</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>DSSAT wheat — heat stress at grain fill is the operative signal</div>
+<div class="mx-rowhead">Sorghum &amp; millet<span>Sahel staples</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>No open crop-type product — <code>servir-aces</code> regional training effort</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>FEWS NET / FAO GIEWS national statistics only, no EO yield method</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>DSSAT sorghum/millet — the Sahel is where this clock matters most</div>
+<div class="mx-rowhead">Cassava<span>root crop</span></div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>No open product; the perennial canopy signal is genuinely hard</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>FAOSTAT / national statistics only — no in-season path</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>Thin crop-model support for cassava across the open engines</div>
+<div class="mx-rowhead">Soy<span>strong outside Africa</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Well-served in Brazil/Argentina; thin elsewhere</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>USDA FAS PSD + NASA Harvest</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>DSSAT soy — mature and widely calibrated</div>
+<div class="mx-rowhead">Cocoa<span>EUDR commodity</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership / Google Earth AI — 10 m annual, pan-tropical</div>
+<div class="mx-cell s-na"><span class="lab">Different question</span>Tree crops are a compliance question, not a seasonal-yield question — see F6</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability shift in the West African cocoa belt — well-studied literature</div>
+<div class="mx-rowhead">Coffee<span>EUDR commodity</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+<div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Altitude-band suitability shift — the clearest climate signal of any commodity here</div>
+<div class="mx-rowhead">Rubber<span>EUDR commodity</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+<div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>Little published suitability work to adopt</div>
+<div class="mx-rowhead">Palm oil<span>EUDR commodity</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>FDP covers cocoa/coffee/rubber — palm is the missing fourth</div>
+<div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability modelling exists in the deforestation-driver literature</div>
+<div class="mx-rowhead">Rangeland forage<span>pastoral systems</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>RDST — NDVI, vegetation anomaly, VCI; operational in Zambia</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Seasonal forage outlook from CHIRPS + the ENSO pillar</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>CMIP6 rangeland productivity — pastoral systems are under-served throughout</div>
+</div>
+</div>
+<div class="legend">
+<span><i class="lg-live"></i>Built inside SERVIR — reuse, do not rebuild</span>
+<span><i class="lg-partner"></i>Adopt an external open tool or dataset</span>
+<span><i class="lg-build"></i>New build work, on top of an open foundation</span>
+<span><i class="lg-gap"></i>Genuine gap — ship with an explicit confidence flag</span>
+<span><i class="lg-na"></i>A different question, answered elsewhere in the platform</span>
+</div>
+<div class="note">
+<strong>What the matrix says at a glance.</strong> The cereals column is in good shape — wheat is nearly complete, maize and rice are close. <b>The build weight sits in two places</b>: the six commodities that need a crop-type layer built from scratch through <code>servir-aces</code> (Decision #20, unprioritised), and Clock 3 across the board, which depends entirely on the DSSAT-versus-PCSE/WOFOST bake-off that has not been scoped (Decision #13). Cassava is the honest failure — a staple for hundreds of millions with no usable EO method on any clock.
+    </div>
+<h3 class="subhead">Fig. 5 — How the elements interact</h3>
+<div class="diagram-wrap">
+<svg aria-label="Interaction diagram: climate and EO sources feed ingestion, a field-boundary backbone keys every layer, commodity modules emit one field-observation schema, three clocks compute in-season, seasonal and climate-adjusted answers, agents register with Agent2Agent, and the orchestrator routes to both an open access layer and a restricted EUDR compliance channel." height="auto" role="img" viewbox="0 0 1060 700" width="100%">
+<defs>
+<marker id="ar5" markerheight="9" markerwidth="9" orient="auto" refx="7" refy="4.5">
+<path class="dg-arrow" d="M0,1 L7,4.5 L0,8 Z"></path>
+</marker>
+</defs>
+<style>.dg-arrow{fill:var(--ink-faint);}</style>
+<g>
+<rect class="dg-chip" height="32" rx="6" width="160" x="20" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="100" y="34">NOAA / IRI / BoM — ENSO</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="192" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="272" y="34">CHIRPS / TAMSAT / ICPAC</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="364" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="444" y="34">Sentinel-1 / -2 · Landsat</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="536" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="616" y="34">WorldCereal · FDP maps</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="708" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="788" y="34">GFW alert stack (§06)</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="880" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="960" y="34">FEWS NET · GIEWS · VAM</text>
+</g>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="46" y2="74"></line>
+<rect class="dg-box-space" height="42" rx="8" width="1020" x="20" y="76"></rect>
+<text class="dg-title" x="40" y="102">Ingestion → common staging, every product cataloged as a STAC item</text>
+<text class="dg-label" text-anchor="end" x="1020" y="102">§07 SHARED LAYER</text>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="118" y2="140"></line>
+<rect class="dg-box-gold" height="48" rx="8" width="1020" x="20" y="142"></rect>
+<text class="dg-title" text-anchor="middle" x="530" y="163">Field-boundary backbone — Fields of the World, 10 m, ~3.17 B polygons</text>
+<text class="dg-label" text-anchor="middle" x="530" y="181">EVERY LAYER BELOW IS A VALUE ATTACHED TO A FIELD POLYGON — NOT A STANDALONE MAP</text>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="190" y2="212"></line>
+<rect class="dg-box-accent" height="78" rx="8" width="1020" x="20" y="214"></rect>
+<text class="dg-title" x="40" y="238">Commodity modules — eleven crops, three clocks each</text>
+<g>
+<rect class="dg-chip" height="24" rx="5" width="82" x="40" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="81" y="268">MAIZE</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="130" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="171" y="268">RICE</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="220" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="261" y="268">WHEAT</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="310" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="351" y="268">SORGHUM</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="400" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="441" y="268">CASSAVA</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="490" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="531" y="268">SOY</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="580" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="621" y="268">COCOA</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="670" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="711" y="268">COFFEE</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="760" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="801" y="268">RUBBER</text>
+<rect class="dg-chip" height="24" rx="5" width="82" x="850" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="891" y="268">PALM</text>
+<rect class="dg-chip" height="24" rx="5" width="80" x="940" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="980" y="268">FORAGE</text>
+</g>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="310">every module emits the same object — FieldObservation (F1)</text>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="316" y2="336"></line>
+<rect class="dg-box" height="72" rx="8" width="1020" x="20" y="338"></rect>
+<text class="dg-title" x="40" y="362">Exposure &amp; outcome join (F3) — the same service Global Risk calls (§04 E3)</text>
+<g>
+<rect class="dg-chip" height="26" rx="5" width="318" x="40" y="374"></rect><text class="dg-chip-text" text-anchor="middle" x="199" y="391">PEOPLE — IPC · WFP VAM · WorldPop</text>
+<rect class="dg-chip" height="26" rx="5" width="318" x="371" y="374"></rect><text class="dg-chip-text" text-anchor="middle" x="530" y="391">ENVIRONMENT — GFW deforestation alerts</text>
+<rect class="dg-chip" height="26" rx="5" width="318" x="702" y="374"></rect><text class="dg-chip-text" text-anchor="middle" x="861" y="391">ASSETS — FAOSTAT · USDA PSD · market prices</text>
+</g>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="410" y2="432"></line>
+<rect class="dg-box-gold" height="66" rx="8" width="330" x="20" y="434"></rect>
+<text class="dg-title" x="35" y="456">Clock 1 — in-season</text>
+<text class="dg-sub" x="35" y="475">Extent, condition, anomaly.</text>
+<text class="dg-sub" x="35" y="491">Answers: what is in the ground now.</text>
+<rect class="dg-box-gold" height="66" rx="8" width="330" x="365" y="434"></rect>
+<text class="dg-title" x="380" y="456">Clock 2 — seasonal outlook</text>
+<text class="dg-sub" x="380" y="475">Yield to harvest, production estimate.</text>
+<text class="dg-sub" x="380" y="491">Answers: will there be enough.</text>
+<rect class="dg-box-gold" height="66" rx="8" width="330" x="710" y="434"></rect>
+<text class="dg-title" x="725" y="456">Clock 3 — climate-adjusted</text>
+<text class="dg-sub" x="725" y="475">Calendar shift, suitability shift.</text>
+<text class="dg-sub" x="725" y="491">Answers: what to plant, and when.</text>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="518">one field-keyed data model, three computations (F2)</text>
+<line class="dg-line" marker-end="url(#ar5)" x1="530" x2="530" y1="524" y2="544"></line>
+<rect class="dg-box-accent" height="76" rx="8" width="1020" x="20" y="546"></rect>
+<text class="dg-title" x="40" y="570">Domain agents, MCP-wrapped (F4) — registered in the Agent2Agent registry (§02)</text>
+<g>
+<rect class="dg-chip" height="26" rx="5" width="188" x="40" y="582"></rect><text class="dg-chip-text" text-anchor="middle" x="134" y="599">Field &amp; Crop-Type</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="238" y="582"></rect><text class="dg-chip-text" text-anchor="middle" x="332" y="599">Calendar</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="436" y="582"></rect><text class="dg-chip-text" text-anchor="middle" x="530" y="599">Yield &amp; Production</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="634" y="582"></rect><text class="dg-chip-text" text-anchor="middle" x="728" y="599">Food Insecurity (F5)</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="832" y="582"></rect><text class="dg-chip-text" text-anchor="middle" x="926" y="599">EUDR Compliance (F6)</text>
+</g>
+<line class="dg-line" marker-end="url(#ar5)" x1="380" x2="380" y1="622" y2="646"></line>
+<line class="dg-line" marker-end="url(#ar5)" x1="880" x2="880" y1="622" y2="646"></line>
+<rect class="dg-box" height="44" rx="8" width="700" x="20" y="648"></rect>
+<text class="dg-title" x="40" y="668">Open access — OGC API · STAC · advisories to farmers and ministries</text>
+<text class="dg-label" x="40" y="684">HUMAN-APPROVAL CHECKPOINT BEFORE PUBLICATION</text>
+<rect class="dg-box-space" height="44" rx="8" width="304" x="736" y="648"></rect>
+<text class="dg-title" text-anchor="middle" x="888" y="668">EUDR compliance channel</text>
+<text class="dg-label" text-anchor="middle" x="888" y="684">RESTRICTED ACCESS · LEGAL EVIDENTIARY RECORD</text>
+</svg>
+<p class="diagram-caption">Fig. 5 — The field polygon is the join key for everything above it, and the EUDR path is the one output that leaves under different access rules.</p>
+</div>
+<h3 class="subhead">The backbone and exposure layers</h3>
+<p><b>Field boundaries are the spatial backbone.</b> Every other layer in this platform is a value attached to a field polygon, not a standalone map — which means the field-boundary layer's quality caps everything built on top of it. Each layer also carries a maturity flag through to the API and UI (detection vs. estimation vs. proxy) rather than presenting uniform confidence.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Stack</th><th>Layer</th><th>Source &amp; licence</th><th>Resolution / currency</th><th>Open question</th></tr></thead>
+<tbody>
+<tr><td rowspan="3"><b>Backbone</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">the join key</span></td><td>Field boundaries</td><td><b>Fields of the World</b> (Taylor Geospatial / Microsoft AI for Good) — CC BY-SA 4.0</td><td>10 m, ~3.17 B polygons, 2024–25</td><td>None — adopt directly</td></tr>
+<tr><td>Crop type</td><td><b>WorldCereal</b> (cereals) + <b>Forest Data Partnership</b> (tree crops) + <b><code>servir-aces</code></b> (everything else)</td><td>10 m, seasonal / annual</td><td>Which six commodities get built first (Decision #20)</td></tr>
+<tr><td>Crop calendars</td><td><b>GEOGLAM Crop Monitor</b>; <b>FAO GIEWS</b></td><td>Sub-national, maintained</td><td>None — strong and operational</td></tr>
+<tr><td rowspan="2"><b>People</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">who goes hungry</span></td><td>Food insecurity classification</td><td><b>FEWS NET Data Warehouse (FDW API)</b>, with <b>WFP VAM</b> / <b>FAO GIEWS</b> fallback</td><td>Sub-national, monthly outlook</td><td>Coverage is intermittent by design of the outage — see F5</td></tr>
+<tr><td>Population &amp; smallholder vulnerability</td><td><b>WorldPop</b> + <b>HarvestStat</b> — shared with §04's People stack</td><td>100 m gridded, annual</td><td>None — same service as Global Risk</td></tr>
+<tr><td><b>Environment</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">what the crop costs</span></td><td>Deforestation alerts</td><td><b>GFW Integrated Deforestation Alerts</b> — GLAD-L/S2, RADD, DIST-ALERT</td><td>10–30 m, 1–12 day latency</td><td>None — shared straight from §06, not built twice</td></tr>
+<tr><td rowspan="2"><b>Assets</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">production and markets</span></td><td>Official production statistics</td><td><b>USDA FAS PSD</b>; <b>FAOSTAT</b>; <b>HarvestStat</b></td><td>National / subnational, monthly–annual</td><td>Authoritative but slow — the reconciliation rule with EO estimates is unwritten</td></tr>
+<tr><td>Management practice</td><td><b>OpenET</b> (irrigation) + <b>Sen4CAP</b> (SAR soil state) + <b>USGS LANID</b> method</td><td>Field-level, in-season</td><td>No tool does tillage, irrigation and fertilizer together — a genuine new build</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Build detail — the six seams</h3>
+<div class="elem accent">
+<h4><span class="eid">F1</span> The FieldObservation contract</h4>
+<p>The counterpart to Global Risk's <code>HazardFootprint</code>, and the same discipline: every commodity module on every clock emits one object, keyed to a field polygon. A crop-type classification, a yield estimate and a calendar shift are three values on the same key — which is what makes them composable into an answer rather than three separate maps a person has to overlay by eye.</p>
+<div class="contract">FieldObservation
+  field_id       FTW polygon reference   # the join key
+  commodity      enum(11)                # the matrix row
+  clock          enum(in_season|seasonal|climate)
+  measure        crop_type | condition | yield | calendar | practice
+  value          + unit + season/year
+  provenance     source, model, version, training region
+  maturity       enum(detection|estimation|proxy) + note
+</div>
+<p><b>The maturity enum earns its place immediately.</b> A WorldCereal maize classification is <code>detection</code>; a NASA Harvest in-season yield is <code>estimation</code>; a cassava figure taken from FAOSTAT and disaggregated is <code>proxy</code>. Presenting all three at the same confidence is the single easiest way to lose a ministry's trust.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">F2</span> The three-clock crop engine</h4>
+<p>Clock 1 is observation, Clock 2 is regression on observation, Clock 3 is a process-based crop model. They are different kinds of computation — but they share the field key and the calendar, so the engine is one pipeline with three exit points rather than three pipelines. Clock 3's engine choice is <b>unresolved and blocking</b>: DSSAT and PCSE/WOFOST are both genuinely open, APSIM Next-Gen is <em>not</em> redistributable, and the bake-off that decides it has not been scoped (Decision #13).</p>
+<div class="contract">clock 1  →  EO composite → classify → condition index
+clock 2  →  clock 1 + calendar + practice → yield regression → production
+clock 3  →  DSSAT | PCSE/WOFOST, forced by CMIP6 → shifted calendar
+            → feeds back into clock 2's calendar input, next season
+</div>
+<p>Note the feedback arrow: Clock 3's output is not a report, it is <em>an input to Clock 2</em>. A climate-adjusted calendar that only ever renders on a dashboard has not been integrated.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">F3</span> The exposure and outcome join</h4>
+<p>The same service Global Risk uses (§04, E3), called with different stacks. Food Security's distinctive requirement is that the outcome layer — who is actually food-insecure — is <em>not</em> derived from the platform's own data; it comes from FEWS NET or IPC, which are human-analyst products. The join has to carry that distinction rather than blur an EO estimate and an IPC phase into one number.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">F4</span> The crop-agent contract</h4>
+<p>Identical in shape to §04's E4. The domain expertise being encoded is agronomic: the Field &amp; Crop-Type Agent flags low-confidence classifications to an agronomy team rather than publishing them, and the Yield Agent passes its estimate downstream <em>as an input</em>, never as a final answer.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">F5</span> The graceful-degradation contract — the distinctive one</h4>
+<p>FEWS NET was suspended for roughly six months in early 2025 amid U.S. foreign-assistance restructuring, then resumed limited operations; as of August 2026 regular reporting is halted specifically for <b>Somalia, Afghanistan and Yemen</b> despite active acute food insecurity in all three. This is not a hypothetical risk to design around — it is the current state. The Food Insecurity Classification Agent is therefore built with an explicit fallback path, and the fallback is <em>stated in the answer</em>, not silently substituted.</p>
+<div class="contract">try   FEWS NET FDW classification
+      → return phase + source + as_of
+
+on outage or country exclusion
+      → fall back: platform EO indices + FAO GIEWS + WFP mVAM
+      → return estimate + DEGRADED flag + which source is missing + why
+      → never present a fallback estimate as an IPC/FEWS phase
+</div>
+</div>
+<div class="elem accent">
+<h4><span class="eid">F6</span> The EUDR compliance envelope</h4>
+<p>The one output path in this platform that leaves under different rules. EUDR requires plot-level geolocation, a 31 December 2020 deforestation-free cutoff, and a due-diligence statement filed to an EU registry — which makes it an evidentiary legal record, not a monitoring product. It needs stricter access control than open monitoring data, and it should combine the platform's own field and crop-type layers with the open GFW alert stack rather than standing up a parallel deforestation detector. Application dates have already moved twice (currently large/medium operators by 30 Dec 2026, micro/small by 30 June 2027) and must be reconfirmed against the official EU source before anything is promised to a user (Decision #19).</p>
+<div class="contract">plot geolocation (FTW polygon or operator-supplied)
+  → crop type (FDP tree-crop map)
+  → GFW alert intersection since 2020-12-31 cutoff
+  → risk determination + immutable evidence bundle
+  → due-diligence statement, restricted channel, audit-logged
+</div>
+</div>
+<h3 class="subhead">Already built</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Prototype</span><h4>Starting Use Case pipeline</h4><p>Working, tested (Phases 1–2) LLM advisory pipeline against "Tell me about El Niño in [AOI]"; Phases 3–6 defined but not yet prompt-tested.</p></div>
+<div class="card"><span class="tag">Data</span><h4>Six-pillar data inventory</h4><p>NOAA/IRI/BoM, ICPAC/TAMSAT/CHIRPS, FAO ASIS/FEWS NET/WaPOR, WorldCereal/GIEWS, WorldPop/IPC/VAM, EM-DAT — already assembled.</p></div>
+<div class="card"><span class="tag">Partner</span><h4>NASA Harvest</h4><p>Confirmed technical partner; published smallholder in-season yield methodology (NDVI/EVI/SIF).</p></div>
+<div class="card"><span class="tag">Code</span><h4>servir-aces + DSSAT service</h4><p><code class="mono" style="font-size:0.85em;">SERVIR/servir-aces</code> (Sept 2025), plus <code class="mono" style="font-size:0.85em;">dssat_service</code>, <code class="mono" style="font-size:0.85em;">DssatWeb</code> and <code class="mono" style="font-size:0.85em;">ml_crop_yield_training</code> — a DSSAT integration already exists in the org (§02).</p></div>
+</div>
+<h3 class="subhead">Where to partner, what to build</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Gap</th><th>Status</th><th>Partner</th></tr></thead>
+<tbody>
+<tr><td>Crop-type: rice, sorghum, millet, cassava, palm oil, soy</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>servir-aces</b> (internal, HKH) — working EE+TensorFlow toolkit, Bhutan rice precedent; needs regional training effort, not a new tool.</td></tr>
+<tr><td>Field-boundary layer</td><td><span class="pill pill-partner">Partner</span></td><td><b>Fields of the World</b> (Taylor Geospatial / Microsoft AI for Good) — open, CC BY-SA 4.0, ~3.17B polygons.</td></tr>
+<tr><td>EUDR tree-crop coverage</td><td><span class="pill pill-partner">Partner</span></td><td><b>Google Earth AI / Forest Data Partnership</b> — open pan-tropical maps for cocoa/coffee/rubber.</td></tr>
+<tr><td>Climate-adjusted crop calendars</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>DSSAT</b> or <b>PCSE/WOFOST</b> (both genuinely open) — APSIM Next-Gen is <b>not</b> redistributable.</td></tr>
+<tr><td>EUDR compliance/due-diligence workflow</td><td><span class="pill pill-build">Partner + Adopt</span></td><td><b>Whisp</b> (Open Foris, MIT) for core risk-flagging; Satelligence/Nadar.earth/Agridence for full workflow features.</td></tr>
+<tr><td>FEWS NET data access</td><td><span class="pill pill-partner">Partner</span></td><td><b>USAID / State Dept BHR</b> — formal attribution/data-sharing agreement required.</td></tr>
+<tr><td>Agricultural management practice</td><td><span class="pill pill-new">New build</span></td><td>No tool does all three: <b>OpenET</b> (irrigation) + <b>Sen4CAP</b> (SAR/soil-state) + <b>USGS LANID</b> methodology fused into a new model.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Domain agents</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Agent</th><th>MCP-wrapped tools</th><th>Workflow it encodes</th></tr></thead>
+<tbody>
+<tr><td><b>Field &amp; Crop-Type Agent</b></td><td>servir-aces + Fields of the World + WorldCereal</td><td>Boundaries → cloud-free composite → classify → flag low-confidence to agronomy team.</td></tr>
+<tr><td><b>Ag. Management Practice Agent</b></td><td>New-build tillage/irrigation/fertilizer model</td><td>Field classification → SAR + optical time series → infer practice → attach confidence + ground-truth basis.</td></tr>
+<tr><td><b>Climate-Adjusted Calendar Agent</b></td><td>DSSAT/PCSE crop model + ENSO climate-outlook pillar</td><td>Climate outlook → run crop model → shift baseline calendar → hand to Yield Agent, not just a dashboard.</td></tr>
+<tr><td><b>Yield &amp; Production Agent</b></td><td>NASA Harvest methodology + WorldCereal/GIEWS</td><td>Crop type + calendar + practice → estimate yield → pass downstream as an input, not a final answer.</td></tr>
+<tr><td><b>Food Insecurity Classification Agent</b></td><td>FEWS NET FDW API + WFP VAM (graceful-degradation contract, F5)</td><td>Yield + market + climate → attempt FEWS NET classification → on outage, fall back to EO/GIEWS/mVAM and say so explicitly.</td></tr>
+<tr><td><b>EUDR Compliance Agent</b></td><td>GFW alert stack (shared with NRM) + Forest Data Partnership maps</td><td>Plot geolocation → check against deforestation-alert layer since Dec 31 2020 cutoff → generate or route due-diligence statement.</td></tr>
+<tr><td><b>AgriNexus Orchestrator Agent</b></td><td>All agents above, via A2A</td><td>Call climate → impact → crop/yield → exposure-vulnerability → outcome agents in sequence, citing each one's data currency before returning an answer.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Use cases from the SERVIR archive</h3>
+<p>Twenty-three hub-submitted cases already sit behind this platform's PDD. The twelve below are the ones documented publicly with a named institution and a named decision — the strongest evidence that the matrix above is aimed at real demand.</p>
+<div class="uc-grid">
+<div class="uc">
+<span class="uc-hub">West Africa · ICRISAT</span>
+<h4>Crop type mapping and condition assessment — Senegal</h4>
+<dl>
+<dt>User</dt><dd><b>Ministry of Agriculture and Rural Infrastructure</b>; <b>DAPSA</b> named as target next user</dd>
+<dt>Tool</dt><dd>Field survey + remote sensing; inter-annual NDVI / LSWI comparison in the Peanut Basin</dd>
+<dt>Decision</dt><dd>National crop area estimation and yield forecasting, replacing ground-only agricultural surveys</dd>
+<dt>Matrix</dt><dd>Sorghum &amp; millet × Clocks 1–2 · Backbone</dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/crop-type-mapping-and-condition-assessment-senegal">servirglobal.net/services/crop-type-mapping-and-condition-assessment-senegal</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>In-season wheat mapping — Afghanistan</h4>
+<dl>
+<dt>User</dt><dd><b>Ministry of Agriculture, Irrigation and Livestock (MAIL)</b></dd>
+<dt>Tool</dt><dd>GEE wheat mapping — rough estimate at season start, &gt;85% midseason, ~90% at harvest for rainfed</dd>
+<dt>Decision</dt><dd>Yearly national wheat production estimates used for food-security planning</dd>
+<dt>Matrix</dt><dd>Wheat × Clocks 1–2 — <em>the cell already marked "built"</em></dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/news/servir-develops-new-method-afghanistan-wheat-mapping-enhance-food-security">servirglobal.net/news — Afghanistan wheat mapping</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>Rice mapping from phone plus satellite — Nepal</h4>
+<dl>
+<dt>User</dt><dd><b>Ministry of Agriculture and Livestock Development (MoALD)</b></dd>
+<dt>Tool</dt><dd>GeoFairy (farmer smartphone reporting) + RiceMapEngine + CropScape</dd>
+<dt>Decision</dt><dd>Rice area and health in the Terai — evidence for policymakers and resource allocation during floods</dd>
+<dt>Matrix</dt><dd>Rice × Clock 1 · Backbone + People</dd>
+</dl>
+<span class="src"><a href="https://appliedsciences.nasa.gov/our-impact/story/phone-food-mapping-rice-nepal">appliedsciences.nasa.gov — phone + satellite rice mapping in Nepal</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa · RCMRD</span>
+<h4>Kenya National Crop Monitor</h4>
+<dl>
+<dt>User</dt><dd><b>Ministry of Agriculture, Irrigation, Livestock and Fisheries</b>, with GEOGLAM</dd>
+<dt>Tool</dt><dd>National instance of the GEOGLAM Crop Monitor approach</dd>
+<dt>Decision</dt><dd>Early warning of drought-related crop failure so government can act pre-emptively — a comparable Uganda case released $4 M for ~150,000 people</dd>
+<dt>Matrix</dt><dd>Maize × Clocks 1–2 · People</dd>
+</dl>
+<span class="src"><a href="https://geospatialworld.net/news/kenyas-first-national-crop-monitor-set-to-strengthen-food-security/">geospatialworld.net — Kenya national crop monitor</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa</span>
+<h4>Crop insurance sampling — Greater Horn of Africa</h4>
+<dl>
+<dt>Users</dt><dd><b>Kenya Government crop insurance programme</b>; <b>QUIIC</b> (Quality Agricultural Index Insurance Certification for East Africa)</dd>
+<dt>Tool</dt><dd>Regional Cropland Assessment and Monitoring Service — CHIRPS, Landsat/Sentinel crop-type, climate outlooks, market data</dd>
+<dt>Decision</dt><dd>Geospatially-informed sampling for insurance verification — "over 70% cost reduction and reduced sampling time"</dd>
+<dt>Matrix</dt><dd>Maize × Clocks 1–2 · Assets</dd>
+</dl>
+<span class="src"><a href="https://www.servirglobal.net/ServiceCatalogue/details/5c19008a935208d9a25c1275">servirglobal.net — Regional Cropland Assessment and Monitoring Service</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa</span>
+<h4>Crop insurance payout targeting — Kenya</h4>
+<dl>
+<dt>Users</dt><dd><b>RCMRD</b>; <b>NASA Harvest</b>; <b>Swiss Re Foundation</b>, through Kenya's agricultural insurance programme</dd>
+<dt>Tool</dt><dd>Satellite vegetation-index mapping of crop health and farm productivity</dd>
+<dt>Decision</dt><dd>Which farms are identified as failing and therefore receive payouts — reaching "425,000 farmers in 2019, a more than 1,300% increase since 2015"</dd>
+<dt>Matrix</dt><dd>Maize × Clock 1 · People + Assets</dd>
+</dl>
+<span class="src"><a href="https://appliedsciences.nasa.gov/our-impact/story/nasa-earth-observations-help-kenya-aid-program-reach-more-farmers">appliedsciences.nasa.gov — Kenya insurance programme</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">West Africa</span>
+<h4>P-LOCUST — Desert Locust risk mapping</h4>
+<dl>
+<dt>Users</dt><dd><b>AGRHYMET Regional Centre</b> (Niger), which launched the service; <b>CLCPRO</b>; <b>CIRAD</b></dd>
+<dt>Tool</dt><dd>Locust prediction model plus a real-time ecological monitoring platform</dd>
+<dt>Decision</dt><dd>Where to concentrate locust monitoring and preventive control before an outbreak threatens crops</dd>
+<dt>Matrix</dt><dd>Sorghum &amp; millet × Clock 1 · Environment</dd>
+</dl>
+<span class="src"><a href="https://servir.icrisat.org/desert-locust-risk-mapping-p-locust/">servir.icrisat.org/desert-locust-risk-mapping-p-locust</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia · ADPC</span>
+<h4>Land and Agriculture Monitoring Project — Myanmar</h4>
+<dl>
+<dt>User</dt><dd><b>USAID/Burma</b></dd>
+<dt>Tool</dt><dd>LAMP — vegetation productivity, forest dynamics, cultivation patterns and fire activity with before/after comparison</dd>
+<dt>Decision</dt><dd>Assessing landscape-scale programme performance and tracking rice cultivation change</dd>
+<dt>Matrix</dt><dd>Rice × Clock 1 · Environment</dd>
+</dl>
+<span class="src"><a href="https://servir.adpc.net/tools/lamp_detail.html">servir.adpc.net/tools/lamp_detail.html</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>Agriculture Atlas of Nepal</h4>
+<dl>
+<dt>Users</dt><dd><b>Ministry of Agricultural Development</b>; <b>National Planning Commission</b>; <b>DHM</b>; <b>Central Bureau of Statistics</b>; <b>Department of Irrigation</b></dd>
+<dt>Tool</dt><dd>Web-GIS with district-level production for cereals, cash crops, legumes, vegetables, fruits and livestock</dd>
+<dt>Decision</dt><dd>Agricultural planning and resource allocation at district level</dd>
+<dt>Matrix</dt><dd>Multi-commodity × Clock 2 · Assets</dd>
+</dl>
+<span class="src"><a href="https://servir.icimod.org/science-applications/agriculture-atlas-of-nepal/">servir.icimod.org/science-applications/agriculture-atlas-of-nepal</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>Mapping soil fertility — Ecuador</h4>
+<dl>
+<dt>User</dt><dd><b>Ministerio de Agricultura y Ganadería (MAG)</b></dd>
+<dt>Tool</dt><dd>Digital Soil Mapping — 30 m nutrient maps plus degradation assessment (organic carbon, erosion)</dd>
+<dt>Decision</dt><dd>MAG's national plan for participatory soil conservation — where to act on fertility loss and degradation</dd>
+<dt>Matrix</dt><dd>Management practice layer · Backbone</dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/mapping-soil-fertility-ecuador">servirglobal.net/services/mapping-soil-fertility-ecuador</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">West Africa · ICRISAT</span>
+<h4>WENDOU — ephemeral water bodies for pastoralists, Senegal</h4>
+<dl>
+<dt>Users</dt><dd><b>AVSF</b> (Agronomes et Vétérinaires Sans Frontières) disseminates; <b>Jokalante</b> handles phone/radio delivery</dd>
+<dt>Tool</dt><dd>WENDOU platform, pushed out via community radio, relay antennas and text/audio SMS in several languages</dd>
+<dt>Decision</dt><dd>Where pastoralists move livestock and how communities plan around seasonal pond availability</dd>
+<dt>Matrix</dt><dd>Rangeland forage × Clock 1 · People</dd>
+</dl>
+<span class="src"><a href="https://servir.icrisat.org/monitoring-ephemeral-water-bodies-wendou/">servir.icrisat.org/monitoring-ephemeral-water-bodies-wendou</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa</span>
+<h4>Climate-informed decision making — regional analyst cohort</h4>
+<dl>
+<dt>Users</dt><dd><b>UCSB Climate Hazards Center</b>; <b>RCMRD</b>; <b>Kenya Forest Service</b>; <b>WFP</b>; <b>IGAD ICPAC</b>; analysts from Kenya, Tanzania, Zambia, Malawi</dd>
+<dt>Tool</dt><dd>CHIRPS, Early Warning Explorer, ClimateSERV, FEWS NET Land Data Assimilation System</dd>
+<dt>Decision</dt><dd>Day-to-day agricultural drought monitoring, index insurance and seasonal scenario development by national analysts</dd>
+<dt>Matrix</dt><dd>Cross-commodity × Clocks 1–3 — <em>and the capacity ladder in §03</em></dd>
+</dl>
+<span class="src"><a href="https://agrilinks.org/post/climate-hazards-center-rcmrd-and-servir-facilitate-climate-informed-decision-making-eastern-and">agrilinks.org — CHC, RCMRD and SERVIR climate-informed decision making</a></span>
+</div>
+</div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Five further Food Security services describe a user class rather than a named ministry and are carried as capability evidence: the <b>Regional Drought Monitoring and Outlook System</b> (South Asia), <b>National Agricultural Drought Watch</b> (Nepal), <b>Rangelands Decision Support Tool</b> (Zambia operational, Kenya in development), <b>Farm Action Toolkit</b> (Bhutan) and <b>Southeast Asia Drought Watch</b>.</p>
+<div class="note gold">
+<strong>Hub-sequencing mismatch, restated against the evidence.</strong> The PDD names South Asia, Tropical South America and Mesoamerica as associated hubs — but the documented demand above clusters in <b>Eastern &amp; Southern Africa</b> (Kenya crop monitor, two insurance cases, the analyst cohort) and <b>West Africa</b> (Senegal, P-LOCUST, WENDOU), which match the 9 and 3 hub-submitted cases respectively. Sequencing capacity investment should follow this, not the PDD's associated-hub list (Decision #8's residual).
+    </div>
+<div class="note open">
+<strong>FEWS NET operational risk.</strong> Reporting is halted for Somalia, Afghanistan and Yemen as of August 2026 despite active acute food insecurity in all three. F5 is the engineering answer; it is not a solution to the underlying risk, which stays worth flagging to funders and users rather than quietly absorbing.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="04-global-risk.html"><span class="lbl">← Previous</span>04 · Global Risk Platform — Engineering Detail</a>
+<a href="06-nrm.html" style="text-align:right;"><span class="lbl">Next →</span>06 · Natural Resource Management Platform — Engineering Detail</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

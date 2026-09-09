@@ -1,0 +1,45 @@
+name: Inventory sweep
+
+# Refreshes the two mechanical parts of the register — the SERVIR GitHub org
+# repository inventory and the App Center status badges — and opens a PR only
+# when something actually changed. A quiet week produces no PR.
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'     # Mondays 14:00 UTC
+  workflow_dispatch:          # and on demand
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run sweep
+        id: sweep
+        env:
+          # In Actions this token works against the org endpoints that are
+          # blocked from a sandbox — which is the whole reason this runs here.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/sweep.py
+
+      - name: Open PR if anything changed
+        if: steps.sweep.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Inventory sweep"
+          branch: inventory-sweep
+          delete-branch: true
+          title: "Inventory sweep — new or changed capabilities"
+          body-path: data/CHANGES.md
+          labels: inventory
+          add-paths: |
+            data/

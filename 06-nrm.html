@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>06 Natural Resource Management Platform — Engineering Detail — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html" class="active">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="nrm">
+<div class="wrap">
+<div class="section-head"><span class="section-num">06</span><h2>Natural Resource Management Platform — Engineering Detail</h2></div>
+<p class="section-dek"><b>Land Cover and Environmental Monitoring (LCEM).</b> Five PDD components — Land Cover &amp; Change, Carbon Estimation, Ecosystem Intelligence, NbS Monitoring, Decision Support — which resolve, in build terms, into twelve monitoring themes on the same three-clock structure: a change alert now, an annual accounting number, and a scenario projection. South Asia is the starting hub. Firm guardrail throughout: <b>the platform provides underlying MRV data — it does not issue, register or guarantee carbon credits.</b></p>
+<h3 class="subhead">Fig. 6 — The build matrix</h3>
+<div class="mx-wrap">
+<div class="mx mx-4">
+<div class="mx-corner"></div>
+<div class="mx-colhead"><b>Clock 1 · Change alerts</b>Something changed — days to weeks latency, routed to enforcement</div>
+<div class="mx-colhead"><b>Clock 2 · Annual accounting</b>The official number — area, stock, emission, reported once a year</div>
+<div class="mx-colhead"><b>Clock 3 · Scenario &amp; climate</b>What happens under a policy or climate path</div>
+<div class="mx-rowhead">Land cover &amp; change<span>the backbone</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>RLCMS + UMD GLAD / GFW alert stack</div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>RLCMS annual maps + CEO sample-based accuracy assessment</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Land-use change scenarios — the TerraClass/InVEST pattern, generalised</div>
+<div class="mx-rowhead">Deforestation &amp; logging<span>near-global coverage</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>GFW integrated alerts — GLAD-L/S2, RADD, DIST-ALERT</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Annual forest-loss area, reconciled to each country's own forest definition</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Driver-based deforestation scenarios (road, commodity, price)</div>
+<div class="mx-rowhead">Illegal gold mining<span>SERVIR's own asset</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>CoMiMo (Colombia) + RAMI (Peru), SAR through cloud; <code>mining-detector</code> elsewhere</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Annual mined-area accounting and rehabilitation tracking</div>
+<div class="mx-cell s-na"><span class="lab">Different driver</span>Driven by gold price and enforcement, not by climate</div>
+<div class="mx-rowhead">Charcoal &amp; fuelwood<span>West Africa</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — regional</span>Ghana Charcoal Production Site Monitoring portal (CERSGIS)</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Degradation-area accounting — distinct from outright forest loss</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>Fuelwood demand projection needs household-energy data the platform lacks</div>
+<div class="mx-rowhead">Forest carbon stock<span>biomass</span></div>
+<div class="mx-cell s-na"><span class="lab">Out of scope</span>Biomass is a stock, not an event — nothing to alert on</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>ESA CCI Biomass + NASA GEDI, combined — underused in official FREL submissions</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Growth and regrowth projection under climate</div>
+<div class="mx-rowhead">REDD+ activity data<span>MRV reporting</span></div>
+<div class="mx-cell s-na"><span class="lab">Out of scope</span>MRV is an annual reporting cycle by construction</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>SEPAL (FAO / Open Foris) — the standard tool, already in use across hubs</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest reference emission level setting, per GFOI/OpenMRV methodology</div>
+<div class="mx-rowhead">Mangroves &amp; coastal<span>two hubs live</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>SAR-based mangrove-loss alerting — the annual products exist, the alert path does not</div>
+<div class="mx-cell s-live"><span class="lab">Built — regional</span>MANGLEE (Ecuador) and GuyMIS (Guyana) — generalise, don't rebuild</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>Mangrove migration under sea level rise — joins §04's SLR layer directly</div>
+<div class="mx-rowhead">Wetlands &amp; inland water<span>shared with §04</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — reuse</span>Surface-water extent from HydraFloods — the same pipeline as flood monitoring</div>
+<div class="mx-cell s-live"><span class="lab">Built — regional</span>Annual water extent + iSWIM water-quality indicators</div>
+<div class="mx-cell s-build"><span class="lab">Partner + build</span>Water availability under CMIP6, via GEOGloWS climate runs</div>
+<div class="mx-rowhead">Biodiversity<span>licence-vs-build</span></div>
+<div class="mx-cell s-live"><span class="lab">Built — regional</span>Cambodia Protected Area Alerts — the working pattern for PA-scoped alerting</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>IUCN STAR via IBAT (paid) <em>or</em> open GBIF + Planetary Computer intactness</div>
+<div class="mx-cell s-gap"><span class="lab">Gap</span>Species-range shift under climate is research-grade, not decision-grade</div>
+<div class="mx-rowhead">Ecosystem services<span>valuation</span></div>
+<div class="mx-cell s-na"><span class="lab">Out of scope</span>Valuation is an analysis, not a monitoring signal</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>InVEST (Natural Capital Project) run against SERVIR's own land cover</div>
+<div class="mx-cell s-live"><span class="lab">Built — regional</span>Acre/Ucayali forest-change scenario service — the precedent to generalise</div>
+<div class="mx-rowhead">Wildlife trafficking<span>architecturally distinct</span></div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>MegaDetector camera-trap triage feeding SMART patrol case management</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>SMART case aggregation and patrol-effort reporting</div>
+<div class="mx-cell s-na"><span class="lab">Not remote sensing</span>Remote sensing cannot detect the trade or movement of wildlife products</div>
+<div class="mx-rowhead">NbS &amp; restoration<span>the newest component</span></div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Restoration-site change detection — same pipeline, opposite sign</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Restoration area and survival accounting</div>
+<div class="mx-cell s-build"><span class="lab">New build</span>Projected carbon and biodiversity benefit — the NbS business case</div>
+</div>
+</div>
+<div class="legend">
+<span><i class="lg-live"></i>Built inside SERVIR — reuse, do not rebuild</span>
+<span><i class="lg-partner"></i>Adopt an external open tool or dataset</span>
+<span><i class="lg-build"></i>New build work, on top of an open foundation</span>
+<span><i class="lg-gap"></i>Genuine gap — ship with an explicit confidence flag</span>
+<span><i class="lg-na"></i>Deliberately out of scope for this clock</span>
+</div>
+<div class="note">
+<strong>What the matrix says at a glance.</strong> This is the strongest of the three platforms on Clock 1 — SERVIR owns working alerting assets for land cover, mining, charcoal, water and protected areas. <b>The weakness is Clock 3</b>: nine of twelve scenario cells are build-or-gap, and scenario projection is precisely what a REDD+ or TFFF conversation asks for. The second pattern worth naming: five of the "built" cells are <em>regional</em> — Ecuador, Guyana, Ghana, Cambodia, Acre/Ucayali. Generalising five regional tools is a different, and easier, job than building five new ones.
+    </div>
+<h3 class="subhead">Fig. 7 — How the elements interact</h3>
+<div class="diagram-wrap">
+<svg aria-label="Interaction diagram: EO sources feed ingestion, a land-cover backbone drives twelve theme modules that emit one change-event schema, which forks into an enforcement path and an accounting path, then to agents, an orchestrator, and finally to open access and a registry-grade MRV output that explicitly never issues credits." height="auto" role="img" viewbox="0 0 1060 700" width="100%">
+<defs>
+<marker id="ar6" markerheight="9" markerwidth="9" orient="auto" refx="7" refy="4.5">
+<path class="dg-arrow" d="M0,1 L7,4.5 L0,8 Z"></path>
+</marker>
+</defs>
+<style>.dg-arrow{fill:var(--ink-faint);}</style>
+<g>
+<rect class="dg-chip" height="32" rx="6" width="160" x="20" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="100" y="34">Sentinel-1 / -2 · Landsat</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="192" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="272" y="34">UMD GLAD · GFW alerts</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="364" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="444" y="34">NASA GEDI · ESA CCI Biomass</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="536" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="616" y="34">AlphaEarth · Planetary Computer</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="708" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="788" y="34">Camera traps · SMART</text>
+<rect class="dg-chip" height="32" rx="6" width="160" x="880" y="14"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="960" y="34">WDPA · IBAT · GBIF</text>
+</g>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="46" y2="74"></line>
+<rect class="dg-box-space" height="42" rx="8" width="1020" x="20" y="76"></rect>
+<text class="dg-title" x="40" y="102">Ingestion → common staging, every product cataloged as a STAC item</text>
+<text class="dg-label" text-anchor="end" x="1020" y="102">§07 SHARED LAYER</text>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="118" y2="140"></line>
+<rect class="dg-box-gold" height="48" rx="8" width="1020" x="20" y="142"></rect>
+<text class="dg-title" text-anchor="middle" x="530" y="163">Land-cover backbone — RLCMS, validated against Collect Earth Online reference samples</text>
+<text class="dg-label" text-anchor="middle" x="530" y="181">ONE CHANGE-DETECTION PIPELINE — READ TWO WAYS (N2)</text>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="190" y2="212"></line>
+<rect class="dg-box-accent" height="78" rx="8" width="1020" x="20" y="214"></rect>
+<text class="dg-title" x="40" y="238">Theme modules — twelve themes, three clocks each</text>
+<g>
+<rect class="dg-chip" height="24" rx="5" width="76" x="40" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="78" y="268">LANDCOVER</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="124" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="162" y="268">DEFOREST</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="208" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="246" y="268">MINING</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="292" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="330" y="268">CHARCOAL</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="376" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="414" y="268">BIOMASS</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="460" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="498" y="268">REDD+</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="544" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="582" y="268">MANGROVE</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="628" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="666" y="268">WETLAND</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="712" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="750" y="268">BIODIV</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="796" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="834" y="268">ECOSERV</text>
+<rect class="dg-chip" height="24" rx="5" width="76" x="880" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="918" y="268">WILDLIFE</text>
+<rect class="dg-chip" height="24" rx="5" width="56" x="964" y="252"></rect><text class="dg-chip-text" text-anchor="middle" x="992" y="268">NBS</text>
+</g>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="310">every module emits the same object — LandCoverChange (N1)</text>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="316" y2="332"></line>
+<!-- the fork -->
+<line class="dg-line" x1="530" x2="280" y1="332" y2="332"></line>
+<line class="dg-line" x1="530" x2="790" y1="332" y2="332"></line>
+<line class="dg-line" marker-end="url(#ar6)" x1="280" x2="280" y1="332" y2="356"></line>
+<line class="dg-line" marker-end="url(#ar6)" x1="790" x2="790" y1="332" y2="356"></line>
+<rect class="dg-box" height="86" rx="8" width="500" x="20" y="358"></rect>
+<text class="dg-title" x="40" y="382">Read 1 — Protect Nature</text>
+<text class="dg-sub" x="40" y="402">Is this change unauthorised? Cross-reference protected-area</text>
+<text class="dg-sub" x="40" y="419">and concession boundaries, and community territory.</text>
+<text class="dg-label" x="40" y="437">→ ROUTE TO ENFORCEMENT</text>
+<rect class="dg-box" height="86" rx="8" width="500" x="540" y="358"></rect>
+<text class="dg-title" x="560" y="382">Read 2 — Nature-Based Solutions &amp; MRV</text>
+<text class="dg-sub" x="560" y="402">Is this change authorised? Compute activity data against</text>
+<text class="dg-sub" x="560" y="419">the national forest monitoring system methodology.</text>
+<text class="dg-label" x="560" y="437">→ ROUTE TO ACCOUNTING (N5)</text>
+<text class="dg-label-accent" text-anchor="middle" x="530" y="462">an illegal-mining alert and a REDD+ activity-data update are the same signal, read for two purposes</text>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="468" y2="490"></line>
+<rect class="dg-box-accent" height="76" rx="8" width="1020" x="20" y="492"></rect>
+<text class="dg-title" x="40" y="516">Domain agents, MCP-wrapped (N4) — registered in the Agent2Agent registry (§02)</text>
+<g>
+<rect class="dg-chip" height="26" rx="5" width="188" x="40" y="528"></rect><text class="dg-chip-text" text-anchor="middle" x="134" y="545">Land Cover &amp; Change</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="238" y="528"></rect><text class="dg-chip-text" text-anchor="middle" x="332" y="545">Illegal Mining</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="436" y="528"></rect><text class="dg-chip-text" text-anchor="middle" x="530" y="545">Logging / Deforestation</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="634" y="528"></rect><text class="dg-chip-text" text-anchor="middle" x="728" y="545">REDD+ / MRV</text>
+<rect class="dg-chip" height="26" rx="5" width="188" x="832" y="528"></rect><text class="dg-chip-text" text-anchor="middle" x="926" y="545">Biodiversity &amp; InVEST</text>
+</g>
+<line class="dg-line" marker-end="url(#ar6)" x1="530" x2="530" y1="568" y2="590"></line>
+<rect class="dg-box-space" height="48" rx="8" width="600" x="230" y="592"></rect>
+<text class="dg-title" text-anchor="middle" x="530" y="613">LCEM Orchestrator Agent — routes by PDD component</text>
+<text class="dg-label" text-anchor="middle" x="530" y="631">HUMAN-APPROVAL CHECKPOINT · NEVER AUTONOMOUS PUBLICATION</text>
+<line class="dg-line" marker-end="url(#ar6)" x1="380" x2="380" y1="640" y2="660"></line>
+<line class="dg-line" marker-end="url(#ar6)" x1="680" x2="680" y1="640" y2="660"></line>
+<rect class="dg-box" height="36" rx="6" width="640" x="20" y="662"></rect>
+<text class="dg-label-accent" text-anchor="middle" x="340" y="684">OPEN ACCESS — OGC API · STAC · enforcement and planning portals</text>
+<rect class="dg-box-gold" height="36" rx="6" width="364" x="676" y="662"></rect>
+<text class="dg-label-accent" text-anchor="middle" x="858" y="680">MRV DATA TO A REGISTRY — NEVER A CREDIT (N6)</text>
+</svg>
+<p class="diagram-caption">Fig. 7 — One pipeline, one fork. The right-hand output stops at MRV data; issuing or guaranteeing a credit is outside the platform boundary by design.</p>
+</div>
+<h3 class="subhead">The rights and accounting layers</h3>
+<p>Global Risk asks <em>who is exposed</em>; NRM asks a harder question — <em>whose land is this, who is allowed to change it, and what was the change worth</em>. Those are the companion layers, and two of them are the weakest data in the whole ecosystem.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Stack</th><th>Layer</th><th>Source &amp; licence</th><th>Resolution / currency</th><th>Open question</th></tr></thead>
+<tbody>
+<tr><td><b>Backbone</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">the base map</span></td><td>Land cover &amp; change</td><td><b>RLCMS</b> + <b>Collect Earth Online</b>, harmonised with ESA CCI / Esri LULC</td><td>10–30 m, annual from 2000</td><td>None — SERVIR's strongest existing asset</td></tr>
+<tr><td rowspan="2"><b>People</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">whose land, whose capacity</span></td><td>Indigenous &amp; community territories</td><td><b>RAISG</b> (Amazon) + national cadastres — the TerraOnTrack precedent</td><td>Vector, irregular update</td><td>No global layer exists; coverage is Amazon-strong, elsewhere thin</td></tr>
+<tr><td>Enforcement footprint</td><td><b>SMART</b> patrol coverage and effort data</td><td>Site-level, continuous where deployed</td><td>Held by protected-area authorities, not openly published</td></tr>
+<tr><td rowspan="2"><b>Environment</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">what is protected</span></td><td>Protected areas</td><td><b>WDPA / IUCN</b> — the same layer §04 joins as its Nature stack</td><td>Vector, quarterly</td><td>None — one licence decision covers both platforms (Decision #17)</td></tr>
+<tr><td>Biodiversity &amp; species range</td><td><b>IBAT</b> (paid, STAR metric) <em>or</em> <b>GBIF + Planetary Computer</b> MoBI/Intactness (open)</td><td>Varies</td><td>Genuine build-vs-licence decision, still open</td></tr>
+<tr><td rowspan="2"><b>Assets</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">stock and entitlement</span></td><td>Carbon stock</td><td><b>ESA CCI Biomass</b> + <b>NASA GEDI</b></td><td>~100 m – 1 km, periodic</td><td>Usable today, and underused in official FREL submissions</td></tr>
+<tr><td>Concessions &amp; licences</td><td>National mining and forestry concession registries</td><td>Vector, national, highly variable</td><td><b>The weakest layer in the platform</b> — and the Illegal Logging Agent cannot separate authorised from unauthorised change without it</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note open">
+<strong>The concession-boundary problem is the one to name out loud.</strong> Every enforcement claim this platform makes — "this logging is illegal", "this mine is outside its licence" — rests on a concession layer that is national, inconsistently published, and in several countries not public at all. The platform can detect change with high confidence and still be unable to say whether it was permitted. Until that layer is sourced country by country, Protect Nature outputs should read as <em>unattributed change detected</em>, not as an allegation.
+    </div>
+<h3 class="subhead">Build detail — the six seams</h3>
+<div class="elem accent">
+<h4><span class="eid">N1</span> The LandCoverChange contract</h4>
+<p>The third of the three platform contracts, and the same discipline as <code>HazardFootprint</code> and <code>FieldObservation</code>. A mining alert, a mangrove loss and a REDD+ activity-data update are all one object: a polygon, a from-class, a to-class, a date range and a confidence.</p>
+<div class="contract">LandCoverChange
+  geometry       polygon, STAC-catalogued
+  theme          enum(12)                # the matrix row
+  clock          enum(alert|annual|scenario)
+  from_class     to_class                # the change itself
+  detected       date | period | scenario+horizon
+  authorised     enum(yes|no|unknown)    # requires the concession layer
+  provenance     sensor, model, version, reference samples
+  confidence     enum(detection|estimation|proxy) + accuracy figure
+</div>
+<p><b><code>authorised: unknown</code> is the honest default</b>, and it should be the value most of the time until concession data is sourced. A pipeline that defaults to <code>no</code> is producing allegations.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N2</span> One change-detection pipeline, two consumption modes</h4>
+<p>Protect Nature and Nature-Based Solutions are not two systems. An illegal-mining alert and a REDD+ activity-data update are the same kind of signal — a change in land cover — read for two different purposes. Building them separately duplicates the expensive part (detection) to avoid duplicating the cheap part (routing).</p>
+<div class="contract">detect(change) → LandCoverChange
+    ├─ read as ENFORCEMENT   : cross-reference PA, concession, territory
+    │                          → unauthorised? → route to enforcement
+    └─ read as ACCOUNTING    : authorised change → activity data
+                               → NFMS methodology → MRV report (N5)
+</div>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N3</span> The rights-and-accounting join</h4>
+<p>Structurally the same service as §04's E3 and §05's F3 — a footprint goes in, an annotated bundle comes out with provenance attached. What differs is the stacks: territory, enforcement coverage, protected-area status, carbon stock and concession status. It is also where the <code>authorised</code> field of N1 is actually resolved, which is why the concession gap above is an engineering blocker and not just a data wish.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N4</span> The agent contract, and the one architecturally different agent</h4>
+<p>Five of the six agents follow the standard pattern. The <b>Wildlife Trafficking Signal Agent</b> does not, and it is worth being explicit about why: remote sensing cannot meaningfully detect the trade or movement of wildlife products. That module is a data-integration layer over ground-based systems — MegaDetector inference on camera-trap imagery, SMART for case management — providing aggregation and decision support rather than new detection technology. Scoping it as if it were another EO detector is the mistake to avoid (Decision #4 sequences it behind mining and logging for exactly this reason).</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N5</span> The MRV evidentiary envelope</h4>
+<p>The counterpart to Food Security's EUDR channel. An MRV report is submitted to a registry or under a UNFCCC commitment, which makes it an evidentiary record with a defined methodology, a stated uncertainty and a reproducible chain back to reference samples. SEPAL and the FAO Open Foris methodology are the standard; Open Foris Arena's schema and the GFOI/OpenMRV methodology library are what the decision-support report should be built against, since no finished tool for that last step exists.</p>
+<div class="contract">authorised change → activity data (area, from/to class)
+  × emission factor (GEDI + CCI Biomass)
+  → emission estimate + uncertainty
+  → formatted to the receiving registry's standard
+  → reproducible: reference samples, method version, analyst of record
+</div>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N6</span> The credibility guardrail</h4>
+<p>A 2023 investigation (The Guardian, Die Zeit, SourceMaterial) found more than 90% of Verra's rainforest REDD+ offset credits likely did not represent genuine emissions reductions, largely due to inflated deforestation baselines. Verra disputed the findings but substantially overhauled its methodology afterwards, and its CEO resigned shortly after. That history is the direct reason for the boundary drawn in Fig. 7: the platform supplies rigorous MRV data into a contested downstream market, and does not issue, register or guarantee credits. The guardrail is architectural, not editorial — the MRV output path terminates at a report, and no agent in the system has a tool that mints a credit.</p>
+</div>
+<h3 class="subhead">Already built</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Backbone</span><h4>RLCMS + CEO</h4><p>SERVIR's own land-cover product, plus Collect Earth Online for sample-based labeling and accuracy assessment. Repos: <code class="mono" style="font-size:0.85em;">SERVIR/RLCMS</code>, <code class="mono" style="font-size:0.85em;">Servir-Mekong/rlcms</code>.</p></div>
+<div class="card"><span class="tag">Mining</span><h4>CoMiMo + RAMI</h4><p>Live illegal-gold-mining detection, SIG-GIS-led. <code class="mono" style="font-size:0.85em;">SERVIR-Amazonia/comimo</code> is the most recently updated repo across all six orgs (July 2026).</p></div>
+<div class="card"><span class="tag">West Africa</span><h4>Galamsey &amp; Charcoal portals</h4><p>Ghana — active mining- and illegal-charcoal-monitoring geoportals with public repos (<code class="mono" style="font-size:0.85em;">SERVIR/galamsey</code>).</p></div>
+<div class="card"><span class="tag">Partners</span><h4>WRI, UMD, Google, FAO, ESRI</h4><p>Already named PDD contributors, plus Sentinel-1/2, Landsat, AlphaEarth, GEDI, GLAD, GFW and SEPAL in the working Nepal prototype.</p></div>
+</div>
+<h3 class="subhead">Where to partner, what to build</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Gap</th><th>Status</th><th>Partner</th></tr></thead>
+<tbody>
+<tr><td>Illegal deforestation/logging alerts</td><td><span class="pill pill-partner">Partner</span></td><td><b>WRI (Global Forest Watch)</b> — GLAD-L/S2, RADD, DIST-ALERT — shared with Food Security's EUDR module, not built twice.</td></tr>
+<tr><td>Illegal gold mining</td><td><span class="pill pill-build">Reactivate / Scale</span></td><td>SERVIR's own <b>CoMiMo</b>/<b>RAMI</b> (Amazon); <b>earthrise-media/mining-detector</b> (Earth Genome, open) for South Asia expansion — dual-track per Decision #4.</td></tr>
+<tr><td>Concession &amp; licence boundaries</td><td><span class="pill pill-new">New build</span></td><td>No global source — country-by-country sourcing. <b>Blocks the <code>authorised</code> field in N1.</b></td></tr>
+<tr><td>REDD+ MRV / TFFF NFMS harmonization</td><td><span class="pill pill-partner">Partner</span></td><td><b>FAO (Open Foris / SEPAL team)</b> — also coordinating TFFF's cross-country harmonization.</td></tr>
+<tr><td>Biodiversity data / STAR metric</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>IBAT Alliance</b> (paid) or open <b>GBIF + Planetary Computer</b> stack — genuine build-vs-license decision.</td></tr>
+<tr><td>Ecosystem service valuation</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>InVEST</b> (Stanford Natural Capital Project) — light-touch adoption; running it against SERVIR's own land cover is the integration work.</td></tr>
+<tr><td>Wildlife trafficking</td><td><span class="pill pill-partner">Adopt</span></td><td><b>MegaDetector</b> (Microsoft AI for Good, self-hostable) + <b>SMART</b> (WCS consortium) — sequenced behind mining/logging per Decision #4.</td></tr>
+<tr><td>Land-cover-to-MRV/NbS decision-support report</td><td><span class="pill pill-new">New build</span></td><td>No finished tool exists — build against <b>Open Foris Arena</b>'s schema and the <b>GFOI/OpenMRV</b> methodology library.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Domain agents</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Agent</th><th>MCP-wrapped tools</th><th>Workflow it encodes</th></tr></thead>
+<tbody>
+<tr><td><b>Land Cover &amp; Change Agent</b></td><td>RLCMS + CEO + UMD GLAD/GFW alert stack</td><td>Classify/update land cover against CEO reference → detect change → tag each event for Protect Nature or NbS consumption.</td></tr>
+<tr><td><b>Illegal Mining Detection Agent</b></td><td>CoMiMo + RAMI + earthrise-media/mining-detector</td><td>Candidate mining change → score against the tool with regional authority → route confirmed detections to enforcement.</td></tr>
+<tr><td><b>Illegal Logging/Deforestation Agent</b></td><td>GFW alert stack (shared with Food Security's EUDR agent)</td><td>Deforestation alerts → cross-reference protected-area/concession boundaries → route unauthorized change to enforcement, authorized change to REDD+/MRV Agent.</td></tr>
+<tr><td><b>REDD+/MRV Agent</b></td><td>SEPAL + FAO Open Foris methodology</td><td>Authorized change data → compute activity data per NFMS methodology → format MRV report to the receiving registry's standard.</td></tr>
+<tr><td><b>Biodiversity &amp; Ecosystem Service Valuation Agent</b></td><td>IBAT/open GBIF+Planetary Computer stack + InVEST</td><td>Land-cover + species-range data → run STAR (or open approximation) and InVEST → attach limitations/currency disclosure.</td></tr>
+<tr><td><b>Wildlife Trafficking Signal Agent</b></td><td>MegaDetector (inference) + SMART (case management)</td><td>Camera-trap imagery → MegaDetector triage → feed confirmed detections to SMART → flag patrol anomalies. <span class="pill pill-open">Scope-contingent, Decision #4</span></td></tr>
+<tr><td><b>LCEM Orchestrator Agent</b></td><td>All agents above, via A2A</td><td>Route by PDD component — never conflate the platform's MRV-data role with issuing or guaranteeing credits.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Use cases from the SERVIR archive</h3>
+<p>This is the best-documented of the three platforms in the public archive — seventeen of nineteen recovered cases name a specific institution, and an unusually high share of those are ministry-level. That matters for the matrix above: these are not pilots looking for a user.</p>
+<div class="uc-grid">
+<div class="uc">
+<span class="uc-hub">Hindu Kush Himalaya · ICIMOD</span>
+<h4>National Land Cover Monitoring System — Nepal</h4>
+<dl>
+<dt>User</dt><dd><b>Forest Research and Training Centre (FRTC)</b>, Nepal</dd>
+<dt>Tool</dt><dd>NLCMS — annual land cover 2000–2019, queryable by province, district or physiographic zone</dd>
+<dt>Decision</dt><dd>Tracking forest cover change and "preparing a long-term strategy for achieving Nepal's Nationally Determined Contribution targets"</dd>
+<dt>Matrix</dt><dd>Land cover × Clock 2 — <em>the starting hub's flagship</em></dd>
+</dl>
+<span class="src"><a href="https://servir.icimod.org/science-applications/national-land-cover-monitoring-system-nepal/">servir.icimod.org — NLCMS Nepal</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia · ADPC</span>
+<h4>Protected Area Alerts — Cambodia</h4>
+<dl>
+<dt>Users</dt><dd><b>Ministry of Environment (MOE)</b>; <b>Provincial Department of Environment</b>; <b>UNDP</b></dd>
+<dt>Tool</dt><dd>Near-real-time forest change alerts, applied to Prey Lang Wildlife Sanctuary</dd>
+<dt>Decision</dt><dd>Where rangers patrol — officials "prioritize scarce resources for more efficient patrol planning and better protection"</dd>
+<dt>Matrix</dt><dd>Biodiversity × Clock 1 · People (enforcement)</dd>
+</dl>
+<span class="src"><a href="https://servir.adpc.net/tools/protected_alert_detail.html">servir.adpc.net/tools/protected_alert_detail.html</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>RAMI — radar mining monitoring, Peru</h4>
+<dl>
+<dt>Users</dt><dd><b>Ministerio del Ambiente (MINAM)</b>; <b>Conservación Amazónica (ACCA)</b> as lead developer; Alliance Bioversity &amp; CIAT; <b>Spatial Informatics Group</b></dd>
+<dt>Tool</dt><dd>Sentinel-1 SAR near-real-time gold-mining detection that works through cloud cover year-round</dd>
+<dt>Decision</dt><dd>Where the government targets eradication of illegal mining and monitors permitted concessions — identifying "new illegal mining fronts in priority areas, such as protected area buffer zones"</dd>
+<dt>Matrix</dt><dd>Mining × Clock 1 · Assets (concessions)</dd>
+</dl>
+<span class="src"><a href="https://www.nasa.gov/missions/servir/teaming-up-to-track-illegal-amazon-gold-mines-in-peru/">nasa.gov/missions/servir — tracking illegal Amazon gold mines in Peru</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>CoMiMo — Colombian mining monitoring</h4>
+<dl>
+<dt>Users</dt><dd><b>Ministry of Environment of Colombia</b>; <b>ANLA</b> (environmental licensing authority); <b>Universidad del Rosario</b> as co-developer</dd>
+<dt>Tool</dt><dd>AI model predictions of mining sites with monthly municipal subscriptions and community validation of model output</dd>
+<dt>Decision</dt><dd>Which municipalities and licensed or unlicensed sites environmental authorities investigate</dd>
+<dt>Matrix</dt><dd>Mining × Clock 1 — <em>and the community-validation loop is the N1 confidence field in practice</em></dd>
+</dl>
+<span class="src"><a href="https://appcenter.servirglobal.net/detail/35">appcenter.servirglobal.net/detail/35</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">West Africa · ICRISAT / CERSGIS</span>
+<h4>Galamsey artisanal mining monitoring — Ghana</h4>
+<dl>
+<dt>User</dt><dd><b>A Rocha Ghana</b> — "will use the information to target areas for remediation and landscape restoration activities"</dd>
+<dt>Tool</dt><dd>Artisanal Gold Mining Monitoring Portal — illegal mining sites across Ghana and associated land degradation</dd>
+<dt>Decision</dt><dd>Which degraded mining sites get prioritised for remediation and restoration</dd>
+<dt>Matrix</dt><dd>Mining × Clocks 1–2 · NbS overlap</dd>
+</dl>
+<span class="src"><a href="https://servir.icrisat.org/artisanal-mining-galamsey-monitoring/">servir.icrisat.org/artisanal-mining-galamsey-monitoring</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>MANGLEE — mangrove monitoring, Ecuador</h4>
+<dl>
+<dt>Users</dt><dd><b>CIIFEN</b>; <b>Ministry of Environment of Ecuador</b></dd>
+<dt>Tool</dt><dd>GEE tool using Sentinel-1 SAR and Sentinel-2 with Random Forest; mangrove maps for 2018, 2020, 2022</dd>
+<dt>Decision</dt><dd>Coastal management strategy and conservation prioritisation against shrimp-aquaculture expansion</dd>
+<dt>Matrix</dt><dd>Mangroves × Clock 2 — <em>one of the five regional cells to generalise</em></dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/monitoring-mangroves-ecuador">servirglobal.net/services/monitoring-mangroves-ecuador</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>GuyMIS — mangrove monitoring, Guyana</h4>
+<dl>
+<dt>Users</dt><dd><b>National Agricultural Research and Extension Institute (NAREI)</b>; <b>University of Guyana</b></dd>
+<dt>Tool</dt><dd>Mangrove extent and change data made freely available to government and civil society</dd>
+<dt>Decision</dt><dd>Action on deforestation hotspots, land-use planning, and protection for farmers in the low-lying coastal zone</dd>
+<dt>Matrix</dt><dd>Mangroves × Clock 2 · People + Environment</dd>
+</dl>
+<span class="src"><a href="https://guy-mangroves.servirglobal.net/about/">guy-mangroves.servirglobal.net/about</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia / Mekong</span>
+<h4>Regional Land Cover Monitoring System</h4>
+<dl>
+<dt>Users</dt><dd><b>USAID/Cambodia</b>; <b>Conservation International</b>; <b>WCS Cambodia</b>; <b>WWF</b>; <b>FFI</b>; <b>BirdLife</b>; <b>DENR Philippines</b></dd>
+<dt>Tool</dt><dd>RLCMS — annual land cover from 2000; Vietnam rice extent and timing products</dd>
+<dt>Decision</dt><dd>Carbon emissions reporting for UN REDD+ and voluntary carbon markets; in Vietnam, "drought risk assessment and more effective water allocation decisions"</dd>
+<dt>Matrix</dt><dd>Land cover × Clock 2 → REDD+ × Clock 2 — <em>the N2 fork, already in production</em></dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/land-cover-monitoring-forest-protection-and-healthy-ecosystems">servirglobal.net/services/land-cover-monitoring-forest-protection-and-healthy-ecosystems</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Eastern &amp; Southern Africa · RCMRD</span>
+<h4>Land use / land cover mapping — Rwanda</h4>
+<dl>
+<dt>User</dt><dd><b>Rwanda Natural Resources Authority (RNRA)</b></dd>
+<dt>Tool</dt><dd>SERVIR/RCMRD land use and land cover maps</dd>
+<dt>Decision</dt><dd>Measuring change in stored CO₂ and reporting NDCs to the UNFCCC; balancing agricultural land against forest conservation</dd>
+<dt>Matrix</dt><dd>Land cover × Clock 2 → carbon stock × Clock 2</dd>
+</dl>
+<span class="src"><a href="https://www.climatelinks.org/blog/rcmrd-servir-partnership-supports-rwandas-leadership-sustainable-land-management">climatelinks.org — RCMRD/SERVIR and Rwanda</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>Collect Earth Online for national forest monitoring — Ecuador</h4>
+<dl>
+<dt>Users</dt><dd><b>Ministry of Environment, Water and Ecological Transition (MAATE)</b>; <b>EcoCiencia</b>; Alliance Bioversity &amp; CIAT</dd>
+<dt>Tool</dt><dd>Collect Earth Online, co-developed with EcoCiencia and SERVIR-Amazonia</dd>
+<dt>Decision</dt><dd>Validating National Monitoring System maps and land-cover estimates, and supporting indigenous forest-dependent groups to use degradation data in their own decisions</dd>
+<dt>Matrix</dt><dd>Land cover × Clock 2 — <em>the CEO half of the backbone</em></dd>
+</dl>
+<span class="src"><a href="https://cgspace.cgiar.org/items/cab97980-8655-447c-943e-7051cf1c1b9a">cgspace.cgiar.org — CEO for national forest monitoring, Ecuador</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Amazonia</span>
+<h4>Forest change and ecosystem services — Acre / Ucayali</h4>
+<dl>
+<dt>Users</dt><dd><b>SEMAPI-Acre</b> (Brazil); <b>CPI-Acre</b>; <b>Gobierno Regional de Ucayali</b> (Peru); indigenous communities of Sierra del Divisor and the Yurua/Purus watersheds</dd>
+<dt>Tool</dt><dd>Scenario modelling of provisioning and regulating ecosystem services under forest change</dd>
+<dt>Decision</dt><dd>Analysing trade-offs of a planned transnational transport corridor against forest cover and hydrological services</dd>
+<dt>Matrix</dt><dd>Ecosystem services × Clock 3 — <em>the one strong scenario cell, and the template for the rest of that column</em></dd>
+</dl>
+<span class="src"><a href="https://servirglobal.net/services/quantifying-effects-forest-changes-provisioning-and-regulating-ecosystem-services">servirglobal.net/services — forest changes and ecosystem services</a></span>
+</div>
+<div class="uc">
+<span class="uc-hub">Southeast Asia</span>
+<h4>SWARM — water resources management, Vietnam</h4>
+<dl>
+<dt>Users</dt><dd><b>NAWAPI</b> (Vietnam National Center for Water Resources Planning and Investigation); <b>ADPC</b>; <b>Stockholm Environment Institute</b></dd>
+<dt>Tool</dt><dd>SWARM — water allocation scenario assessment for Lower Mekong catchments</dd>
+<dt>Decision</dt><dd>Which water allocation scenario informs basin development strategy</dd>
+<dt>Matrix</dt><dd>Wetlands &amp; inland water × Clock 3</dd>
+<dt>Status</dt><dd><span class="pill pill-build">Reactivation candidate</span> — retired per the App Center (§09), and the top restart target on that list: it fills this exact cell, with a named ministry user and an existing method.</dd>
+</dl>
+<span class="src"><a href="https://appcenter.servirglobal.net/detail/77">appcenter.servirglobal.net/detail/77</a></span>
+</div>
+</div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Seven further NRM services are documented and carried here in brief: <b>Charcoal Production Site Monitoring</b> (Ghana — A Rocha, Solidaridad), <b>Land-cover mapping for GHG inventories</b> (RCMRD, nine countries), <b>REDD+ forest monitoring capacity</b> (Kenya, Uganda, Zambia — mapping cycle shortened from six years to about one), <b>TerraOnTrack</b> (CPI-Acre, Imaflora, SIG — community territorial threat detection), <b>Ecosystem services at the forest-agricultural interface</b> (Imaflora, Brazil/Peru), <b>MOCAF</b> forest-road monitoring (ACCA, ABSAT) and <b>iSWIM</b> inland water quality (RCMRD).</p>
+<div class="note gold">
+<strong>The hub-footprint mismatch, again.</strong> LCEM's starting hub is South Asia, and its flagship case there — Nepal's NLCMS with FRTC — is genuinely strong. But eight of the twelve documented cases above sit in <b>Amazonia</b>, and the mining, mangrove and scenario-modelling assets that fill the matrix's hardest cells were all built there. Starting in South Asia while the deepest Protect Nature demand and capability sit in Amazonia is a sequencing decision worth making deliberately rather than inheriting (Decision #8).
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="05-food-security.html"><span class="lbl">← Previous</span>05 · Food Security Platform — Engineering Detail</a>
+<a href="07-shared-infra.html" style="text-align:right;"><span class="lbl">Next →</span>07 · Cross-Platform Shared Infrastructure</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>08 Decisions Status Board &amp; Phased Roadmap — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html" class="active">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="decisions">
+<div class="wrap">
+<div class="section-head"><span class="section-num">08</span><h2>Decisions Status Board &amp; Phased Roadmap</h2></div>
+<p class="section-dek">22 tracked decisions as of Master Architecture v1.7. All 14 original items have a direction; 8 more surfaced when the three standalone platform documents were folded in. <b>18 of 22 still have real, unstarted next actions</b> — none of the 8 newest have an owner yet.</p>
+<h3 class="subhead">Decisions 1–14 — the September 1–2 resolution round</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>#</th><th>Decision</th><th>Status</th><th>Residual</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Global Risk peril list</td><td><span class="pill pill-resolved">Resolved</span></td><td>Communicate to PDD owner for ratification; 3 of 12 perils carry accepted near-term data-coverage risk.</td></tr>
+<tr><td>2</td><td>RiskLayer partnership terms</td><td><span class="pill pill-resolved">Resolved</span></td><td>None — revisit only if negotiation status changes.</td></tr>
+<tr><td>3</td><td>Food Security's EUDR scope</td><td><span class="pill pill-resolved">Resolved</span></td><td>Communicate adoption to Food Security PDD owner.</td></tr>
+<tr><td>4</td><td>NRM's Protect Nature scope</td><td><span class="pill pill-resolved">Resolved</span></td><td>Resourcing for two simultaneous mining tracks needs confirming.</td></tr>
+<tr><td>5</td><td>Climate-adjusted crop calendars</td><td><span class="pill pill-resolved">Resolved</span></td><td>See Decision #13 for the specific engine choice.</td></tr>
+<tr><td>6</td><td>TFFF strategic engagement (NRM)</td><td><span class="pill pill-resolved">Resolved</span></td><td>NRM/LCEM platform lead needs to actually initiate the conversation.</td></tr>
+<tr><td>7</td><td>Funding disclosure</td><td><span class="pill pill-resolved">Resolved</span></td><td>None — disclosure standard, not a funding search.</td></tr>
+<tr><td>8</td><td>Hub-sequencing mismatch</td><td><span class="pill pill-resolved">Resolved</span></td><td>Food Security's own hub-sequencing mismatch hasn't been separately walked through.</td></tr>
+<tr><td>9</td><td>AI build-out ownership &amp; sequencing</td><td><span class="pill pill-resolved">Resolved</span></td><td>Contingent on Decision #12; no named engineering owner yet.</td></tr>
+<tr><td>10</td><td>Vendor-neutrality commitment</td><td><span class="pill pill-resolved">Resolved</span></td><td>None.</td></tr>
+<tr><td>11</td><td>Reactivate-vs-build + Mesoamerica/Central America</td><td><span class="pill pill-resolved">Resolved</span></td><td>David's status check on six dormant tools hasn't happened yet.</td></tr>
+<tr><td>12</td><td>Coordination with SERVIR-AI/global-platform</td><td><span class="pill pill-resolved">Resolved</span></td><td><b>Not yet contacted — blocks Decision #9's agent build from starting.</b></td></tr>
+<tr><td>13</td><td>Crop-model licensing (DSSAT vs. PCSE/WOFOST)</td><td><span class="pill pill-resolved">Resolved to a process</span></td><td>Bake-off hasn't been scoped or run yet.</td></tr>
+<tr><td>14</td><td>Single shared gateway (SERVIR-AI as target)</td><td><span class="pill pill-resolved">Resolved</span></td><td><b>Hub-org migration inventory (§02) hasn't happened — now upstream of Decision #9's first three agents.</b></td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Decisions 15–22 — surfaced by the v1.7 document consolidation</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>#</th><th>Decision</th><th>Status</th><th>Residual</th></tr></thead>
+<tbody>
+<tr><td>15</td><td>Compute cost/ownership for Global Risk's annualized engine</td><td><span class="pill pill-open">Open</span></td><td>No owner, no scoping started.</td></tr>
+<tr><td>16</td><td>Direct integration talks — Pyregence/Pyrecast, HydraFloods teams</td><td><span class="pill pill-build">Part-resolved</span></td><td><b>Pyregence side reviewed</b> (§04): <code class="mono" style="font-size:0.85em;">pyretechnics</code> is on PyPI under EPL-2.0 and co-authored inside SIG, so this is an internal adoption decision, not an external negotiation. The open question moved: not "can we use it" but <b>who builds the non-US fuel-model layer</b>. HydraFloods side still unreviewed, conversation not initiated.</td></tr>
+<tr><td>17</td><td>Exposure-data refresh cadence &amp; licensing (WorldPop, Open Buildings, IBAT)</td><td><span class="pill pill-open">Open</span></td><td>Not yet reviewed.</td></tr>
+<tr><td>18</td><td>Regional hub governance model for locally-calibrated overrides</td><td><span class="pill pill-open">Open</span></td><td>No governance model drafted.</td></tr>
+<tr><td>19</td><td>EUDR application-date reconfirmation</td><td><span class="pill pill-open">Open</span></td><td>Not yet reconfirmed against official EU source.</td></tr>
+<tr><td>20</td><td>Crop-type coverage prioritization for servir-aces</td><td><span class="pill pill-open">Open</span></td><td>No prioritization made — largest build effort alongside #13.</td></tr>
+<tr><td>21</td><td>Chain-of-custody/traceability standard (logistics)</td><td><span class="pill pill-open">Open</span></td><td>No specialist conversation scoped yet.</td></tr>
+<tr><td>22</td><td>User-tiering for NRM Decision Support layer</td><td><span class="pill pill-open">Open</span></td><td>Still open internally per the PDD itself.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note gold">
+<strong>Two decisions gate everything else.</strong> Decision #12 (contact SERVIR-AI/global-platform's maintainers) and Decision #14's residual (map which hub-org repos migrate into SERVIR-AI) are both upstream blockers — no domain agent in §04–06 should start building against the gateway until both move.
+    </div>
+<h3 class="subhead">Four-phase roadmap</h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Per the GeoAI Strategy document — carried here in full rather than referenced, since it's the sequencing this entire engineering plan builds toward.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Phase</th><th>Window</th><th>Focus</th></tr></thead>
+<tbody>
+<tr><td><b>I — Platform Development</b></td><td>2026 <span class="pill pill-build">Underway</span></td><td>Stand up the gateway and shared capability layer; wrap the first three agents (Flood Risk, Field &amp; Crop-Type, Land Cover &amp; Change) per Decision #9; resolve the SERVIR-AI migration mapping.</td></tr>
+<tr><td><b>II — Case-Study Expansion</b></td><td>2027–28</td><td>Extend agents into the remaining domain capabilities per §04–06's build tables; run the DSSAT/PCSE bake-off (Decision #13); prioritize servir-aces crop coverage (Decision #20).</td></tr>
+<tr><td><b>III — Generalization &amp; Platform Integration</b></td><td>2028–29</td><td>Cross-platform Agent2Agent federation matures; shared infrastructure (§07) fully consolidated; regional hub overrides governed (Decision #18).</td></tr>
+<tr><td><b>IV — Institutionalization &amp; Sustainability</b></td><td>2029–30</td><td>Tiered capacity-building model (§03) reaches research-lead cohorts across hubs; compute/funding model (Decision #15) settled for long-run operation.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="07-shared-infra.html"><span class="lbl">← Previous</span>07 · Cross-Platform Shared Infrastructure</a>
+<a href="09-services.html" style="text-align:right;"><span class="lbl">Next →</span>09 · Service Inventory Across the Hubs</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

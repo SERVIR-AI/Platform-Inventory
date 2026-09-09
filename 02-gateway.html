@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>02 Gateway &amp; Integration Architecture — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html" class="active">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="gateway">
+<div class="wrap">
+<div class="section-head"><span class="section-num">02</span><h2>Gateway &amp; Integration Architecture</h2></div>
+<p class="section-dek">Two internal documents independently describe the same mechanism — the <b>SERVIR Global Platform Technical Integration Guide</b> and SIG-NAL's <b>GeoAI Strategy</b> — which means GeoAI capabilities don't need their own integration architecture. A model, an alert feed, and a classifier all become available the same way.</p>
+<h3 class="subhead">The wrap-once pattern</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Step 1</span><h4>MCP-wrap the capability</h4><p>Resources for the context it provides, tools for the actions/analysis it performs. Owner, data currency, and known limitations stated up front, per the Integration Guide's checklist.</p></div>
+<div class="card"><span class="tag">Step 2</span><h4>Define the domain agent</h4><p>Encodes domain expertise (the science a specialist would apply) and workflow expertise (the sequence that specialist actually follows) — not just a thin wrapper on the model.</p></div>
+<div class="card"><span class="tag">Step 3</span><h4>Register with the gateway</h4><p>Identity, policy, routing, and audit handled once, centrally — any other domain's agent can now call it via Agent2Agent instead of re-implementing it.</p></div>
+<div class="card"><span class="tag">Step 4</span><h4>Consume from anywhere</h4><p>LLM/agent applications reach it via MCP; dashboards and backend services reach the same capability via curated APIs — one capability, two access modes.</p></div>
+</div>
+<h3 class="subhead">Gateway components</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Component</th><th>Function</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><b>Identity</b></td><td>Authenticates callers — hub staff, partner engineers, agents acting on their behalf — before any capability is reachable.</td><td><span class="pill pill-open">To spec</span></td></tr>
+<tr><td><b>Policy</b></td><td>Per-capability access rules; the EUDR compliance module and wildlife-trafficking case data need stricter control than open monitoring feeds.</td><td><span class="pill pill-open">To spec</span></td></tr>
+<tr><td><b>Routing</b></td><td>Directs an MCP or API call to the correct capability instance, including regionally-calibrated hub overrides of a global default.</td><td><span class="pill pill-open">To spec</span></td></tr>
+<tr><td><b>Audit</b></td><td>Records what was called, by whom, against which data version — the human-approval-checkpoint trail the GeoAI Strategy requires.</td><td><span class="pill pill-open">To spec</span></td></tr>
+<tr><td><b>Agent2Agent registry</b></td><td>Where every domain agent (Flood Risk, Field &amp; Crop-Type, Land Cover &amp; Change, …) is discoverable by every other agent.</td><td><span class="pill pill-open">To spec</span></td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">What already exists at the consolidation point</h3>
+<p><code>github.com/SERVIR-AI/global-platform</code> is not a scaffold — it's a live, actively-developed MCP server (LangGraph + FastMCP, 183 commits, 3 contributors, EPL-2.0) already answering natural-language disaster-risk questions for Southeast Asia across flood, flash flood, drought, fire, landslide, cyclone, storm, tsunami, and earthquake, and already pulling in Food Security data (GEOGLAM, ENSO/IOD). It mints every answer as a replayable, litestream-backed <em>receipt</em>, gated by a groundedness check before publishing — real precedent for the human-approval checkpoint this whole gateway needs, not a pattern to invent from scratch.</p>
+<p>What it does <b>not</b> have yet: the gateway itself (identity/policy/routing/audit) or Agent2Agent federation — one LangGraph pipeline inside one FastAPI service, not a hub for every platform's agents. Positioning: this plan's gateway <em>wraps and federates</em> what's already running there, rather than competing with it.</p>
+<div class="note gold">
+<strong>Blocking dependency (Decision #12).</strong> David is reaching out to <code>SERVIR-AI/global-platform</code>'s three active maintainers directly — not yet done as of this plan. No agent build in §04–06 should start before that conversation happens, to avoid duplicating a Global Risk / Food Security MCP server that already exists.
+    </div>
+<h3 class="subhead">Migrating the scattered state into SERVIR-AI</h3>
+<p>David named the org's actual GitHub footprint directly: <code>github.com/SERVIR-AI</code> is confirmed as “the master one that everything will end up in and where people are building things” (Decision #14). Four hub-level orgs hold the current, more scattered build activity — that inventory is now complete and carried in full below — 230 public repositories, each with a triage call (Decision #14's residual, closed).</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Org</th><th>Read as</th><th>Migration action</th></tr></thead>
+<tbody>
+<tr><td class="mono">github.com/SERVIR-AI</td><td>Confirmed consolidation target</td><td><span class="pill pill-resolved">Destination</span> Gateway and agent registry live here.</td></tr>
+<tr><td class="mono">github.com/SERVIR-AI/global-platform</td><td>Existing MCP server, SE Asia-scoped</td><td><span class="pill pill-partner">Wrap &amp; federate</span> Extend with gateway + A2A rather than replace.</td></tr>
+<tr><td class="mono">github.com/SERVIR-Amazonia</td><td>Hub-level repos (Amazon-region tools — CoMiMo/RAMI-adjacent, TerraOnTrack, VegMapper, TerraBio)</td><td><span class="pill pill-resolved">Inventoried</span> 38 repos — 6 wrap, 14 Tethys duplicates to consolidate.</td></tr>
+<tr><td class="mono">github.com/Servir-Mekong</td><td>Hub-level repos (HydraFloods and Mekong regional tools)</td><td><span class="pill pill-resolved">Inventoried</span> 44 repos — deepest hydrology bench.</td></tr>
+<tr><td class="mono">github.com/SERVIRSEA</td><td>Hub-level repos (Southeast Asia — RiskMap-adjacent)</td><td><span class="pill pill-resolved">Inventoried</span> 7 repos — two foundation-model experiments.</td></tr>
+<tr><td class="mono">github.com/SERVIR</td><td>General/legacy org</td><td><span class="pill pill-resolved">Inventoried</span> 132 repos — the bulk of the archaeology.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Vendor-agnostic by design (Decision #10)</h3>
+<p>MCP and Agent2Agent are open protocols, not one vendor's product. Every domain agent built under this plan must stay callable by whichever LLM backend a given hub or partner actually has access to — Claude, GPT-class models, Gemini, or an open-weight model run on SIG's own <b>SOCRATES</b> cluster. Google.org's funding of AgriNexus does not imply a Google-only model stack; this is settled policy, confirmed, not an assumption to revisit per platform.</p>
+<h3 class="subhead">What is being built right now in SERVIR-AI</h3>
+<p>Three repositories in the consolidation org are where the current build is actually being organised. They are named here by David; two are private and could not be read from outside, so this plan records what they are for and flags what it needs.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Repository</th><th>Role</th><th>State</th><th>What this plan needs from it</th></tr></thead>
+<tbody>
+<tr><td class="mono"><b>SERVIR-AI/global-platform</b></td><td>The working prototype of the gateway pattern — a live disaster-risk agent for Southeast Asia</td><td><span class="pill pill-resolved">Public · active</span> EPL-2.0, 228 commits, updated Sept 2026</td><td>Read directly. Detailed below — it is the closest thing to a reference implementation this plan has.</td></tr>
+<tr><td class="mono"><b>SERVIR-AI/geoai-hub</b></td><td>"Where we are organizing things" — the organising hub for the GeoAI build</td><td><span class="pill pill-open">Private</span> — 404 to unauthenticated access</td><td>Its structure should define how §04–06's agents are organised. Needs access, or a README paste, before this plan can align to it rather than guess.</td></tr>
+<tr><td class="mono"><b>SERVIR-AI/impact-tracker</b></td><td>Where impact reporting is being organised</td><td><span class="pill pill-open">Private</span> — 404 to unauthenticated access</td><td>The natural home for the use-case evidence in §04–06 and the service inventory in §09. Also overlaps the retired <b>AgriSERV</b> impact-comparison service — worth checking before either is rebuilt.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">global-platform, in detail — the reference implementation</h3>
+<p>This is not a scaffold. It is an active build with tests, checked-in end-to-end example payloads, a Dockerfile and GCP deploy config, and near-daily commits. Read closely, it already implements four of the six seams §04 specifies — which makes it the thing to extend rather than the thing to compete with.</p>
+<div class="elem accent">
+<h4><span class="eid">Pipeline</span> question → route → resolve → fetch → operate → finalize</h4>
+<p>A LangGraph pipeline inside one FastAPI service. The <b>resolve</b> step is the interesting one: when a question is ambiguous between exposure, precomputed risk and recomputed risk, <b>it asks the user to choose rather than guessing</b>, and resumes via a <code>thread_id</code>. That is the human-approval checkpoint from §04's E4 already built, not a design note.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">Data model</span> Four layers, two of them built</h4>
+<div class="contract">L1  precomputed risk                    IMPLEMENTED
+L2  recomputed from reclassed layers    IMPLEMENTED
+L3  on-the-fly reclassification         PLANNED
+L4  upstream-provider fetch             PLANNED</div>
+<p>This maps almost exactly onto §04's two-clock engine (E2). L1 and L2 are the near-real-time and recomputed paths; L4 — fetching from an upstream provider on demand — is what federating other hubs' capabilities through the gateway would need. <b>The roadmap gap in this repo and the build order in this plan are the same gap.</b></p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">Surface</span> One service, three mounts</h4>
+<div class="contract">/mcp    MCP transport      → agent-to-agent consumption
+/api    REST              → dashboards and services
+/       React + OpenLayers web app
+
+POST /api/chat            9 hazards x 4 OSM asset types x severity 1-5
+                          Nominatim place resolution or drawn AOI
+                          verbose trace; human-in-the-loop choices
+GET  /api/raster/{place}/{hazard}.tif
+POST /api/tiffs           bring-your-own hazard GeoTIFF, verification gate
+auth: GRP_API_TOKEN bearer; LLM keys optional</div>
+<p>Two things stand out. <b>The dual mount is §04's E6 access layer already implemented</b> — MCP for agents, REST for dashboards, off one capability. And <code>POST /api/tiffs</code> with a verification gate is a working version of the hub-override mechanism Decision #18 is still trying to govern: a partner can bring their own hazard layer, and the system checks it before use.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">Grounding</span> "Every number is computed from real data, never generated by the model"</h4>
+<p>The repo's own framing, and the discipline §04's E5 asks for. It also ships <code>.claude/skills/</code> containing trace-emit and trace-visualize skills — execution tracing for debugging agent decisions, which is the audit trail the gateway needs in §02.</p>
+<p><b>One hint worth following:</b> LLM keys are optional and unlock a <em>food-security corpus</em> alongside the disaster-risk path. This repo may already straddle two of the three platforms, which would make it a cross-platform prototype rather than a Global Risk one.</p>
+</div>
+<div class="note gold">
+<strong>What this changes about Decision #12.</strong> The blocker was framed as "contact the maintainers before building, to avoid duplicating an MCP server that already exists." Having read the repo, the risk is sharper than duplication: <b>this build has already made design decisions that §04's seams describe abstractly</b> — the resolve-and-ask pattern, the L1–L4 layering, the dual MCP/REST mount, the verification gate on uploaded layers. The conversation should be about adopting those decisions, not just avoiding overlap.
+    </div>
+<h3 class="subhead">The GitHub migration inventory</h3>
+<p>Decision #14 confirmed <code>github.com/SERVIR-AI</code> as the consolidation target and left the migration mapping as its residual — the first engineering task in the roadmap. That inventory is below: every public repository across the six organizations, with a triage call on each. It was compiled from the public GitHub organization listings on 2 September 2026; the REST API is unavailable from this environment, so the listings are the source, and private repositories do not appear.</p>
+<div class="stat-row">
+<div class="stat"><div class="n">230</div><span class="k">public repos across 6 orgs</span></div>
+<div class="stat"><div class="n">41</div><span class="k">Wrap as MCP</span></div>
+<div class="stat"><div class="n">15</div><span class="k">Migrate</span></div>
+<div class="stat"><div class="n">66</div><span class="k">Review</span></div>
+<div class="stat"><div class="n">19</div><span class="k">Capacity material</span></div>
+<div class="stat"><div class="n">89</div><span class="k">Archive</span></div>
+</div>
+<div class="note gold">
+<strong>The headline finding.</strong> Of 230 repositories, only <b>41 carry a platform capability worth wrapping as an MCP server</b>. The rest split into recent work that should move to SERVIR-AI as-is, capacity-building material that belongs in a training archive rather than a platform gateway, and a long tail of dormant single-purpose code. The migration is therefore much smaller than the repo count suggests — but the triage has to happen before Decision #9's first three agents start, because two of those three (Flood Risk, Land Cover &amp; Change) are wrapping code that lives in a hub org today.
+    </div>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIR-AI</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 1 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">The confirmed consolidation target (Decision #14). One repo today — and it is the only repo of all 230 with an MCP endpoint.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">global-platform</td><td>AI-assisted geospatial platform for environmental decision support (source-available, non-commercial)</td><td>Python</td><td class="mono">Sep 2, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">1 wrap as mcp</p>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIR</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 132 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">The general / legacy org and by far the largest. Fifteen years of service code, six repos already archived upstream, and the great majority dormant.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">flood_mapping_intercomparison</td><td>Flood Mapping Intercomparison</td><td>Jupyter Notebook</td><td class="mono">Jun 9, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">ClimateSERV2</td><td>ClimateSERV allows development practitioners, scientists/researchers, and government decision-makers to visualize and download historical rainfall data, vegetat…</td><td>JavaScript</td><td class="mono">Jun 1, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">hiwat_model_viewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Apr 8, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">RX_fires</td><td>RX_fires</td><td>Jupyter Notebook</td><td class="mono">Dec 18, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">AppTemplate2022</td><td><span style="color:var(--ink-faint);">—</span></td><td>CSS</td><td class="mono">Sep 26, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">GuyanaMangrovesWebApp</td><td><span style="color:var(--ink-faint);">—</span></td><td>CSS</td><td class="mono">Sep 26, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">WaterWatchDjango</td><td><span style="color:var(--ink-faint);">—</span></td><td>CSS</td><td class="mono">Sep 26, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">SCAP_Web</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Sep 24, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">servir-aces</td><td>Agricultural Classification and Estimation Service</td><td>Jupyter Notebook</td><td class="mono">Sep 4, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">fierpy</td><td>Python implementation of the Forecasting Inundation Extents using REOF</td><td>Python</td><td class="mono">Sep 2, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">WENDOU</td><td><span style="color:var(--ink-faint);">—</span></td><td>Jupyter Notebook</td><td class="mono">Sep 2, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">DssatWeb</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 9, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">SMAP_ETL</td><td>SMAP_ETL</td><td>Python</td><td class="mono">Jun 17, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">dssat_service</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Mar 26, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">may-the-lidar-be-with-you</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Mar 17, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">dssat_service_scripts</td><td>Calibration and operational scripts for the DSSAT service</td><td>Jupyter Notebook</td><td class="mono">Mar 17, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">galamsey</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Feb 11, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">mekong-swat-django</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Feb 7, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">SAMS</td><td>This application is a management system built to easily manage a multitude of applications through a common interface. SAMS lets you register any application an…</td><td>CSS</td><td class="mono">Feb 7, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">.github</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Feb 7, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">guyana-mangrove-app</td><td><span style="color:var(--ink-faint);">—</span></td><td>TypeScript</td><td class="mono">Feb 7, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">Cerro-Cantil-Protoservices</td><td>Cerro Cantil Protoservices</td><td>CSS</td><td class="mono">Feb 7, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">ml_crop_yield_training</td><td>Materials for ML crop yield training.</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 27, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">tkms</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jan 22, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">ag_scenario_assessment</td><td>Management scenario assessment for the Resilience project in Zimbabwe</td><td>Jupyter Notebook</td><td class="mono">Jan 21, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">bhutan_crop_monitoring</td><td><span style="color:var(--ink-faint);">—</span></td><td>CSS</td><td class="mono">Oct 25, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ClimateSERVpy</td><td>This is a package to access the ClimateSERV API</td><td>Python</td><td class="mono">Sep 9, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">README</td><td>This is a template README file to be used in your SERVIR repos</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Aug 7, 2024</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">GitHub-Demo</td><td>SERVIR demo</td><td>Python</td><td class="mono">Jul 2, 2024</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">IISLogger</td><td>Reads and extracts specified filters from IIS Log files</td><td>Python</td><td class="mono">Jun 18, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">curriculum_development_initiative</td><td>SERVIR and ITC's joint Curriculum Development Initiative</td><td>Jupyter Notebook</td><td class="mono">May 23, 2024</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">request_locator</td><td>Request Locator is a Django application designed to provide location information based on IP addresses.</td><td>Python</td><td class="mono">May 3, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">AQX_Downscaling_Viewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Feb 17, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ForestConservationTargetingTool</td><td>Forest Conservation Targeting Tool (Developed by A. Blackman et al)</td><td>PHP</td><td class="mono">Nov 22, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ag-classification-estimation</td><td>Agricultural Classification and Estimation Service (Bhutan rice map)</td><td>JavaScript</td><td class="mono">Oct 12, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ee-tf</td><td>Earth Engine Tensor Flow Scripts</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Sep 12, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-Tethysapp-rdst</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Aug 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-Tethys_forecast_viewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Aug 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-StreamFlowMonitor</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Aug 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ForestConservationEvaluationTool</td><td>Forest Conservation Estimation Tool</td><td>JavaScript</td><td class="mono">Aug 1, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-rheas-viewer-and-dashboards-benson</td><td>Visualization of maize yield prediction using RHEAS DSSAT coupled models</td><td>HTML</td><td class="mono">Jul 28, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-rheas-viewer-and-dashboards-rono</td><td>rheas-viewer-dashboard</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jul 28, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-flood_simulator</td><td>flood simulator</td><td>JavaScript</td><td class="mono">Jul 26, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-esafis</td><td>Eastern and Southern Africa Fire Information System</td><td>JavaScript</td><td class="mono">Jul 26, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-coralreef</td><td>Coral Bleaching and Depletion trends in East Africa</td><td>HTML</td><td class="mono">Jul 26, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-biodiversity-viewer</td><td>Visualization of digitized museums species and specimens</td><td>HTML</td><td class="mono">Jul 26, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">Service-Tracker</td><td><span style="color:var(--ink-faint);">—</span></td><td>ASP.NET</td><td class="mono">Jun 14, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">airquality-hkh-cp-web</td><td><span style="color:var(--ink-faint);">—</span></td><td>Vue</td><td class="mono">May 30, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">airquality-hkh-cp-mobile</td><td><span style="color:var(--ink-faint);">—</span></td><td>Dart</td><td class="mono">May 30, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">airquality-hkh-cp-admin</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">May 30, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">SCAP</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Apr 21, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-coastaleco</td><td>Coastal and Marine Ecosystem Resources Visualization Tool</td><td>JavaScript</td><td class="mono">Apr 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-landcoverviewer</td><td>GHG land cover viewer</td><td>JavaScript</td><td class="mono">Apr 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-vulnerabilitytool</td><td>Malawi Vulnerability Tool</td><td>JavaScript</td><td class="mono">Apr 17, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-ewx-viewer</td><td>Early Warning Explorer -data.rcmrd.org/ewx-viewer</td><td>JavaScript</td><td class="mono">Apr 11, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">aq_downscale</td><td>Downscaling Air Quality (PM2.5) data from ~25km to ~5km</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Apr 4, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ESAfrica-Invasive_Species_Mapper_System_Android</td><td>Field data collection for invasive species</td><td>Java</td><td class="mono">Apr 4, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">SERVIR_Template_CLI</td><td>This installer will help you get the SERVIR app template installed quickly and ready to modify.</td><td>Python</td><td class="mono">Mar 8, 2023</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">RHEAS_SCO</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jan 24, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">Bangladesh-Extreme-Weather-Alert</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jan 18, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">esa-waterquality</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">esa-floodforecastingviewer</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">esa-streamflow</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">esa-invasivespecies</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">esa_rdst</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">gee-gateway</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Sep 28, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">HIWAT</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 12, 2022</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">bewa_delivery</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jun 24, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">LULC_Inventory</td><td>Land use Land cover Inventory</td><td>JavaScript</td><td class="mono">Jun 23, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClimateSERV-2.0-Server</td><td>ClimateSERV 2.0 Server</td><td>Python</td><td class="mono">Jun 22, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Rheas-Viewer-Option2</td><td>Merged VIC and DSSAT</td><td>JavaScript</td><td class="mono">Jun 17, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">WaterWatch</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">May 3, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">rendvi</td><td>Data processing code for for the Rapid Enhanced Normalized Difference Vegetation Index (reNDVI) using Google Earth Engine</td><td>Jupyter Notebook</td><td class="mono">Apr 12, 2022</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">fier-cli</td><td>Command line interface for running the Forecasting of Inundation Extents using REOF process</td><td>Julia</td><td class="mono">Feb 28, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">SWAT2.0</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Aug 11, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClimateSERV-UI</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jun 28, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ast3-flood-colab</td><td>This repo hosts submodules and glue code for SERVIR AST3 work on flood</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jun 3, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">FierDashboard</td><td>Dashboard web app to visualize results from FIER process</td><td>HTML</td><td class="mono">Apr 30, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">GRACE</td><td>GRACE Tethys App Master Repository</td><td>JavaScript</td><td class="mono">Apr 15, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">AltEx2.0</td><td>This is an updated web application for storing, querying, and acessing altimetry-based water level estimates globally</td><td>Python</td><td class="mono">Feb 10, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClimateSERV-2.0-Client-Admin</td><td>ClimateSERV 2.0 Admin</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jan 6, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">aqx-india</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Nov 3, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">FIEREE.jl</td><td>Repository to replicate Forecasting of Inundation Extent using REOF with Earth Engine</td><td>Julia</td><td class="mono">Nov 2, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">WaterQualityTethysApp</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Oct 17, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">spt_bias_correction</td><td>Package for online, large-scale bias corrections of the Streamflow Prediction Tool outputs</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Sep 15, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">AltEx</td><td>Altimetry Explorer Tethys App</td><td>Python</td><td class="mono">Jul 28, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">tethysapp-streamflow_prediction_tool</td><td>Web app for displaying streamflow predictions using a GIS based interface (Forked from: https://github.com/CI-WATER/tethysapp-erfp_tool).</td><td>JavaScript</td><td class="mono">Jun 19, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">RHEAS</td><td>Regional Hydrologic Extremes Assessment System</td><td>Python</td><td class="mono">May 11, 2020</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">ServiceCatalogURLs</td><td>Tethys app for validating SERVIR Service Catalog URLs</td><td>Python</td><td class="mono">Mar 21, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">water-resources</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Mar 5, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ForestStandHeight</td><td>SAR Handbook materials - Chapter 4</td><td>Jupyter Notebook</td><td class="mono">Jan 8, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">MapViewer</td><td>http://mapviewer.servirglobal.net/</td><td>JavaScript</td><td class="mono">Aug 14, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">RHEAS-Viewer2.0</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 28, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">gee-scripts</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 24, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">LandchangeLearner</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 11, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClimateSERV</td><td>https://climateserv.servirglobal.net/</td><td>JavaScript</td><td class="mono">Jul 3, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">HydroViewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Apr 26, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">IMERG_30Min_ETL</td><td>Automated Extraction, Transformation, and Loading of the latest 30 Minute IMERG Precipitation</td><td>Python</td><td class="mono">Jan 10, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">DARWIN-Viewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Nov 5, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">BiasCorrectionPrecipitation</td><td>Bias Correction for Satellite Precipitation Observations</td><td>R</td><td class="mono">Nov 2, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">IMERG_Accumulations_ETL</td><td>Automated Extraction, Transformation, and Loading of the latest 1, 3, and 7 Day IMERG Precipitation</td><td>Python</td><td class="mono">Aug 27, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">IMERG_ETL</td><td>IMERG_ETL</td><td>Python</td><td class="mono">Aug 24, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">tethysapp-water_watch</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 6, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">RLCMS</td><td>Regional land cover monitoring system</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jul 2, 2018</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">SWAT_viewer</td><td>SWAT output viewer application</td><td>Python</td><td class="mono">Jun 29, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">SMA_Africa</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jun 7, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">water-quality-gee</td><td>Water quality scripts for Google Earth Engine</td><td>JavaScript</td><td class="mono">May 29, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">MapSERV</td><td>For Viewing Google Earth Engine Map Token/ID</td><td>JavaScript</td><td class="mono">May 24, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">RHEAS-Viewer</td><td>View VIC and DSSAT output from a RHEAS database</td><td>JavaScript</td><td class="mono">May 1, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">BLDAS</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Apr 13, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">BLDAS_Explorer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Apr 11, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">GEFSViewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Mar 7, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">TethysTemplate</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jan 9, 2018</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">CropObserver</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Dec 18, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">StreamViewer</td><td>Stream Animations</td><td>Python</td><td class="mono">Oct 18, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">FIRE_ETL</td><td>FIRE_ETL</td><td>Python</td><td class="mono">Mar 29, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ISERV_ETL</td><td>ISERV_ETL</td><td>Python</td><td class="mono">Mar 29, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">TRMM_ETL</td><td>TRMM_ETL</td><td>Python</td><td class="mono">Mar 29, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">CREST_ETL</td><td>CREST_ETL</td><td>Python</td><td class="mono">Mar 29, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">OceanProducts_ETL</td><td>OceanProducts_ETL</td><td>Python</td><td class="mono">Mar 29, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">VIC_ETL</td><td>VIC ETL</td><td>Python</td><td class="mono">Mar 28, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Virtual-Rain</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Oct 13, 2016</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">scoScience</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Oct 6, 2016</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">SERVIR-Github-Demo</td><td>This is a demo of github and how to use it</td><td>HTML</td><td class="mono">Apr 12, 2016</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">HubDataSetDisplay</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Oct 9, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Fire-SMSTrigger</td><td>Processes incoming fire data from NASA and uses geofencing to trigger SMS messages from FrontlineSMS.</td><td>C#</td><td class="mono">Jul 29, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ReferenceNode_ETL</td><td>Scripts to access and compile near real time NASA satellite data into ArcGIS Server time-enabled map services</td><td>Python</td><td class="mono">Jul 21, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">TRMM-GPTools</td><td>Scripts for calculating TRMM composites from custom time paramaters</td><td>Python</td><td class="mono">Jul 17, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">TRMM-Explorer</td><td>General purpose browser for TRMM data with the ability to create custom time composites.</td><td>JavaScript</td><td class="mono">Jul 17, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Fire-Explorer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 17, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Landcover-Explorer</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 17, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClipNShip</td><td>Example of clipping, zipping and shipping SERVIR sourced vector and raster data.</td><td>JavaScript</td><td class="mono">Jul 17, 2014</td><td><span class="pill pill-open">Archive</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">19 wrap as mcp · 10 migrate · 35 review · 7 capacity material · 61 archive</p>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/Servir-Mekong</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 44 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">The deepest hydrology and land-cover bench in the ecosystem. <code>hydra-floods</code> and <code>rlcms</code> are the two assets the platform plan leans on hardest.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">gem-tool</td><td>gem tool</td><td>JavaScript</td><td class="mono">Oct 29, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">rainstorm-tracker</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Sep 23, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">hydra-floods</td><td>HYDrologic Remote sensing Analysis for Floods Python package</td><td>Python</td><td class="mono">Jul 18, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">landcoverPortal</td><td>simple example of landcover portal</td><td>JavaScript</td><td class="mono">Oct 2, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">JRCFloodToolDjango</td><td>Historical Flood Analysis Tool</td><td>Python</td><td class="mono">Apr 5, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">Drought-And-Crop-Yield</td><td>REGIONAL DROUGHT AND CROP YIELD INFORMATION SYSTEM (RDCYIS)</td><td>JavaScript</td><td class="mono">Feb 12, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">hydrafloodstool</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Feb 6, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">rat_mekong</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Dec 11, 2023</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">CambodiaME_Dashboard</td><td>A dashboard to monitor, evaluate and report landscape improvements in Cambodia</td><td>JavaScript</td><td class="mono">Jun 26, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">AirQuality</td><td>Air Quality Study for Mekong Region</td><td>JavaScript</td><td class="mono">Jun 9, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">SARFD</td><td>version 2 of the forest alert system using an EfficientNet</td><td>Python</td><td class="mono">Mar 22, 2023</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">ecodash</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Mar 2, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">vrsgs</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Feb 27, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">hydrafloodviewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Jan 12, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">sentinel-1-pipeline</td><td>Sentinel 1 pipeline using SNAP GPT 7.0</td><td>Python</td><td class="mono">Dec 8, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Virtual-Rain</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Nov 22, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">surface-water-map-unet</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Sep 13, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">lhasa</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Sep 7, 2022</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">SurfaceWaterTool</td><td>A web application for the water detection algorithm using Google Earth Engine and App Engine.</td><td>Python</td><td class="mono">Sep 5, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">GPM-BICO</td><td>Bias Correction Tool for GPM precipitation data</td><td>Python</td><td class="mono">Jul 12, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">gae-gee-demo</td><td>A simple web application demonstrating how to combine the Google Maps API with the Google Earth API.</td><td>Python</td><td class="mono">Nov 24, 2021</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">ST-CORA</td><td>Spatiotemporal Object-based Rainfall Analysis</td><td>Python</td><td class="mono">Oct 7, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">data-driven-optical-sar-data-fusion</td><td>Repository to host the processing workflow for the paper</td><td>Jupyter Notebook</td><td class="mono">Jul 7, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">landcoverPackage</td><td>pip package to import land cover tool</td><td>Python</td><td class="mono">Jun 22, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">GPL_forest_alert_model</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Apr 26, 2021</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">tensorflowBucket</td><td>repo for tensorflow models</td><td>Python</td><td class="mono">Feb 4, 2021</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">ClimateSERV_CHIRPS-GEFS</td><td>Automatic extraction of CHIRPS-GEFS rainfall forecast data using ClimateSERV</td><td>Python</td><td class="mono">Nov 9, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">rlcms</td><td>Hosting repository for the RLCMS methodology and code using GEE</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Oct 23, 2020</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">LandCoverMonitoring</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Sep 29, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Servir-Mekong.github.io</td><td>Landing page for SERVIR-Mekong repo documents</td><td>Python</td><td class="mono">Aug 11, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">tensorFlowModels</td><td>Repository to store ee Tensorflow models</td><td>Python</td><td class="mono">Feb 3, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">tethysapp-hydraviewer</td><td>HYDrologic Remote sensing Analysis Viewer Application</td><td>HTML</td><td class="mono">Oct 9, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Jupyter-gee</td><td><span style="color:var(--ink-faint);">—</span></td><td>Jupyter Notebook</td><td class="mono">Feb 1, 2019</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">bump</td><td>Basic Utility Mapping Preprocessor - bumping the newest imagery into Earth Engine</td><td>Python</td><td class="mono">Aug 22, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">MODIS_tools</td><td>Python scripts for NRT and historic modis flood monitoring tools</td><td>Python</td><td class="mono">Apr 3, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Jupyter-MachineLearning</td><td>Generic ML library</td><td>Jupyter Notebook</td><td class="mono">Mar 19, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Jupyter-arcpy</td><td>Setting Up Jupyter notebooks for ArcGIS</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Mar 17, 2018</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">harmonicTrend</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Nov 9, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">PythonLandCoverTool</td><td>python implementation of the landcover tool</td><td>Python</td><td class="mono">Oct 4, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">JRCFloodTool</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Aug 30, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">CarbonMonitor</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Mar 17, 2017</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">GIT-Mekong-Info</td><td>General Information Related to Geospatial Information Technology of SERVIR-Mekong Team</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Sep 2, 2016</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Eco-Dashboard</td><td>biophysical earth engine app</td><td>Python</td><td class="mono">Aug 25, 2016</td><td><span class="pill pill-open">Archive</span></td></tr>
+<tr><td class="mono">Dam_Inundation</td><td>This ARCGIS tool calculates potential dam Inundation extents</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Jul 21, 2016</td><td><span class="pill pill-open">Archive</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">8 wrap as mcp · 2 migrate · 7 review · 1 capacity material · 26 archive</p>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIR-Amazonia</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 38 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">Newest activity of any hub org. Also carries an obvious consolidation target: fourteen Tethys/GEOGloWS repos are roughly three codebases forked once per country.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">comimo</td><td>Web application repository for illegal gold mining monitoring application.</td><td>JavaScript</td><td class="mono">Jul 28, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">VegMapper</td><td>Land cover classification using remote sensing observations</td><td>Jupyter Notebook</td><td class="mono">Mar 2, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">MANGLEE</td><td>Un repositorio para los scripts de la herramienta MANGLEE para monitoreo de manglares en Ecuador.</td><td>Jupyter Notebook</td><td class="mono">Jul 14, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">caribbean-trainings</td><td>General github-pages template for the 2022-23 Caribbean workshops and beyond!</td><td>HTML</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">barbados-training</td><td>A repository for the 2022-23 Barbados geospatial capacity building training series website.</td><td>HTML</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">colombia-training</td><td>Repo for the Colombia training sessions -- in progress</td><td>HTML</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">republica-dominicana-taller</td><td>A repository for the 2022-23 Dominican Republic geospatial capacity building training series website.</td><td>Jupyter Notebook</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">trinidad-and-tobago-training</td><td>A repository for the 2022-23 Trinidad and Tobago geospatial capacity building training series website.</td><td>HTML</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">guyana-training</td><td>A repository for the 2022-23 Guyana geospatial capacity building training series website.</td><td>HTML</td><td class="mono">Jan 24, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">Peru-tensorflow-training</td><td>A GitHub repository for the TensorFlow Training held in Peru (August 8th-11th)</td><td>Jupyter Notebook</td><td class="mono">Jan 8, 2025</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">imbabura</td><td>Mapeo de coberturas y usos de la tierra Imbabura 2019</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Sep 12, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">geoglows_database_ecuador</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 19, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">gedi-inspect</td><td>LPDAAC vs GEE GEDI data inspection for AST Pinto</td><td>Jupyter Notebook</td><td class="mono">Jun 7, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-historical_validation_tool_ecuador</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">May 7, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-national_water_level_forecast_ecuador</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">May 7, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-hydroviewer_ecuador</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Apr 25, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">fire-forecasting-colombia</td><td>Fire Forecasting in the Colombian Amazon</td><td>JavaScript</td><td class="mono">Apr 4, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">suriname-training</td><td>A repository for the 2023 Suriname geospatial capacity building training series website.</td><td>HTML</td><td class="mono">Jan 9, 2024</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">colombia-tethys-apps</td><td>Set of applications developed for Colombia through the Tethys Platform tool.</td><td>JavaScript</td><td class="mono">Dec 27, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">sinchi</td><td><span style="color:var(--ink-faint);">—</span></td><td>R</td><td class="mono">Dec 18, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">sinchi-cobertura</td><td><span style="color:var(--ink-faint);">—</span></td><td>R</td><td class="mono">Dec 14, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">rami-peru</td><td>Un repositorio para los scripts de la herramienta RAMI para monitoreo de minería en la Amazonía peruana.</td><td>JavaScript</td><td class="mono">Oct 31, 2023</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">Spectral_Signature_Perennial_Crops</td><td><span style="color:var(--ink-faint);">—</span></td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Sep 11, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-national_water_level_forecast_brazil</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Aug 28, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-historical_validation_tool_brazil</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Aug 25, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">geoglows_database_brazil</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Aug 25, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">ACCA-Selective-Logging-DL</td><td>A series of python notebooks describing a workflow to develop a deep learning model with very high resolution images from SkySat (0.5 m).</td><td>Jupyter Notebook</td><td class="mono">Aug 4, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">Mapping_Perennial_Crops</td><td>It is a routine developed to map perennial crops on Google Earth Engine</td><td>JavaScript</td><td class="mono">Aug 4, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">republica-dominicana</td><td>GEE repository of scripts being used in the Dominican Republic training sessions.</td><td><span style="color:var(--ink-faint);">—</span></td><td class="mono">Aug 4, 2023</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">training-documentation-example</td><td>just to screenshoot the step by step. will be deleted</td><td>HTML</td><td class="mono">Aug 3, 2023</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">tethysapp-sonics_hydroviewer</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 24, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-sonics_geoglows</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 23, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-hydroviewer_peru</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 22, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-historical_validation_tool_peru</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 22, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">geoglows_database_peru</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Jul 22, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">tethysapp-national_water_level_forecast_peru</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Jul 22, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">servir-amazonia-ml</td><td>Notebook tutorials demonstrating advanced techniques for use of deep learning with TensorFlow and earth observation data</td><td>Jupyter Notebook</td><td class="mono">Dec 9, 2021</td><td><span class="pill pill-new">Capacity material</span></td></tr>
+<tr><td class="mono">sentinel-1-pipeline</td><td><span style="color:var(--ink-faint);">—</span></td><td>Python</td><td class="mono">Mar 24, 2020</td><td><span class="pill pill-open">Archive</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">4 wrap as mcp · 22 review · 11 capacity material · 1 archive</p>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIRSEA</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 7 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">Small and modern — includes two foundation-model experiments (<code>Claynge</code> on Clay, <code>cashew</code> on a CNN) that are directly relevant to the GeoAI stack in §03.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">airquality_backend</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Feb 24, 2025</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">Claynge</td><td>CLAY for change detection</td><td>Jupyter Notebook</td><td class="mono">Nov 5, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">mrc_ffgs</td><td><span style="color:var(--ink-faint);">—</span></td><td>HTML</td><td class="mono">Sep 2, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">cambodia_supporting_scripts</td><td><span style="color:var(--ink-faint);">—</span></td><td>Jupyter Notebook</td><td class="mono">Jul 2, 2024</td><td><span class="pill pill-build">Review</span></td></tr>
+<tr><td class="mono">sentinel-tree-cover</td><td>Image segmentations of trees outside forest</td><td>Jupyter Notebook</td><td class="mono">Jun 18, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">cashew</td><td>Cashew mapping in Cambodia using Convolutional neural network</td><td>Python</td><td class="mono">May 5, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">mrcdash</td><td><span style="color:var(--ink-faint);">—</span></td><td>JavaScript</td><td class="mono">Dec 20, 2023</td><td><span class="pill pill-build">Review</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">5 wrap as mcp · 2 review</p>
+<h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/pyregence</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 8 repos</span></h4>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">Partner-tool org, named by David (Decision #16). Actively developed in Clojure through September 2026 — the wildfire capability in §04 is real, current software.</p>
+<div class="table-scroll" style="max-height:520px;overflow-y:auto;">
+<table>
+<thead><tr><th>Repository</th><th>What it is</th><th>Language</th><th>Last updated</th><th>Triage call</th></tr></thead>
+<tbody>
+<tr><td class="mono">pyregence</td><td>The main web portal for the Pyregence project.</td><td>Clojure</td><td class="mono">Sep 2, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">geosync</td><td>Automatically add raster and vector layers to a running GeoServer instance.</td><td>Clojure</td><td class="mono">Sep 1, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">pyretechnics</td><td>Fire-behavior library — Rothermel surface, crown, spotting, and the ELMFIRE level-set spread algorithm. On PyPI (<code class="mono" style="font-size:0.85em;">pip install pyretechnics</code>), 15 releases, EPL-2.0. Authors incl. D. Saah (SIG).</td><td>Python / Cython <span style="color:var(--ink-faint);">(GitHub reads it as HTML — org-mode export)</span></td><td class="mono">Aug 10, 2026</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">geoserver</td><td>Official GeoServer repository</td><td>Java</td><td class="mono">Jul 15, 2026</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">ul-wildfire-risk-modeling-exercise</td><td><span style="color:var(--ink-faint);">—</span></td><td>Jupyter Notebook</td><td class="mono">May 21, 2026</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">WesterlingFireModels</td><td>Code for most of the sub-projects for the Fire Modeling from the Westerling lab.</td><td>R</td><td class="mono">Dec 22, 2025</td><td><span class="pill pill-partner">Migrate</span></td></tr>
+<tr><td class="mono">gridfire</td><td><span style="color:var(--ink-faint);">—</span></td><td>Clojure</td><td class="mono">May 22, 2024</td><td><span class="pill pill-resolved">Wrap as MCP</span></td></tr>
+<tr><td class="mono">WBSE</td><td>Wildfire Burn Severity and Emission Inventory</td><td>Jupyter Notebook</td><td class="mono">Apr 25, 2022</td><td><span class="pill pill-open">Archive</span></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">4 wrap as mcp · 3 migrate · 1 archive</p>
+<div class="note open">
+<strong>Three findings to carry into the migration, beyond the counts.</strong>
+      Only about six repositories across the two largest hub orgs show 2025–26 activity, so most of this is reference code rather than running software — the migration is an archaeology exercise as much as a move.
+      <code>sentinel-1-pipeline</code> exists independently in both SERVIR-Amazonia and Servir-Mekong, with the Mekong copy already archived — the clearest single example of the duplication the consolidation is meant to end.
+      And two repos need provenance checked before they are treated as first-party code: <code>pyregence/geoserver</code> ("Official GeoServer repository") and <code>SERVIRSEA/sentinel-tree-cover</code> are almost certainly upstream-derived, though GitHub rendered no fork label for either.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="01-architecture.html"><span class="lbl">← Previous</span>01 · How to Build This</a>
+<a href="03-geoai.html" style="text-align:right;"><span class="lbl">Next →</span>03 · GeoAI Strategy Alignment</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>11 Appendix — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html" class="active">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="appendix">
+<div class="wrap">
+<div class="section-head"><span class="section-num">11</span><h2>Appendix</h2></div>
+<p class="section-dek">Terminology tie-breakers and the source record — kept together so a reader checking a fact knows exactly where it came from.</p>
+<h3 class="subhead">Consistency ledger — the tie-breaker for conflicting terms</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Topic</th><th>Use going forward</th></tr></thead>
+<tbody>
+<tr><td>Global Risk hazard list</td><td>All 12 perils as one unified MVP scope (Decision #1)</td></tr>
+<tr><td>Global Risk risk engine</td><td>RiskLayer (primary); CLIMADA (open-source benchmark/fallback)</td></tr>
+<tr><td>Global Risk exposure model</td><td>Hazard-Exposure-Vulnerability (H-E-V) — nature folded into Exposure, not a fourth dimension</td></tr>
+<tr><td>Audiences (all three platforms)</td><td>Governments; development partners; NGOs/civil society; private sector; SERVIR hubs</td></tr>
+<tr><td>Food Security EUDR scope</td><td>Confirmed platform scope (Decision #3)</td></tr>
+<tr><td>NRM platform name</td><td>“Land Cover and Environmental Monitoring (LCEM) Platform”</td></tr>
+<tr><td>NRM carbon scope</td><td>MRV data only — never issuing, registering, or guaranteeing credits</td></tr>
+<tr><td>Tool names</td><td>RiskMap, AgriNexus, CEO-based tooling — not generic "the platform"</td></tr>
+<tr><td>Hub naming</td><td>"Central America" = "Mesoamerica," same hub (Decision #11)</td></tr>
+<tr><td>"Three platforms" framing</td><td>Organizational/funding domains over one shared system — say "scoped," not "built its own version of"</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Source documents</h3>
+<p><b>Internal (SERVIR shared Drive):</b> Global Risk PDD (v0.1); Food Security PDD Template, Starting Use Case, and Use Case Worksheet; Land Cover and Environmental Monitoring PDD (v0.1) and Prototype doc; SERVIR Global Platform Technical Integration Guide; SIG-NAL's SERVIR GeoAI Strategy (2026–2030); SERVIR Service Inventory, Jan 2026 (85+ services) and its linked GitHub-repo manifest.</p>
+<p><b>Code repository:</b> <code class="mono">github.com/SERVIR-AI/global-platform</code> — investigated directly (cloned, read source).</p>
+<p><b>GitHub organizations</b> (named by David, all now inventoried in §02 — 230 public repos across six orgs, 2 September 2026): <code class="mono">github.com/SERVIR-AI</code> (confirmed consolidation target), <code class="mono">github.com/SERVIR-Amazonia</code>, <code class="mono">github.com/Servir-Mekong</code>, <code class="mono">github.com/SERVIRSEA</code>, <code class="mono">github.com/SERVIR</code>. Partner-tool org: <code class="mono">github.com/pyregence</code> (Pyregence/Pyrecast, wildfire — relevant to Decision #16).</p>
+<p><b>Hub service catalogues</b> (crawled 3 September 2026, §09): servir.icimod.org · servir.adpc.net/tools · servir.icrisat.org · rcmrd.org and servirglobal.net/Regions/ESAfrica · servir.alliancebioversityciat.org · servir.catie.ac.cr · appcenter.servirglobal.net (n=1–82). 123 services across six hubs.</p>
+<p><b>Open-source landscape research:</b> OpenQuake, CLIMADA/climada_petals, IBF-system, TorchGeo, TerraTorch, PANGAEA-bench, Whisp, DSSAT, PCSE/WOFOST, AquaCrop-OS, Sen4CAP, OpenET, earthrise-media/mining-detector, MegaDetector, SMART, GBIF, Microsoft Planetary Computer biodiversity layers.</p>
+<p><b>Companion published documents:</b> Open-Source Gap-Fill Atlas · Decisions Log Action Plan (owners/target dates for the original nine residuals — not yet updated for the 13 additional residuals surfaced since).</p>
+<p style="color:var(--ink-faint);font-size:0.85rem;">Source of record for every claim in this plan: <b>SERVIR Platform Ecosystem — Master Architecture, v1.7</b>, and <b>GeoAI Strategy Across the Three SERVIR Platforms</b>. Where this plan condenses a table or note for length, the master document carries the full version.</p>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="10-nasa.html"><span class="lbl">← Previous</span>10 · NASA Programme Assets Beyond SERVIR</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

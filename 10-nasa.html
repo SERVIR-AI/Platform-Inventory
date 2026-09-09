@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10 NASA Programme Assets Beyond SERVIR — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html" class="active">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="nasa">
+<div class="wrap">
+<div class="section-head"><span class="section-num">10</span><h2>NASA Programme Assets Beyond SERVIR</h2></div>
+<p class="section-dek">SERVIR is one programme inside a much larger NASA applied-science estate, and most of that estate is open, free and already operational. This section inventories what the other programmes provide that these three platforms would otherwise build — data products, analysis platforms, foundation models, training curricula and funding mechanisms — and maps each to the matrix cell or platform layer it serves. <b>The recurring finding: several cells currently marked "new build" in §04–06 have a NASA asset sitting behind them that nobody has claimed.</b></p>
+<div class="note gold">
+<strong>How to read this section.</strong> Every row is checked for <em>availability</em>, not announcement — an upcoming mission or a product still in development is labelled as such rather than counted as capability. Access route matters as much as existence: some of these are open APIs, some need an Earthdata login, and a few need a funded NASA relationship, which is a materially different proposition for an independently-led hub.
+    </div>
+<h3 class="subhead">Global Risk — what NASA already runs</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Asset</th><th>Programme</th><th>What it gives the matrix</th><th>Clock</th><th>Access</th><th>Maturity</th></tr></thead>
+<tbody>
+<tr><td><b>NEX-GDDP-CMIP6</b></td><td>NASA Earth Exchange</td><td><b>Bias-corrected, statistically downscaled daily CMIP6</b>, global, multiple SSPs. Replaces the generic "CMIP6" citation in <em>every</em> Clock 3 cell across drought, heat, cold and flood-precipitation at once.</td><td><span class="pill pill-partner">Clock 3</span></td><td>Open — AWS Open Data, GEE, NAS</td><td>Operational</td></tr>
+<tr><td><b>ARIA Damage Proxy Maps</b></td><td>ARIA, JPL/Caltech</td><td>InSAR post-earthquake deformation and damage maps, hours to days after an event. <b>Fills the matrix's most visible hole — earthquake had no NRT source.</b> Decade-plus operational record across Mexico, Italy, Japan, Ridgecrest, Palu.</td><td><span class="pill pill-partner">Clock 1</span></td><td>aria.jpl.nasa.gov — licence terms not stated, confirm</td><td>Operational</td></tr>
+<tr><td><b>Sea Level Change Portal</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">incl. IPCC AR6 projection tool</span></td><td>NASA Sea Level Change Team (JPL)</td><td>Location-specific SLR projections on AR6 scenarios. Turns §04's generic "IPCC SLR scenarios" into a named, citable operational tool.</td><td><span class="pill pill-partner">Clocks 2–3</span></td><td>Open web tools</td><td>Operational</td></tr>
+<tr><td><b>Black Marble</b> (VNP46)</td><td>VIIRS Land / Earthdata</td><td>Moonlight-corrected nighttime lights, ~500 m, near-daily. <b>The concrete source behind LitPop's nightlight input</b>, which §04's exposure table currently cites generically — plus outage detection after an event.</td><td><span class="pill pill-partner">All three · Assets</span></td><td>Open — LAADS DAAC</td><td>Operational</td></tr>
+<tr><td><b>GRACE-FO drought products</b></td><td>GRACE-FO (JPL) + NDMC</td><td>Weekly global soil-moisture and groundwater wetness percentiles at ~13.7 km. An <b>independent sub-surface drought signal</b> alongside the NOAA VHI/ESI + IMERG-SPI stack.</td><td><span class="pill pill-partner">Clock 1</span></td><td>Open — nasagrace.unl.edu, GES DISC</td><td>Operational</td></tr>
+<tr><td><b>OPERA DSWx</b></td><td>OPERA, JPL</td><td>Global 30 m surface-water inundation, several observations a week, from both optical (HLS) and SAR (S1). Cross-validation for HydraFloods rather than a replacement.</td><td><span class="pill pill-partner">Clock 1</span></td><td>Open — PO.DAAC</td><td>Operational; DSWx-NI pending</td></tr>
+<tr><td><b>GPM / IMERG</b></td><td>Global Precipitation Measurement</td><td>Half-hourly 0.1° global precipitation, NRT and a 27-year research-grade record — the same product serves Clock 1 and the Clock 2 baseline.</td><td><span class="pill pill-partner">Clocks 1–2</span></td><td>Open — GES DISC</td><td>Operational</td></tr>
+<tr><td><b>NASA POWER</b></td><td>Applied Sciences / Langley</td><td>Free REST API for meteorology, solar and agroclimatology, hourly to climatology. An alternative or complement to ERA5 for the heat and cold indices §04 marks as new build.</td><td><span class="pill pill-partner">Clocks 1–2</span></td><td>Open REST API</td><td>Operational</td></tr>
+<tr><td><b>NRT Global Flood Product</b></td><td>LANCE + U. Maryland</td><td>NRT optical flood detection plus a <b>23-year historical flood archive</b> — the archive is the interesting half, since Clock 2 needs an event set.</td><td><span class="pill pill-partner">Clocks 1–2</span></td><td>Open — LANCE</td><td>Operational</td></tr>
+<tr><td><b>Disasters Mapping Portal</b></td><td>NASA Disasters Program</td><td>Event-activation hazard layers combined with exposure and vulnerability, free GIS downloads. A coordination surface rather than a data source.</td><td><span class="pill pill-partner">Clock 1</span></td><td>Open portal</td><td>Operational</td></tr>
+<tr><td><b>FIRMS</b> (LANCE)</td><td>LANCE / Earthdata</td><td>Already the platform's NRT wildfire backbone. Listed for completeness — no action beyond keeping the direct API integration.</td><td><span class="pill pill-strong">Already used</span></td><td>Open API</td><td>Operational</td></tr>
+<tr><td><b>NISAR</b></td><td>NASA–ISRO</td><td>Dual L/S-band SAR, 12-day global repeat, crustal deformation. Second flood-SAR source and an earthquake deformation time series. <b>Launched 30 July 2025 — product maturity not yet confirmed.</b></td><td><span class="pill pill-build">Clocks 1–2</span></td><td>Stated open; portal not located</td><td>Launched, products pending</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Food Security and NRM — what NASA already runs</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Asset</th><th>Programme</th><th>What it gives the matrix</th><th>Serves</th><th>Access</th><th>Maturity</th></tr></thead>
+<tbody>
+<tr><td><b>MAAP</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">Multi-Mission Algorithm &amp; Analysis Platform</span></td><td>NASA–ESA joint</td><td><b>The single highest-value asset in this section.</b> Cloud compute plus an algorithm development environment with harmonised biomass data across GEDI, ESA BIOMASS and NISAR. This is the carbon/MRV workbench §06's N5 would otherwise have to build.</td><td>NRM</td><td>Public sign-up</td><td>Operational since 2021</td></tr>
+<tr><td><b>NASA Harvest</b></td><td>Applied Sciences Agriculture</td><td>Already a named §05 partner — but the inventory adds detail: it runs the <b>GEOGLAM Crop Monitor for Early Warning</b>, holds the open <b>Crop Harvest Database</b> of ML training data, and its PIs already work in SERVIR regions.</td><td>Food Security</td><td>Public tools; consortium by partnership</td><td>Operational</td></tr>
+<tr><td><b>NASA Acres</b></td><td>Applied Sciences Agriculture</td><td>Harvest's US counterpart. The transferable asset is <b>ARYA</b>, a county/national yield-forecasting model, and CONUS field-boundary extraction — both directly relevant to §05's Clock 2.</td><td>Food Security</td><td>portal.nasaacres.org</td><td>Operational; projects research-stage</td></tr>
+<tr><td><b>GEDI</b></td><td>NASA / ISS lidar</td><td>Forest structure and above-ground biomass, footprint and gridded. Canonical structure input for §06's carbon stock row. <b>Caveat: stowed March 2023, reinstalled April 2024</b> — that gap must be documented in any MRV baseline.</td><td>NRM</td><td>Open — LP DAAC / ORNL DAAC</td><td>Operational, with a data gap</td></tr>
+<tr><td><b>ICESat-2</b> (ATL08)</td><td>NASA / NSIDC DAAC</td><td>Canopy and terrain height. The natural gap-filler for GEDI's stow period, and denser coverage.</td><td>NRM</td><td>Open — NSIDC</td><td>Operational</td></tr>
+<tr><td><b>ORNL DAAC mangrove products</b></td><td>Carbon Monitoring System</td><td><b>Global mangrove distribution, above-ground biomass and canopy height</b> — a ready-made input for §06's mangrove row, which currently reads as two regional tools. Caveat: a static 2000s/2010 snapshot; vintage acceptability is a real decision.</td><td>NRM</td><td>Open — daac.ornl.gov</td><td>Published, static</td></tr>
+<tr><td><b>Carbon Monitoring System (CMS)</b></td><td>NASA programme since 2010</td><td>The funding mechanism behind the mangrove and biomass-carbon products. <b>The route to petition for a refresh</b> of a dataset whose vintage does not work.</td><td>NRM</td><td>ROSES proposal</td><td>Operational</td></tr>
+<tr><td><b>HLS</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">Harmonized Landsat Sentinel-2</span></td><td>NASA GSFC / LP DAAC</td><td>30 m harmonised reflectance, ~3-day tropical revisit, 2–3 day latency. The practical EO backbone for crop type, land cover and deforestation alerts. <b>HLS-LL (≤6 hr latency) is in development for ~2027</b> — worth planning for, not yet real.</td><td>Both</td><td>Open — LP DAAC</td><td>Operational; HLS-LL pending</td></tr>
+<tr><td><b>SMAP</b></td><td>NASA / JPL</td><td>Global soil moisture, near-daily. <b>Durable constraint: the radar failed in 2015</b>, so resolution is radiometer-only ~40 km — a permanent limit for the field-level irrigation-timing row in §05, not a temporary one.</td><td>Food Security</td><td>Open — Earthdata</td><td>Operational, degraded</td></tr>
+<tr><td><b>Landsat / Landsat Next</b></td><td>NASA–USGS</td><td>Fifty years of multispectral archive — the long baseline behind every land-cover-change claim. Landsat Next is in development with no confirmed launch date.</td><td>Both</td><td>Open</td><td>Operational; Next pending</td></tr>
+<tr><td><b>CSDA</b><br/><span style="font-size:0.85em;color:var(--ink-faint);">Commercial SmallSat Data Acquisition</span></td><td>NASA Earth Science Division</td><td>Centrally licensed commercial imagery — Planet, Maxar, Spire, Airbus. A no-cost route to parcel-scale validation of deforestation alerts and crop boundaries. <b>Two hard limits: ~30-day latency, and eligibility requires a funded NASA relationship</b> — which independently-led hubs may not have.</td><td>Both</td><td><span class="pill pill-open">Gated</span> — NASA-affiliated only</td><td>Operational since 2022</td></tr>
+</tbody>
+</table>
+</div>
+<h3 class="subhead">Shared infrastructure — what not to build</h3>
+<p>The §07 argument is that these are three domains over one shared system. This is the same argument one level down: several layers of that shared system already exist inside NASA, open-licensed and redeployable.</p>
+<div class="card-grid">
+<div class="card"><span class="tag">Data layer</span><h4>Earthdata + <code>earthaccess</code></h4><p>Planet-scale archive with single sign-on, and an <b>MIT-licensed Python SDK</b> handling CMR search, auth and cloud streaming. Removes any need to build a catalogue-search or auth layer — the platform becomes thin config on top.</p></div>
+<div class="card"><span class="tag">Compute + dashboards</span><h4>VEDA</h4><p>The one NASA asset <b>explicitly documented to be forked and redeployed by another team</b> — STAC API, raster API, JupyterHub and dashboard front end. For three platforms each needing exactly that stack, forking VEDA is a materially smaller lift than building it.</p></div>
+<div class="card"><span class="tag">Model layer</span><h4>Prithvi (IBM–NASA)</h4><p>Confirmed <b>Apache 2.0</b>. Prithvi-EO-2.0 at 300M/600M with ready flood and burn-scar task heads; Prithvi-WxC-2300M for weather and climate. Fine-tuning a checkpoint avoids foundation-model pretraining entirely.</p></div>
+<div class="card"><span class="tag">Capacity ladder</span><h4>ARSET + Openscapes</h4><p>ARSET has trained 100,000+ people across 183 countries with an open domain curriculum. Openscapes adds a <b>CC BY 4.0</b> cohort-mentorship model. Together they cover both ends of §03's ladder without authoring a curriculum from zero.</p></div>
+<div class="card"><span class="tag">Governance</span><h4>SPD-41a + TOPS</h4><p>NASA's open-source science policy, in force since December 2022, plus its training arm. An off-the-shelf open-science governance template for the FAIR commitments in §03 — adopt rather than draft.</p></div>
+<div class="card"><span class="tag">Funding</span><h4>ROSES A.13 and A.9</h4><p>A.13 "Accelerating Earth Solutions" funds applied EO across every domain these platforms touch. <b>A.9 funds applications of large geospatial foundation models specifically</b> — which is precisely the GeoAI work in §03. Non-US organisations can participate on a no-exchange-of-funds basis.</p></div>
+</div>
+<div class="note open">
+<strong>One funding finding worth acting on, and one worth watching.</strong>
+<b>ROSES A.9</b> — "User-Centered Applications with Large Earth Foundation Models" — is a live funding line aimed exactly at what §03 describes, and international partners can participate. That is the closest match between this plan and an open NASA solicitation.
+      Meanwhile the <b>SERVIR-specific Applied Sciences Team line was not solicited in ROSES 2024</b>. Treat it as something to monitor annually rather than a standing open door — particularly now that hubs are independently led.
+    </div>
+<h3 class="subhead">What this changes in the matrices</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Matrix cell</th><th>Was</th><th>Now</th></tr></thead>
+<tbody>
+<tr><td>Earthquake × Clock 1 (§04)</td><td><span class="pill pill-partner">Partner — USGS ShakeMap</span></td><td>Add <b>ARIA Damage Proxy Maps</b> — InSAR deformation, operational, purpose-built for this window</td></tr>
+<tr><td>All Clock 3 cells (§04–06)</td><td>Generic "CMIP6 / ISIMIP"</td><td><b>NEX-GDDP-CMIP6</b> — named, downscaled, daily, open. One substitution fixes the whole column</td></tr>
+<tr><td>Sea level rise × Clocks 2–3 (§04)</td><td>Generic "IPCC AR6 projections"</td><td><b>NASA Sea Level Change Portal</b> — the actual operational tool</td></tr>
+<tr><td>Heat / cold index (§04)</td><td><span class="pill pill-new">New build</span> — nine cells depend on it</td><td>Still a build, but <b>NASA POWER</b> and NEX-GDDP-CMIP6 supply the inputs, shrinking it</td></tr>
+<tr><td>Assets exposure stack (§04)</td><td>LitPop, nightlights generically</td><td><b>Black Marble VNP46</b> — the named nightlight product</td></tr>
+<tr><td>Forest carbon stock × Clock 2 (§06)</td><td><span class="pill pill-partner">CCI Biomass + GEDI</span></td><td>Add <b>MAAP</b> as the processing platform and <b>ICESat-2</b> for the GEDI gap</td></tr>
+<tr><td>Mangroves × Clock 2 (§06)</td><td><span class="pill pill-strong">Built — regional</span> (Ecuador, Guyana)</td><td><b>ORNL DAAC global mangrove products</b> give a global baseline under the two regional tools</td></tr>
+<tr><td>Shared capability layer (§07)</td><td>To be built</td><td><b>VEDA fork + earthaccess + Prithvi</b> — an integration job rather than a build</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+<strong>Confidence and caveats.</strong> Availability was checked separately from announcement throughout. Not yet real: NISAR products, OPERA DSWx-NI, HLS-LL (~2027), Landsat Next. Degraded rather than nominal: SMAP (radar lost 2015, ~40 km permanent), GEDI (2023–24 stow gap). Not independently confirmed and worth verifying before citing: ARIA's licensing terms, the IPCC AR6 sea-level tool page and Black Marble's product page (both failed direct fetch), MAAP's heavy-compute allocation process, and a single canonical ARSET materials licence. Several Applied Sciences programme areas publish no funding amounts or application procedures at all — converting those from "known to exist" into an actionable target needs a direct conversation with NASA HQ.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="09-services.html"><span class="lbl">← Previous</span>09 · Service Inventory Across the Hubs</a>
+<a href="11-appendix.html" style="text-align:right;"><span class="lbl">Next →</span>11 · Appendix</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

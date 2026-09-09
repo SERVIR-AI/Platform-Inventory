@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>01 How to Build This — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html" class="active">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="architecture">
+<div class="wrap">
+<div class="section-head"><span class="section-num">01</span><h2>How to Build This</h2></div>
+<p class="section-dek">This plan turns the Master Architecture (v1.7) and SIG-NAL's GeoAI Strategy into a single build order: one shared data-and-capability layer, one gateway, and three platform domains that pull from it rather than duplicate it. Global Risk, Food Security, and NRM are <b>scoping and funding lenses</b>, not three codebases — every capability below is built once, wrapped once, and registered once, regardless of which platform's budget paid for it.</p>
+<div class="card-grid">
+<div class="card">
+<span class="tag">Principle 01</span>
+<h4>One system, three domains</h4>
+<p>A government analyst, a hub scientist, and a development-partner engineer all pull from the same shared layer to build whatever solution their problem calls for.</p>
+</div>
+<div class="card">
+<span class="tag">Principle 02</span>
+<h4>Wrap once, reuse everywhere</h4>
+<p>Every capability — internal or partner-owned — becomes an MCP server once, then any authorized agent across all three domains can call it via Agent2Agent.</p>
+</div>
+<div class="card">
+<span class="tag">Principle 03</span>
+<h4>Vendor-agnostic by policy</h4>
+<p>Agents are defined by their MCP-wrapped tools and encoded domain/workflow expertise — callable by Claude, GPT-class models, Gemini, or an open-weight model on SOCRATES.</p>
+</div>
+<div class="card">
+<span class="tag">Principle 04</span>
+<h4>Build toward SERVIR-AI</h4>
+<p><code>github.com/SERVIR-AI</code> is the confirmed consolidation org — the master gateway everything migrates into, not one option among several (Decision #14).</p>
+</div>
+</div>
+<h3 class="subhead">The shared system, top to bottom</h3>
+<div class="diagram-wrap">
+<svg aria-label="Diagram of the one-system, three-domain architecture: users at top, three platform domains, an orchestrator agent layer, the SERVIR-AI gateway, MCP-wrapped capabilities, and the shared data layer at bottom, with the GeoAI Strategy wrapping the whole stack." role="img" viewbox="0 0 1080 640" width="100%">
+<!-- GeoAI strategy envelope -->
+<rect class="dg-dash" height="600" rx="16" width="1040" x="20" y="18"></rect>
+<text class="dg-label-accent" x="44" y="42">GEOAI STRATEGY — BOTTOM-UP · OPEN · HUMAN-CENTERED · FAIR · TRANSFERABLE (§04)</text>
+<!-- users -->
+<text class="dg-title" text-anchor="middle" x="540" y="76">Government analysts · hub scientists · development-partner engineers</text>
+<line class="dg-line" x1="540" x2="540" y1="84" y2="106"></line>
+<!-- three platform domains -->
+<rect class="dg-box-space" height="94" rx="10" width="300" x="60" y="108"></rect>
+<text class="dg-title" text-anchor="middle" x="210" y="136">Global Risk</text>
+<text class="dg-sub" text-anchor="middle" x="210" y="154">RiskMap · 12 perils</text>
+<text class="dg-label" text-anchor="middle" x="210" y="172">§ 04 — Flood, Wildfire, Loss Agents</text>
+<rect class="dg-box-space" height="94" rx="10" width="300" x="390" y="108"></rect>
+<text class="dg-title" text-anchor="middle" x="540" y="136">Food Security</text>
+<text class="dg-sub" text-anchor="middle" x="540" y="154">AgriNexus · 6-pillar pipeline</text>
+<text class="dg-label" text-anchor="middle" x="540" y="172">§ 05 — Crop, Yield, EUDR Agents</text>
+<rect class="dg-box-space" height="94" rx="10" width="300" x="720" y="108"></rect>
+<text class="dg-title" text-anchor="middle" x="870" y="136">NRM / LCEM</text>
+<text class="dg-sub" text-anchor="middle" x="870" y="154">Protect Nature · NbS</text>
+<text class="dg-label" text-anchor="middle" x="870" y="172">§ 06 — Land Cover, Mining Agents</text>
+<line class="dg-line" x1="210" x2="210" y1="202" y2="234"></line>
+<line class="dg-line" x1="540" x2="540" y1="202" y2="234"></line>
+<line class="dg-line" x1="870" x2="870" y1="202" y2="234"></line>
+<line class="dg-line" x1="210" x2="870" y1="234" y2="234"></line>
+<line class="dg-line-accent" x1="540" x2="540" y1="234" y2="256"></line>
+<!-- gateway -->
+<rect class="dg-box-accent" height="86" rx="10" width="500" x="290" y="258"></rect>
+<text class="dg-title" text-anchor="middle" x="540" y="288">Platform Gateway — github.com/SERVIR-AI</text>
+<text class="dg-sub" text-anchor="middle" x="540" y="306">Identity · Policy · Routing · Audit</text>
+<text class="dg-label-accent" text-anchor="middle" x="540" y="324">AGENT2AGENT REGISTRATION · §02</text>
+<line class="dg-line-accent" x1="540" x2="540" y1="344" y2="366"></line>
+<!-- MCP capability layer -->
+<rect class="dg-box" height="70" rx="10" width="960" x="60" y="368"></rect>
+<text class="dg-title" x="80" y="392">MCP-Wrapped Capabilities</text>
+<text class="dg-sub" x="80" y="410">Every hazard model, classifier, and alert feed exposed once — resources for context, tools for action</text>
+<line class="dg-line" x1="540" x2="540" y1="438" y2="460"></line>
+<!-- shared data layer -->
+<rect class="dg-box-gold" height="120" rx="10" width="960" x="60" y="462"></rect>
+<text class="dg-title" x="80" y="486">Shared Data &amp; Capability Layer — §07</text>
+<g>
+<rect class="dg-chip" height="26" rx="13" width="168" x="80" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="164" y="517">DEFORESTATION ALERTS</text>
+<rect class="dg-chip" height="26" rx="13" width="150" x="260" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="335" y="517">CLIMATE / HAZARD DATA</text>
+<rect class="dg-chip" height="26" rx="13" width="120" x="422" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="482" y="517">LAND COVER</text>
+<rect class="dg-chip" height="26" rx="13" width="110" x="554" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="609" y="517">GEOGLOWS</text>
+<rect class="dg-chip" height="26" rx="13" width="130" x="676" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="741" y="517">NASA HARVEST</text>
+<rect class="dg-chip" height="26" rx="13" width="182" x="818" y="500"></rect>
+<text class="dg-chip-text" text-anchor="middle" x="909" y="517">HUB-LEVEL TOOLS (§07)</text>
+</g>
+<text class="dg-sub" x="80" y="552">Built once per signal, consumed by every domain that needs it — never re-ingested per platform.</text>
+<text class="dg-label" x="80" y="570">SOURCE COOPERATIVE (source.coop/737847) — SHARED DERIVED-DATA REGISTRY</text>
+</svg>
+<p class="diagram-caption">Fig. 1 — One shared stack, three domains on top. Section numbers point to where each layer is specified below.</p>
+</div>
+<div class="note">
+<strong>What this plan is, precisely.</strong> A build order for the shared gateway and capability layer, the per-platform agents that sit on top of it, and the sequencing that gets from today's scattered hub repos to the SERVIR-AI-consolidated system — grounded entirely in Master Architecture v1.7 and the GeoAI Strategy document, with nothing invented that wasn't already decided or already researched this project.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="index.html"><span class="lbl">← Back</span>Overview</a>
+<a href="02-gateway.html" style="text-align:right;"><span class="lbl">Next →</span>02 · Gateway &amp; Integration Architecture</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

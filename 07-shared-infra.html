@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>07 Cross-Platform Shared Infrastructure — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html" class="active">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="shared-infra">
+<div class="wrap">
+<div class="section-head"><span class="section-num">07</span><h2>Cross-Platform Shared Infrastructure</h2></div>
+<p class="section-dek">Global Risk, Food Security, and NRM are three <b>organizational and funding domains</b> — three PDDs, three sponsor relationships, three sets of named hubs — sitting on top of what should be <b>one shared system</b>: one data layer, one capability layer, one set of MCP-wrapped tools. “Global Risk Platform” describes who scoped and funded a capability, not a separate system a user has to go find it in.</p>
+<h3 class="subhead">Five sharing points, built once</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Shared signal</th><th>Global Risk</th><th>Food Security</th><th>NRM</th></tr></thead>
+<tbody>
+<tr><td><b>Deforestation / land-disturbance alerts</b><br/><span style="color:var(--ink-faint);font-size:0.85em;">GFW GLAD-L/S2, RADD, DIST-ALERT</span></td><td>—</td><td>EUDR compliance module</td><td>Protect Nature module</td></tr>
+<tr><td><b>Climate &amp; hazard data</b><br/><span style="color:var(--ink-faint);font-size:0.85em;">Drought indices, precipitation, temperature</span></td><td>Hazard models</td><td>Climate-adjusted calendars, yield forecasts</td><td>—</td></tr>
+<tr><td><b>Land cover &amp; change</b></td><td>Exposure layer (assets + nature)</td><td>Field/crop-type layer (cropland baseline)</td><td>Platform backbone by definition</td></tr>
+<tr><td><b>GEOGloWS</b> streamflow/discharge</td><td>Flood hazard module</td><td>Irrigation-water-availability</td><td>Water-resource / wetland monitoring</td></tr>
+<tr><td><b>NASA Harvest</b> methodology</td><td>—</td><td>In-season yield estimation (primary)</td><td>Cropland classification (adjacent)</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">Every future build decision defaults to <b>“build this once, in the shared system, tagged with which domain scoped it”</b> — not “build this for platform X, then figure out sharing later.”</p>
+<h3 class="subhead">Common audience model</h3>
+<p>The Global Risk PDD's five user groups are adopted as the confirmed, shared audience model for all three platforms, rather than each platform inventing its own list:</p>
+<div class="card-grid">
+<div class="card"><h4>Governments</h4><p>National and subnational.</p></div>
+<div class="card"><h4>Development partners</h4><p>World Bank, FAO, WFP, UNDP, ADPC, RECOFTC.</p></div>
+<div class="card"><h4>NGOs / civil society</h4><p></p></div>
+<div class="card"><h4>Private sector</h4><p>Commodities, insurance.</p></div>
+<div class="card"><h4>SERVIR hubs</h4><p>As internal users.</p></div>
+</div>
+<h3 class="subhead">Hub footprint — a real mismatch, flagged not hidden</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Platform</th><th>Lead hub</th><th>Co-lead / named hubs</th><th>Where real use cases exist today</th></tr></thead>
+<tbody>
+<tr><td><b>Global Risk</b></td><td>East Asia and the Pacific</td><td>Co-lead: West Africa; supporting: South Asia, Mesoamerica, Tropical South America</td><td>Air quality (SEA), flood (GEOGloWS regions)</td></tr>
+<tr><td><b>Food Security</b></td><td>Not explicitly named</td><td>South Asia, Tropical South America, Mesoamerica ("Associated Hubs")</td><td>East &amp; Southern Africa (9 cases), Tropical South America (6) — <em>not</em> the named associated hubs</td></tr>
+<tr><td><b>NRM / LCEM</b></td><td>South Asia (explicit)</td><td>East Asia &amp; Pacific, SIG-NAL</td><td>Tropical South America (renamed from Amazonia in 2025 — §09), East Asia &amp; Pacific — <em>not</em> the starting hub</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note open">
+<strong>Worth flagging to platform owners directly.</strong> NRM's Protect Nature demand is documented in hubs that aren't its starting hub, and Food Security's most-developed hubs aren't the ones named as its primary associated hubs. Sequencing capacity-building investment should follow where real use cases already exist, not just where a platform is nominally starting.
+    </div>
+<p style="font-size:0.9rem;color:var(--ink-soft);"><b>Resolved (Decision #11):</b> the Service Inventory's CATIE-led "Central America" hub and the PDDs' "Mesoamerica" hub are the same hub under two names — treat "Central America" as informal shorthand going forward.</p>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="06-nrm.html"><span class="lbl">← Previous</span>06 · Natural Resource Management Platform — Engineering Detail</a>
+<a href="08-decisions.html" style="text-align:right;"><span class="lbl">Next →</span>08 · Decisions Status Board &amp; Phased Roadmap</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>

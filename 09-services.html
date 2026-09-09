@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>09 Service Inventory Across the Hubs — SERVIR Platform Inventory</title>
+<meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<a href="index.html">Overview</a>
+<a href="01-architecture.html">Build</a>
+<a href="02-gateway.html">Gateway</a>
+<a href="03-geoai.html">GeoAI</a>
+<a href="04-global-risk.html">Global Risk</a>
+<a href="05-food-security.html">Food Security</a>
+<a href="06-nrm.html">NRM</a>
+<a href="07-shared-infra.html">Shared</a>
+<a href="08-decisions.html">Decisions</a>
+<a href="09-services.html" class="active">Services</a>
+<a href="10-nasa.html">NASA</a>
+<a href="11-appendix.html">Sources</a>
+<a href="full-plan.html">One page</a>
+</div></nav>
+<main><section class="plan-section" id="services">
+<div class="wrap">
+<div class="section-head"><span class="section-num">09</span><h2>Service Inventory Across the Hubs</h2></div>
+<p class="section-dek">Every service this ecosystem has completed, started or retired — <b>123 across the six hubs</b>, each with the user institution named where a source names one, and each with a status. This is the asset base the three build matrices sit on: the "already built, do not rebuild" cells in §04–06 are drawn from here, and so is the demand evidence. Compiled 3 September 2026 from each hub's own catalogue, cross-checked against the SERVIR Global App Center.</p>
+<div class="note gold">
+<strong>Three programme-level changes that post-date the PDDs.</strong>
+<b>All six hubs are operating.</b> SERVIR-HKH's site carries language about a programme phase concluding in January 2025, and several hub sites read as though activity has wound down. Confirmed directly with David (SIG-NAL, inside the programme): <b>that is documentation lag, not programme status</b>. Every hub in the table below is open. Treat hub web presence as evidence about a hub's <em>publishing</em>, never about its operations.
+      <b>SERVIR Amazonia was renamed SERVIR Tropical South America in 2025</b> — this plan and the Global Risk PDD still say "Amazonia"; the Food Security PDD already used the new name, which is what the §07 hub table was actually picking up.
+      And in 2025 SERVIR moved <b>from a NASA–USAID partnership to the "SERVIR Global Collaborative," with regional hubs now independently led</b> — the same foreign-assistance restructuring that produced the FEWS NET outage in §05. That last one changes the character of Decision #18: hub governance is no longer an internal sign-off question but an agreement between independent institutions.
+    </div>
+<h3 class="subhead">Reactivation candidates</h3>
+<p>Every service the crawl found retired or dormant, with what restarting it would actually involve. These belong in the build conversation alongside new construction — in several cases they are the cheapest route to a matrix cell currently marked as a gap.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Service</th><th>Hub</th><th>What it did</th><th>Which matrix cell it would fill</th><th>Reactivation note</th></tr></thead>
+<tbody>
+<tr><td><b>SWARM</b></td><td>Southeast Asia</td><td>Water allocation scenario assessment for Lower Mekong catchments, with NAWAPI, ADPC and the Stockholm Environment Institute</td><td><b>§06 Wetlands &amp; inland water × Clock 3</b> — currently the weakest column in the NRM matrix</td><td>Strongest candidate on the list. A named ministry user, a documented method, and it fills the scenario column that a REDD+ or TFFF conversation asks about. Start here.</td></tr>
+<tr><td><b>REDD Information System</b></td><td>Hindu Kush Himalaya</td><td>Forest biomass and land-cover monitoring, Kayar Khola watershed</td><td><b>§06 REDD+ activity data × Clock 2</b></td><td>Imagery only from 2009/2012, so a rebuild of the data layer — but the methodology and the MRV framing carry over.</td></tr>
+<tr><td><b>Land Use/Land Cover Inventory for Africa</b></td><td>Eastern &amp; Southern Africa</td><td>Pan-African LULC dataset catalogue across all 54 countries, with AfriGEOSS, CILSS and CSE</td><td><b>§06 Land cover × Clock 2</b>, and a discovery layer for §07</td><td>A catalogue, not a model — the cheapest possible restart, and continental in scope. Worth checking whether the underlying registry survives.</td></tr>
+<tr><td><b>AgriSERV</b></td><td>Tropical South America</td><td>Agricultural-intervention impact comparison</td><td><b>§05 outcome layer</b> — impact attribution, which no current service covers</td><td>Closest existing thing to the impact-reporting work now being organised in <code>SERVIR-AI/impact-tracker</code> (§02). Check for overlap before rebuilding either.</td></tr>
+<tr><td><b>EcoDash</b></td><td>Southeast Asia</td><td>Ecosystem monitoring dashboard</td><td><b>§06 Ecosystem services × Clock 2</b></td><td>Lives as a separate subdomain outside the current catalogue. Status genuinely unclear rather than confirmed dead.</td></tr>
+<tr><td><b>GeoPortal</b></td><td>Cross-cutting</td><td>Regional spatial data portal</td><td><b>§07 shared data layer</b></td><td>Superseded in intent by the shared capability layer this plan describes. Reactivate only if the catalogue content is worth recovering; the portal pattern itself is not what §07 needs.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note gold">
+<strong>What the App Center actually publishes — and the correction that follows.</strong>
+      Read directly from the live page on <b>9 September 2026</b>: <b>79 services</b>, of which <b>5 are marked inactive</b> — Land Use/Land Cover Inventory for Africa, GeoPortal, REDD Information System, SWARM and AgriSERV. The status is a <b>binary</b> (a CSS class on the card), not a graded badge: there is no "Pending" state, and the word does not appear on the page. An earlier reading of this register recorded <b>DRIP Groundwater Use</b> and the <b>Malawi Community-Based Flood EWS</b> as "Pending"; that is not reproducible against the source and has been withdrawn. Both are simply listed, and not inactive. The substantive point is unchanged and now rests on the source rather than on a badge: the App Center sits in the same publishing layer that misreported hub status, so it is the best available signal, not ground truth.
+    </div>
+<h3 class="subhead">The six hubs and who runs them</h3>
+<div class="table-scroll"><table>
+<thead><tr><th>Hub</th><th>Since</th><th>Lead institution</th><th>Coverage / consortium</th><th>Services catalogued</th></tr></thead><tbody>
+<tr><td>Eastern &amp; Southern Africa</td><td>2008</td><td><b>RCMRD</b>, Nairobi</td><td>Nine member states across East and Southern Africa</td><td>23</td></tr>
+<tr><td>Hindu Kush Himalaya</td><td>2010</td><td><b>ICIMOD</b>, Kathmandu</td><td>Afghanistan, Bangladesh, Bhutan, Myanmar, Nepal, Pakistan</td><td>42</td></tr>
+<tr><td>Southeast Asia</td><td>2023 (from SERVIR Mekong, 2010)</td><td><b>ADPC</b>, Bangkok</td><td>Lower Mekong and wider Southeast Asia</td><td>18</td></tr>
+<tr><td>West Africa</td><td>2014</td><td><b>ICRISAT</b>-led consortium</td><td>Burkina Faso, Ghana, Mali, Niger, Nigeria, Senegal. Partners: AFRIGIST, AGRHYMET, AIMS, CERSGIS, CSE, ISESTEL, Columbia CIESIN/IRI, U. Florida</td><td>12</td></tr>
+<tr><td>Tropical South America</td><td>2016 (renamed from Amazonia, 2025)</td><td><b>Alliance of Bioversity International and CIAT</b>, Cali</td><td>Brazil, Colombia, Ecuador, Guyana, Peru</td><td>22</td></tr>
+<tr><td>Central America</td><td>2019</td><td><b>CATIE</b>, Costa Rica</td><td>Belize, Costa Rica, El Salvador, Guatemala</td><td>6</td></tr>
+</tbody></table></div>
+<p style="font-size:0.9rem;color:var(--ink-soft);">A seventh hub — the original <b>SERVIR Mesoamerica</b>, launched in Panama in 2005 — closed in 2011. The 2019 Central America hub is a separate re-establishment, not a continuation, so Decision #11's "Central America = Mesoamerica" equivalence holds for the current hub only.</p>
+<h3 class="subhead">Status across the whole portfolio</h3>
+<div class="stat-row">
+<div class="stat"><div class="n">123</div><span class="k">services catalogued<br/>across 6 hubs</span></div>
+<div class="stat"><div class="n">24</div><span class="k">Operational</span></div>
+<div class="stat"><div class="n">50</div><span class="k">Active</span></div>
+<div class="stat"><div class="n">13</div><span class="k">In development</span></div>
+<div class="stat"><div class="n">1</div><span class="k">Dormant</span></div>
+<div class="stat"><div class="n">5</div><span class="k">No longer active</span></div>
+<div class="stat"><div class="n">30</div><span class="k">Status unclear</span></div>
+</div>
+<div class="note">
+<strong>What the status column is, and is not.</strong> It records what each source page actually says, plus any visible dates — <b>not an assessment of whether the software runs today, and not a statement about whether a hub is open</b>. All six hubs are operating; some publish far better than others. <b>30 services could not be classified at all</b>, mostly because their detail pages were unreachable during the crawl; that is itself a finding about how well this portfolio is documented. The one genuinely authoritative status signal is the SERVIR Global App Center, which overlays an explicit badge on entries it considers retired — five carry "No Longer Active" and two carry "Pending".
+    </div>
+<div class="note open">
+<strong>Retired is not the same as gone — these are reactivation candidates.</strong>
+      Six services are flagged retired or dormant. <b>None of them is written off.</b> A service that once worked, has code, has a documented method and had a user is a far cheaper thing to restart than an equivalent capability built from nothing — which is exactly the judgement Decision #11 already made about the six dormant tools David was to status-check. That decision's residual and this list are the same work.
+      They are carried in the reactivation table below and stay in scope in §04–06 as build options, not as history.
+    </div>
+<h3 class="subhead">Hindu Kush Himalaya <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— ICIMOD, Kathmandu · 42 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">The largest catalogue of any hub. Its site carries wind-down language from a January 2025 phase boundary; the hub is open and operating. The status column below reflects what each page says, which is a statement about the documentation rather than the software.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>National Land Cover Monitoring System (NLCMS)</b></td><td>Annual land cover from remote sensing + ML</td><td>Nepal</td><td>Forest Research and Training Centre (FRTC)</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Regional Land Cover Monitoring System (RLCMS) HKH</b></td><td>Annual land-cover mapping and change</td><td>Afghanistan, Bangladesh, Myanmar, Nepal</td><td>Afghanistan MAIL; Bangladesh Forest Dept; Nepal FRTC; Myanmar Forest Dept</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Regional Drought Monitoring and Outlook System</b></td><td>In-season drought monitoring and crop-condition forecasts</td><td>Afghanistan, Bangladesh, Nepal, Pakistan</td><td>Line government agencies (not individually named)</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Glacial Lakes in Afghanistan</b></td><td>Glacial lake database and mapping, 1990–2015</td><td>Afghanistan</td><td>NWARA</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Glacier Dynamics Application</b></td><td>Decadal glacier visualisation since 1990</td><td>Afghanistan</td><td>Ministry of Energy and Water</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Agriculture Atlas of Nepal</b></td><td>Web-GIS district-level agricultural statistics</td><td>Nepal</td><td>MoAD; National Planning Commission; DHM; CBS; Dept of Irrigation</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Estimation of Wheat Growing Areas</b></td><td>Remote-sensing wheat area quantification — handed over</td><td>Afghanistan</td><td>MAIL</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>HIWAT — Nepal</b></td><td>54-hour high-impact weather forecast</td><td>Nepal</td><td>DHM; Armed Police Force; Practical Action Nepal</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>HIWAT — regional</b></td><td>High-impact convective weather toolkit</td><td>Nepal, Bangladesh, Bhutan</td><td>DHM; Bangladesh Meteorological Department</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Forest Fire Detection and Monitoring — Nepal</b></td><td>MODIS/VIIRS near-real-time fire detection</td><td>Nepal</td><td>DoFSC, Ministry of Forests and Environment</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Flash Flood Prediction Tool — Nepal</b></td><td>54-hour flash-flood forecast, 12,000+ segments</td><td>Nepal</td><td>DHM</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Flash Flood Prediction Tool — Bangladesh</b></td><td>54-hour flash-flood forecast</td><td>Bangladesh</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Streamflow Prediction Tool — Nepal</b></td><td>10-day forecast, 519 river segments</td><td>Nepal</td><td>DHM</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Streamflow Prediction Tool — Bangladesh</b></td><td>10-day river forecasts</td><td>Bangladesh</td><td>Flood Forecasting and Warning Centre (FFWC)</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Streamflow Prediction Tool — HKH basins</b></td><td>10-day forecasts across four major basins</td><td>Bangladesh, Bhutan, Nepal</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Enhancing Flood Early Warning Systems</b></td><td>Downscaled global flood forecast, 10–15 day lead</td><td>Bangladesh, Bhutan, Nepal</td><td>ECMWF; European Commission (technical)</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>National Agricultural Drought Watch</b></td><td>Drought monitoring and agro-advisories</td><td>Nepal</td><td>Government agencies (not individually named)</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Wheat Mapping Application</b></td><td>Wheat-area mapping, 2017</td><td>Afghanistan</td><td>MAIL; UNODC Afghanistan</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>The Agriculture Information Portal</b></td><td>Crop statistics, prices and calendars gateway</td><td>Afghanistan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Rangelands Decision Support System</b></td><td>Rangeland layer visualisation</td><td>Pakistan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Central Karakoram National Park DST</b></td><td>Natural resources, livelihood and climate modules</td><td>Pakistan</td><td>UNEP; WWF-Pakistan; IUCN; Ev-K2-CNR; CESVI</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Nepal Earthquake 2015 Recovery Platform (DRRIP)</b></td><td>Post-earthquake geohazard and landslide hub</td><td>Nepal</td><td>MoHA; Esri</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Status of Glaciers in the HKH Region</b></td><td>Interactive glacier data by basin</td><td>HKH region incl. China</td><td>CARERI (China)</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Flood Inundation Mapping Tool</b></td><td>Sentinel-1 SAR near-real-time flood extent</td><td>Bhutan, Bangladesh, Nepal, NE India</td><td>NASA SERVIR AST; U. Alaska Fairbanks</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>REDD Information System</b></td><td>Forest biomass and land-cover, Kayar Khola watershed</td><td>Nepal</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">No longer active</span></td></tr>
+<tr><td><b>Resource Accounting Tool</b></td><td>GEE-based geo-processing and analysis</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">No longer active</span></td></tr>
+<tr><td><b>Decision Support System for Flood Management</b></td><td>Flood inundation, hazard and risk viewer</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Monitoring and Assessment of Snow Cover</b></td><td>Snow-cover data across 92 sub-basins</td><td>HKH region</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Land Cover Dynamics — Greater Chittagong</b></td><td>Harmonised land-cover database</td><td>Bangladesh</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Land Cover Dynamics — Myanmar</b></td><td>Harmonised land-cover database</td><td>Myanmar</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Land Cover Dynamics — Pakistan</b></td><td>Harmonised land-cover database</td><td>Pakistan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Land Cover Dynamics — Bhutan</b></td><td>Harmonised land-cover database</td><td>Bhutan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Multi-Disaster Information System</b></td><td>Multi-hazard information system</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>MODIS-Based Ecosystem Monitoring</b></td><td>Vegetation vigour and phenology viewer</td><td>HKH region</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Forest Ecosystem Climate Vulnerability</b></td><td>Forest climate-vulnerability web application</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Multi-Level Risk Assessment for Flood</b></td><td>Disaster-loss-data flood risk tool</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Glacier Dynamics in Bhutan Himalaya</b></td><td>Glacier-change data</td><td>Bhutan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Glacier Dynamics in Nepal Himalaya</b></td><td>Glacier-change data</td><td>Nepal</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Nepal Disaster Information Management System</b></td><td>Historical disaster event and impact profiling</td><td>Nepal</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Above Ground Biomass — Nepal</b></td><td>Biomass product viewer</td><td>Nepal</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Forest Fire Detection — Bhutan</b></td><td>MODIS-based fire detection</td><td>Bhutan</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Glacial Lake Inventory of the HKH</b></td><td>Listed in the catalogue; no working link found</td><td>HKH region</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">7 operational · 16 active · 1 in development · 2 no longer active · 16 status unclear  ·  20 of 42 name a user institution</p>
+<h3 class="subhead">Southeast Asia <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— ADPC, Bangkok · 18 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">Renamed from SERVIR Mekong in 2023. Nine of sixteen tools are still named or scoped to the Lower Mekong specifically.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>ClimateSERV</b></td><td>30-year rainfall history, 180-day forecasts, vegetation condition</td><td>Global tool; page content names Kenya/West Africa</td><td>Kenya Meteorological Service; ministries of agriculture</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>SE Asia Air Quality Tracker (AQ-Tracker)</b></td><td>Air quality and fire data plus 3-day forecasts</td><td>Southeast Asia</td><td>Thai Pollution Control Department; GISTDA; Laos MONRE</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Rainstorm Tracker</b></td><td>4D storm-object recognition with near-real-time alerts</td><td>Lower Mekong Basin</td><td>Mekong River Commission</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Cambodia Protected Area Alerts System</b></td><td>Near-real-time forest change, integrated with CEMIS</td><td>Cambodia</td><td>Ministry of Environment; Provincial Dept of Environment; UNDP</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Reservoir Assessment Tool (RAT-Mekong)</b></td><td>Near-real-time reservoir storage, inflow and outflow</td><td>Lower Mekong Basin</td><td>Mekong River Commission and member countries</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Regional Land Cover Monitoring System (RLCMS)</b></td><td>Cloud-based custom land-cover products on GEE</td><td>Lower Mekong; Vietnam</td><td>Not named on the tool page</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Southeast Asia Drought Watch (SEADW)</b></td><td>Drought monitoring, seasonal forecast, impact characterisation</td><td>Southeast Asia</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Virtual Rain and Stream Gauge Service</b></td><td>Near-real-time gridded rainfall and stream height</td><td>Lower Mekong</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Historical Flood Analysis Tool</b></td><td>Surface-water extent and change, 1984–2018, 3M+ Landsat scenes</td><td>Lower Mekong; Myanmar</td><td>Department of Disaster Management, Myanmar (planning to use)</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Biophysical M&amp;E Dashboard</b></td><td>Satellite dashboard for landscape-management projects</td><td>Cambodia</td><td>USAID/Cambodia</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Gender Equality Monitoring (GEM) Platform</b></td><td>Sub-national gender gaps across sectors</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>HYDRAFloods</b></td><td>Open-source daily surface-water and flood mapping</td><td>Lower Mekong</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Mekong X-Ray</b></td><td>Flood hazard, exposure and vulnerability from EO + social + IoT</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>HYDROMET-BOX</b></td><td>Historical and near-real-time meteorological data products</td><td>Lower Mekong</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>LHASA-Mekong</b></td><td>ML landslide probability at 1 km resolution</td><td>Lower Mekong</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Land and Agriculture Monitoring Project (LAMP)</b></td><td>Biophysical, forest, rice-crop and fire monitoring</td><td>Myanmar</td><td>USAID/Burma</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>SWARM</b></td><td>Water allocation scenario assessment</td><td>Vietnam / Lower Mekong</td><td>NAWAPI; ADPC; Stockholm Environment Institute</td><td><span class="pill pill-open">No longer active</span></td></tr>
+<tr><td><b>EcoDash</b></td><td>Ecosystem monitoring dashboard</td><td>Lower Mekong</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-new">Dormant</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">5 operational · 10 active · 1 in development · 1 dormant · 1 no longer active  ·  10 of 18 name a user institution</p>
+<h3 class="subhead">West Africa <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— ICRISAT-led consortium · 12 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">Consortium: AFRIGIST, AGRHYMET, AIMS, CERSGIS, CSE, ISESTEL, Columbia CIESIN/IRI, University of Florida. Phase 2 runs 2022–2027.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>Monitoring Ephemeral Water Bodies (WENDOU)</b></td><td>Pond monitoring pushed out by radio and SMS in local languages</td><td>Senegal (Ferlo)</td><td>AVSF; URAC network; Jokalante</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Desert Locust Risk Mapping (P-LOCUST)</b></td><td>Locust prediction model plus real-time ecological monitoring</td><td>Niger, Mali, Burkina Faso</td><td>AGRHYMET; FAO; CLCPRO; CIRAD</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Artisanal Mining (Galamsey) Monitoring</b></td><td>Illegal gold-mining sites and associated land degradation</td><td>Ghana</td><td>A Rocha Ghana</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Commune-Level Development Planning (CLDP)</b></td><td>Commune-level land cover, use and socio-economic platform</td><td>Burkina Faso</td><td>Seven named commune authorities; RISE-II/Winrock; FAO/FFEM</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Charcoal Production Monitoring</b></td><td>Charcoal-kiln distribution and forest degradation</td><td>Ghana; wider West Africa</td><td>A Rocha; Solidaridad (capacity building)</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Flash Flood Vulnerability Mapping</b></td><td>Socio-economic layers coupled to hydrological model output</td><td>Not named</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Groundwater Mapping</b></td><td>Groundwater resources for rain-fed irrigation</td><td>Not named</td><td>Ministries of Water Resources and Agriculture (generic)</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Farmer-Managed Natural Regeneration (FMNR)</b></td><td>Where to scale FMNR, and temporal change analysis</td><td>Niger; Sahel</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Sustainable Development Goals Mapping</b></td><td>EO plus admin data for environment-related SDG indicators</td><td>Senegal (pilot)</td><td>National and local institutions (generic)</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Crop Monitoring and Condition Assessment</b></td><td>Inter-annual NDVI/LSWI crop condition, Peanut Basin</td><td>Senegal</td><td>DAPSA; Ministry of Agriculture and Rural Infrastructure</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Harmonization of Regional LU/LC Classification</b></td><td>Interoperability across incompatible regional systems</td><td>West Africa</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Sub-Seasonal to Seasonal Forecasting</b></td><td>WRF + NASA SPoRT seasonal forecasting</td><td>Page content describes East Africa/Kenya</td><td>Kenya Meteorological Service</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">1 operational · 3 active · 5 in development · 3 status unclear  ·  9 of 12 name a user institution</p>
+<h3 class="subhead">Eastern &amp; Southern Africa <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— RCMRD, Nairobi · 23 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">The thinnest hub web presence of the six: eight confirmed dead links and eight RCMRD subdomains unreachable. Several rows below are evidenced through NASA, Climatelinks or Agrilinks rather than the hub's own pages.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>Land-Cover Mapping for GHG Inventory</b></td><td>Land-cover data for national greenhouse-gas inventories</td><td>Nine RCMRD member states</td><td>RCMRD</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Kenya National Crop Monitor</b></td><td>National crop-condition early warning</td><td>Kenya; replicated to Tanzania, Uganda</td><td>Ministry of Agriculture, Irrigation, Livestock and Fisheries; GEOGLAM</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Malawi Community-Based Flood EWS</b></td><td>Flood EWS transferred from the Himalaya to Malawi</td><td>Malawi (8 districts)</td><td>UNDP; RCMRD; ICIMOD</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Crop Failure Assessment for Agricultural Insurance</b></td><td>NDVI, rainfall and soil-moisture crop-failure detection</td><td>Kenya</td><td>NASA Harvest; Swiss Re Foundation</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Climate Change Vulnerability and Impacts Service</b></td><td>Climate impacts on communities, water and ecosystems</td><td>Kenya, Malawi, Rwanda, Tanzania, Uganda, Zambia</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Land Use Land Cover and Change Mapping</b></td><td>LULC change for conservation and management</td><td>Regional</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Regional Cropland Assessment and Monitoring</b></td><td>Crop monitoring for food-security evaluation</td><td>East Africa</td><td>Kenya Ministry of Agriculture, Livestock, Fisheries and Cooperatives</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>iSWIM — Satellite Water Quality Monitoring</b></td><td>Satellite-derived water quality for inland lakes</td><td>Lake Victoria, Malawi, Tanganyika basins</td><td>RCMRD</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Early Warning eXplorer (EWX)</b></td><td>FEWS NET climate and hydrologic dataset viewer</td><td>Regional</td><td>Climate Hazards Center (UCSB); RCMRD</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Mapping Seagrass and Mangroves</b></td><td>Coastal and marine ecosystem products</td><td>Kenya, Tanzania, Mozambique, Madagascar</td><td>RCMRD</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Invasive Species Mapper</b></td><td>Crowdsourced app plus species-distribution modelling</td><td>Kenya (Samburu–Laikipia)</td><td>CABI; Laikipia Wildlife Forum</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Rangelands Decision Support Tool (RDST)</b></td><td>NDVI, VCI and GIS layers for rangeland planning</td><td>Zambia live; Kenya in development</td><td>Not named on the live page</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Eastern Africa Forest Observatory (OFESA)</b></td><td>Forest cover, carbon and REDD+ monitoring</td><td>Kenya, Ethiopia, Tanzania, Uganda, Mozambique</td><td>CIFOR; Kenya Forest Service; NFA Uganda</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>RHEAS</b></td><td>NDVI and rainfall crop-condition forecasting</td><td>Kenya</td><td>SERVIR-ESA at RCMRD</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>DRIP — Drought Resilience Impact Platform</b></td><td>Satellite-linked groundwater sensors plus drought forecasting</td><td>Kenya, Ethiopia</td><td>Kenya NDMA; Ethiopia Ministry of Water; FEWS NET; Millennium Water Alliance</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>GeoServe</b></td><td>Bridges NASA and FEWS NET data for decision-making</td><td>Regional</td><td>ICPAC; SADC Climate Services Centre; national met agencies</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Land Use/Land Cover Inventory for Africa</b></td><td>Pan-African LULC dataset catalogue</td><td>All 54 African countries</td><td>AfriGEOSS; CILSS; CSE</td><td><span class="pill pill-open">No longer active</span></td></tr>
+<tr><td><b>Malawi Hazards and Vulnerability Modelling Tool</b></td><td>Hazard and vulnerability maps and atlas</td><td>Malawi</td><td>RCMRD</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>CREST Streamflow Viewer &amp; Flood Simulator</b></td><td>Near-term flood-likelihood assessment</td><td>East African watersheds</td><td>RCMRD</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Regional Stream Flow Monitoring and Forecasting</b></td><td>Multi-model streamflow forecasting</td><td>East Africa</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>SLEEK</b></td><td>National land-based emissions estimation system</td><td>Kenya</td><td>Kenya Ministry of Environment and Natural Resources</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>RCMRD Geoportal</b></td><td>Regional spatial data infrastructure, 308 GIS layers</td><td>Member states</td><td>RCMRD</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>SERVIR E&amp;SA Small Grants Program</b></td><td>EO and geospatial innovation grants</td><td>Eight countries</td><td>RCMRD</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">4 operational · 10 active · 2 in development · 1 no longer active · 6 status unclear  ·  20 of 23 name a user institution</p>
+<h3 class="subhead">Tropical South America <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— Alliance of Bioversity International and CIAT, Cali · 22 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">Renamed from SERVIR Amazonia in 2025. Spatial Informatics Group (SIG) appears as a build partner on six of these services.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>CoMiMo</b></td><td>AI-predicted mining sites over geographic layers</td><td>Colombia</td><td>Ministry of Environment; ANLA; Universidad del Rosario; SIG</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>RAMI</b></td><td>Near-real-time SAR detection of illegal gold mining</td><td>Peru</td><td>MINAM; PNCBMCC; Conservación Amazónica (ACCA); SIG</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>MANGLEE</b></td><td>GEE mangrove mapping with Sentinel and machine learning</td><td>Ecuador</td><td>Ministry of Environment (MAAE); CIIFEN; EcoCiencia; SIG</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>GuyMIS</b></td><td>Mangrove monitoring web application</td><td>Guyana</td><td>NAREI; University of Guyana; SIG</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>TerraOnTrack</b></td><td>Territorial-threat detection for communities</td><td>Brazil</td><td>Imaflora; SIG</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>Extreme Hydrological Events Resilience</b></td><td>Flood forecasting umbrella across three countries</td><td>Peru, Colombia, Brazil</td><td>SENAMHI; IDEAM; CEMADEN; BYU</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>MOCAF</b></td><td>Forest-roads monitoring</td><td>Brazil, Peru</td><td>ACCA; ABSAT; University of Richmond; UFAC</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>IDEAM GEOGloWS Portal</b></td><td>Hydrological Tethys portal</td><td>Colombia</td><td>IDEAM</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>SENAMHI Tethys Portal</b></td><td>Hydrological Tethys portal</td><td>Peru</td><td>SENAMHI; ACCA</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>CEMADEN Tethys Portal</b></td><td>Hydrological Tethys portal</td><td>Brazil</td><td>CEMADEN</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>INAMHI GEOGloWS Portal</b></td><td>Hydrometeorological forecast portal</td><td>Ecuador</td><td>INAMHI</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Collect Earth Online</b></td><td>Satellite-imagery interpretation system</td><td>Global; Ecuador use</td><td>MAATE; EcoCiencia</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>SINCHI Cobertura</b></td><td>GEE Colombian-Amazon land-cover mapping</td><td>Colombia</td><td>Instituto SINCHI; SIG</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Amazon Fire Dashboard</b></td><td>VIIRS fire-type classification</td><td>Southern Amazon</td><td>NASA GSFC</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Ecosystem Services Modeling / VegMapper</b></td><td>Radar mapping of palm-oil and cacao deforestation drivers</td><td>Brazil, Peru</td><td>Alianza Cacao; SERNANP; EMBRAPA; MIDAGRI; Gob. Reg. Ucayali</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>S-CAP</b></td><td>Forest-carbon and deforestation tracking, 15 countries</td><td>Peru, Colombia and 13 others</td><td>NASA; USAID; UNFCCC</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Digital Soil Mapping</b></td><td>30 m digital soil-fertility maps</td><td>Ecuador</td><td>Ministerio de Agricultura y Ganadería (MAG)</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Forest-Change Effects on Ecosystem Services</b></td><td>Microclimate and hydrology trade-off mapping</td><td>Brazil (Acre), Peru (Ucayali)</td><td>SEMAPI-Acre; CPI-Acre; UFAC; SERNANP; ACCA</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Deforestation Monitoring &amp; Reporting</b></td><td>Ongoing forest and ecosystem status reporting</td><td>Ecuador</td><td>MAATE; FAO; CONGOPE; SIG</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Monitoring Forest Dynamics for Biodiversity</b></td><td>Habitat-dynamics tracking</td><td>Brazil</td><td>Imaflora; SIG</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>Fire/Drought Seasonal Forecasting</b></td><td>Drought-to-fire vulnerability forecasting</td><td>Colombia, Brazil</td><td>IDEAM; SEMA-Acre; CENSIPAM; NASA GSFC</td><td><span class="pill pill-open">Status unclear</span></td></tr>
+<tr><td><b>AgriSERV</b></td><td>Agricultural-intervention impact comparison</td><td>Not specified</td><td><span style="color:var(--ink-faint);">Not named</span></td><td><span class="pill pill-open">No longer active</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">6 operational · 8 active · 2 in development · 1 no longer active · 5 status unclear  ·  21 of 22 name a user institution</p>
+<h3 class="subhead">Central America <span style="font-family:var(--font-mono);font-size:13px;color:var(--ink-faint);font-weight:400;">— CATIE, Costa Rica · 6 services</span></h3>
+<p style="font-size:0.9rem;color:var(--ink-soft);max-width:80ch;">Established 2019. Evidence is genuinely thin: no service catalogue, no per-tool detail pages, and SERVIR's own Service Tracker does not offer Central America as a filterable region. Four items in evidence, two of them training rather than tools.</p>
+<div class="table-scroll" style="max-height:460px;overflow-y:auto;"><table>
+<thead><tr><th>Service</th><th>What it does</th><th>Countries</th><th>Named user institution</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>National Land Cover Map</b></td><td>Updated national land-cover map</td><td>Belize</td><td>Department of Forestry, Ministry of Sustainable Development and Climate Change</td><td><span class="pill pill-resolved">Operational</span></td></tr>
+<tr><td><b>HIWAT toolkit (Spanish deployment)</b></td><td>High-impact weather assessment toolkit</td><td>El Salvador</td><td>MARN</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Cerro Cantil Monitoring</b></td><td>Prototype protected-area viewer with FIRMS fire tracking</td><td>Guatemala</td><td>SERVIR Science Coordination Office</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>S-CAP</b></td><td>Forest-carbon and deforestation tracking</td><td>Costa Rica, Guatemala</td><td>NASA; USAID; UNFCCC</td><td><span class="pill pill-build">In development</span></td></tr>
+<tr><td><b>Air Quality Monitoring Training</b></td><td>Satellite air-quality training — capacity, not a tool</td><td>Guatemala</td><td>Ministerio de Ambiente</td><td><span class="pill pill-partner">Active</span></td></tr>
+<tr><td><b>Jóvenes Geoespaciales</b></td><td>Geospatial skills training — capacity, not a tool</td><td>El Salvador</td><td>Red Aeroespacial Centroamericana; Universidad Gerardo Barrios</td><td><span class="pill pill-partner">Active</span></td></tr>
+</tbody></table></div>
+<p style="font-size:0.85rem;color:var(--ink-faint);font-family:var(--font-mono);margin-top:8px;">1 operational · 3 active · 2 in development  ·  6 of 6 name a user institution</p>
+<h3 class="subhead">What this inventory changes in the plan</h3>
+<div class="card-grid">
+<div class="card"><span class="tag">Opportunity</span><h4>SWARM is the top reactivation target</h4><p>§06's Clock 3 use case for wetlands is retired — which makes it the cheapest available route into the NRM matrix's weakest column. Named user, documented method, existing code.</p></div>
+<div class="card"><span class="tag">Resolved</span><h4>Malawi CBFEWS is listed, not retired</h4><p>Verified against the live App Center 9 Sep 2026 — <code>/detail/57</code>, not among the 5 inactive entries. §04's operational citation stands. The earlier "Pending" reading was an artefact and is withdrawn.</p></div>
+<div class="card"><span class="tag">Reframe</span><h4>Stale sites, not stalled hubs</h4><p>Several hub sites read as wound-down. They are not. The gap between what the portfolio does and what it publishes is the actual finding here.</p></div>
+<div class="card"><span class="tag">Reframe</span><h4>Decision #18 is now inter-institutional</h4><p>Independently-led hubs under the Global Collaborative means override governance is an agreement between organisations, not an internal sign-off.</p></div>
+<div class="card"><span class="tag">Evidence</span><h4>The reuse case is stronger</h4><p>Flood forecasting alone appears in at least eleven separate services across four hubs — the clearest argument in the whole plan for wrapping once rather than per-hub.</p></div>
+<div class="card"><span class="tag">Evidence</span><h4>Central America is genuinely thin</h4><p>Four items, two of them training. Any platform scoping that assumes six equally-resourced hubs is wrong.</p></div>
+</div>
+<div class="note gold">
+<strong>The pattern that matters most for §07.</strong> Counting across hubs rather than within them: <b>streamflow and flood forecasting appears in at least eleven distinct services across four hubs</b> (three Streamflow Prediction Tools and two Flash Flood tools in HKH, four GEOGloWS/Tethys portals in Tropical South America, HYDRAFloods and the Historical Flood Analysis Tool in Southeast Asia, CREST and the regional streamflow service in E&amp;S Africa). <b>Land cover appears in at least ten.</b> <b>Drought and crop condition in at least eight.</b> These are not eleven different problems — they are one capability, re-implemented per hub because there was no shared layer to build it into. That is the §07 argument, and this inventory is the evidence for it.
+    </div>
+<div class="note">
+<strong>Method and confidence.</strong> Each hub's own catalogue was crawled directly and cross-checked against the SERVIR Global App Center (79 entries, n=1–82). Where a hub page was unreachable the row is marked status-unclear rather than guessed. Coverage is uneven by construction: SERVIR-HKH publishes a 42-item catalogue, Central America publishes none, and that asymmetry is a real finding rather than a gap in the search. Three caveats carried forward: ClimateSERV and Sub-Seasonal Forecasting both appear on hub pages whose content describes a different region (likely reused copy); SERVIR-HKH's claim that its services "remain active and fully operational" post-closure is the hub's own and is not independently verified here; and the App Center labels a hub for only about half its entries.
+    </div>
+</div>
+</section></main><div class="wrap"><div class="pager">
+<a href="08-decisions.html"><span class="lbl">← Previous</span>08 · Decisions Status Board &amp; Phased Roadmap</a>
+<a href="10-nasa.html" style="text-align:right;"><span class="lbl">Next →</span>10 · NASA Programme Assets Beyond SERVIR</a>
+</div></div>
+<footer><div class="wrap"><p>SERVIR Platform Ecosystem — Engineering Plan · Prepared by Claude with David, SIG-NAL</p><p style="color:var(--ink-faint);">Engineering draft for review — not a final build commitment. Reflects Master Architecture v1.7 and the GeoAI Strategy as of September 2026; both are living documents. Updated weekly by an automated capability sweep.</p></div></footer>
+</body>
+</html>
