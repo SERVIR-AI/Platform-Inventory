@@ -47,6 +47,14 @@ running the files through Jekyll.
 - [`brand/README.md`](brand/README.md) — SERVIR design-system rules applied to the site and where the
   logo (`assets/servir-logo.png`) came from.
 
+### Other formats
+
+- [`SERVIR-Engineering-Plan.pptx`](SERVIR-Engineering-Plan.pptx) — the plan as a 48-slide deck, generated
+  from the same corrected content as the site (v5.0). Headings use Roboto Condensed where available,
+  substituting on machines without it.
+- [`SERVIR-Engineering-Plan-doc.html`](SERVIR-Engineering-Plan-doc.html) — a Google Docs–importable export
+  of the plan, with the SERVIR masthead composited onto navy for light-background use.
+
 ## Maintenance
 
 Keeping this register current is a repo job, not a person's job. [`.github/workflows/inventory-sweep.yml`](.github/workflows/inventory-sweep.yml)

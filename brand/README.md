@@ -11,8 +11,8 @@ shipped asset, so the site and the platform UI carry the identical mark.
 
 It is **white on transparency** and therefore belongs on dark grounds only. The header band
 (`--servir-bar`, `#1c212a`) is dark in both themes, so it reads correctly in each. For any
-light-ground use, composite it onto the navy first — `brand/doc-masthead.png` in the build
-directory is exactly that, and is what the Google Doc export uses.
+light-ground use, composite it onto the navy first — `brand/doc-masthead.png` (shipped here) is
+exactly that, and is what the Google Doc export uses.
 
 Other treatments (Primary, Black, Grayscale, Reversed Color, Reversed Mono; Horizontal and
 Stacked) are available from the design file via
@@ -45,3 +45,10 @@ Body is **Inter** — the design file uses Roboto Condensed down to 13–14px, b
 long document and a condensed face is hard work at reading sizes, so Inter carries running
 text. Mono stays IBM Plex Mono; the brand file specifies no monospace face.
 Both load from Google Fonts, the one font host the page is allowed to reach.
+
+## What is in this folder
+
+| File | Use |
+|---|---|
+| `servir-logo.png` | The mark, white/mono on transparency, 393x54. Same file as `assets/servir-logo.png` — kept here so `build_pptx2.js` resolves from either location. |
+| `doc-masthead.png` | The mark composited on the identity navy, 1600x150. For light grounds: the Google Doc masthead, print, anything on white. |
