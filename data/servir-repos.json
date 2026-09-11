@@ -1192,21 +1192,21 @@
   "SERVIR-AI": [
     {
       "archived": false,
-      "description": "AI-assisted geospatial platform for environmental decision support (source-available, non-commercial)",
-      "language": "Python",
-      "license": "EPL-2.0",
-      "name": "global-platform",
-      "stars": 0,
-      "updated_at": "2026-09-09"
-    },
-    {
-      "archived": false,
       "description": "",
       "language": "HTML",
       "license": "",
       "name": "Platform-Inventory",
       "stars": 0,
-      "updated_at": "2026-09-09"
+      "updated_at": "2026-09-11"
+    },
+    {
+      "archived": false,
+      "description": "AI-assisted geospatial platform for environmental decision support (source-available, non-commercial)",
+      "language": "Python",
+      "license": "EPL-2.0",
+      "name": "global-platform",
+      "stars": 0,
+      "updated_at": "2026-09-10"
     }
   ],
   "SERVIR-Amazonia": [
@@ -2024,7 +2024,7 @@
       "license": "EPL-2.0",
       "name": "pyregence",
       "stars": 9,
-      "updated_at": "2026-09-08"
+      "updated_at": "2026-09-11"
     },
     {
       "archived": false,
@@ -2033,7 +2033,7 @@
       "license": "EPL-2.0",
       "name": "geosync",
       "stars": 0,
-      "updated_at": "2026-09-01"
+      "updated_at": "2026-09-10"
     },
     {
       "archived": false,
