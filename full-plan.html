@@ -6,91 +6,98 @@
 <title>Platform Ecosystem Engineering Plan</title>
 <style>
   :root{
-    --paper:#f2f5f3;
+    /* --- surfaces (SERVIR base ramp) --- */
+    --paper:#f1f4f7;
     --paper-raised:#ffffff;
-    --ink:#0f201b;
-    --ink-soft:#425650;
-    --ink-faint:#6d7f79;
-    --line:#d6ddd9;
-    --line-soft:#e6eae7;
-    --accent:#0e6d61;
-    --accent-strong:#0a5148;
-    --accent-soft:#e2efec;
-    --space:#0b3258;
-    --space-soft:#e5ecf3;
-    --gold:#a8721f;
-    --gold-soft:#f4e9d6;
-    --resolved:#2c7a52;
-    --resolved-soft:#e3f1e8;
-    --open:#a83f22;
-    --open-soft:#f6e6e0;
-    --status-partner:#2a6f93;
-    --status-partner-soft:#e2edf3;
-    --status-build:#8a5a12;
-    --status-build-soft:#f2e7d3;
-    --status-new:#8f3a4a;
-    --status-new-soft:#f4e2e6;
-    --shadow: 0 1px 2px rgba(15,32,27,.06), 0 8px 24px rgba(15,32,27,.06);
-    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ink:#1c212a;
+    --ink-soft:#4d5763;
+    --ink-faint:#6d6e71;          /* Servir_Gray */
+    --line:#e0e6ec;
+    --line-soft:#eef2f6;
+    /* --- brand: blue leads, green supports --- */
+    --accent:#2380b0;             /* Servir_Blue */
+    --accent-strong:#1a6389;
+    --accent-soft:#e7f1f8;
+    --space:#1c212a;              /* identity navy — headers/hero only */
+    --servir-bar:#1c212a;         /* platform header — dark in BOTH themes */
+    --space-soft:#e8edf3;
+    --gold:#91af3d;               /* Servir_Green — supporting accent */
+    --gold-soft:#eef4e0;
+    /* --- status scale: deliberately NOT brand blue/green --- */
+    --resolved:#1f6b52;
+    --resolved-soft:#e4efea;
+    --open:#9b2c2c;
+    --open-soft:#f7e8e8;
+    --status-partner:#485e88;     /* slate, not brand blue */
+    --status-partner-soft:#eaeef5;
+    --status-build:#8f5e06;
+    --status-build-soft:#f7ecd9;
+    --status-new:#7c5cbf;
+    --status-new-soft:#efeafa;
+    --shadow: 0 1px 2px rgba(28,33,42,.06), 0 8px 24px rgba(28,33,42,.07);
+    --font-display: 'Roboto Condensed', 'Arial Narrow', Arial, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#0c1613;
-      --paper-raised:#12211d;
-      --ink:#eaf1ee;
-      --ink-soft:#aebdb7;
-      --ink-faint:#7f938c;
-      --line:#25352f;
-      --line-soft:#1b2a25;
-      --accent:#4fc3b0;
-      --accent-strong:#7cd8c8;
-      --accent-soft:#123832;
+      --paper:#11151b;
+      --paper-raised:#171d25;
+      --ink:#eef2f5;
+      --ink-soft:#b3bcc6;
+      --ink-faint:#8b929b;
+      --line:#2a323c;
+      --line-soft:#20272f;
+      --accent:#57b0da;
+      --accent-strong:#8ccbe9;
+      --accent-soft:#12303f;
       --space:#a9c6e5;
-      --space-soft:#152b41;
-      --gold:#e0b263;
-      --gold-soft:#3a2c14;
-      --resolved:#6fcf9a;
-      --resolved-soft:#123322;
-      --open:#e58a6c;
-      --open-soft:#3a1f16;
-      --status-partner:#7fb9dd;
-      --status-partner-soft:#132938;
-      --status-build:#e0b263;
-      --status-build-soft:#332711;
-      --status-new:#e79aa8;
-      --status-new-soft:#391f26;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --servir-bar:#161b22;
+      --space-soft:#16222f;
+      --gold:#b6d466;
+      --gold-soft:#2a3316;
+      --resolved:#5fbf98;
+      --resolved-soft:#12301f;
+      --open:#e08585;
+      --open-soft:#361a1a;
+      --status-partner:#93a8cf;
+      --status-partner-soft:#1b2337;
+      --status-build:#d9a445;
+      --status-build-soft:#33270f;
+      --status-new:#b39ae6;
+      --status-new-soft:#241c3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#0c1613;
-    --paper-raised:#12211d;
-    --ink:#eaf1ee;
-    --ink-soft:#aebdb7;
-    --ink-faint:#7f938c;
-    --line:#25352f;
-    --line-soft:#1b2a25;
-    --accent:#4fc3b0;
-    --accent-strong:#7cd8c8;
-    --accent-soft:#123832;
-    --space:#a9c6e5;
-    --space-soft:#152b41;
-    --gold:#e0b263;
-    --gold-soft:#3a2c14;
-    --resolved:#6fcf9a;
-    --resolved-soft:#123322;
-    --open:#e58a6c;
-    --open-soft:#3a1f16;
-    --status-partner:#7fb9dd;
-    --status-partner-soft:#132938;
-    --status-build:#e0b263;
-    --status-build-soft:#332711;
-    --status-new:#e79aa8;
-    --status-new-soft:#391f26;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
-  }
+      --paper:#11151b;
+      --paper-raised:#171d25;
+      --ink:#eef2f5;
+      --ink-soft:#b3bcc6;
+      --ink-faint:#8b929b;
+      --line:#2a323c;
+      --line-soft:#20272f;
+      --accent:#57b0da;
+      --accent-strong:#8ccbe9;
+      --accent-soft:#12303f;
+      --space:#a9c6e5;
+      --servir-bar:#161b22;
+      --space-soft:#16222f;
+      --gold:#b6d466;
+      --gold-soft:#2a3316;
+      --resolved:#5fbf98;
+      --resolved-soft:#12301f;
+      --open:#e08585;
+      --open-soft:#361a1a;
+      --status-partner:#93a8cf;
+      --status-partner-soft:#1b2337;
+      --status-build:#d9a445;
+      --status-build-soft:#33270f;
+      --status-new:#b39ae6;
+      --status-new-soft:#241c3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+    }
+
 
   *{box-sizing:border-box;}
   body{
@@ -98,12 +105,42 @@
     font-family:var(--font-body); font-size:16px; line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; text-wrap:balance; color:var(--ink); margin:0;}
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; letter-spacing:-.005em; text-wrap:balance; color:var(--ink); margin:0;}
   p{margin:0 0 1em; max-width:70ch;}
   a{color:var(--accent-strong);}
   code, .mono{font-family:var(--font-mono);}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
   @media (max-width:720px){ .wrap{padding:0 18px;} }
+
+
+  /* ---------- SERVIR platform header (required on every page) ---------- */
+  .servir-header{
+    display:flex; align-items:center; gap:16px;
+    padding:10px 32px; background:var(--servir-bar); color:#eef2f5;
+    font-family:var(--font-body); font-size:13px; line-height:1.4;
+  }
+  .servir-header__logo{
+    height:30px; width:auto; display:block; flex:0 0 auto;
+  }
+  /* slot styling while the mark is pending — see brand/README */
+  .servir-header__logo--pending{
+    height:32px; min-width:104px; border:1px dashed rgba(238,242,245,.45);
+    border-radius:4px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:9px; letter-spacing:.1em;
+    color:rgba(238,242,245,.75);
+  }
+  .servir-header__rule{
+    width:1px; align-self:stretch; min-height:30px;
+    background:rgba(238,242,245,.28);
+  }
+  .servir-header__domain{
+    font-family:var(--font-display); font-weight:600; font-size:15px; letter-spacing:.01em;
+  }
+  .servir-header__scope{font-size:11.5px; opacity:.72; margin-top:1px;}
+  @media (max-width:720px){
+    .servir-header{padding:10px 18px; gap:12px;}
+    .servir-header__scope{display:none;}
+  }
 
   /* ---------- top nav ---------- */
   .topnav{
@@ -253,12 +290,12 @@
   .dg-line{stroke:var(--ink-faint); stroke-width:1.4; fill:none;}
   .dg-line-accent{stroke:var(--accent); stroke-width:1.6; fill:none;}
   .dg-dash{stroke:var(--ink-faint); stroke-width:1.2; fill:none; stroke-dasharray:4 4;}
-  .dg-title{font-family:'Public Sans',sans-serif; font-weight:600; fill:var(--ink); font-size:13.5px;}
-  .dg-label{font-family:'IBM Plex Mono',monospace; fill:var(--ink-faint); font-size:10px; letter-spacing:.03em;}
-  .dg-label-accent{font-family:'IBM Plex Mono',monospace; fill:var(--accent-strong); font-size:10.5px; letter-spacing:.04em;}
-  .dg-sub{font-family:'Public Sans',sans-serif; fill:var(--ink-soft); font-size:11.5px;}
+  .dg-title{font-family:var(--font-display); font-weight:600; fill:var(--ink); font-size:13.5px;}
+  .dg-label{font-family:var(--font-mono); fill:var(--ink-faint); font-size:10px; letter-spacing:.03em;}
+  .dg-label-accent{font-family:var(--font-mono); fill:var(--accent-strong); font-size:10.5px; letter-spacing:.04em;}
+  .dg-sub{font-family:var(--font-body); fill:var(--ink-soft); font-size:11.5px;}
   .dg-chip{fill:var(--paper); stroke:var(--line);}
-  .dg-chip-text{font-family:'IBM Plex Mono',monospace; fill:var(--ink-soft); font-size:9.5px;}
+  .dg-chip-text{font-family:var(--font-mono); fill:var(--ink-soft); font-size:9.5px;}
 
   /* ---------- build matrix (the drawn status grid) ---------- */
   .mx-wrap{
@@ -371,11 +408,20 @@
 <body>
 <div style="background:#0B3258;color:#fff;font:500 13px/1.4 'Public Sans',system-ui,sans-serif;padding:9px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;"><span style="opacity:.75;">Single-page view &mdash; the whole plan on one page, for search and printing.</span><a href="index.html" style="color:#fff;font-weight:600;text-decoration:underline;">&larr; Back to the section site</a></div>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<header class="servir-header">
+  <img class="servir-header__logo" src="assets/servir-logo.png" alt="SERVIR — Global Collaborative">
+  <div class="servir-header__rule" aria-hidden="true"></div>
+  <div>
+    <div class="servir-header__domain">Platform Ecosystem &mdash; Engineering Plan</div>
+    <div class="servir-header__scope">Global Risk &middot; Food Security &middot; Natural Resource Management</div>
+  </div>
+</header>
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-brand">SERVIR · Engineering Plan</span>
+    <span class="topnav-brand">Engineering Plan</span>
     <a href="#architecture">System</a>
     <a href="#gateway">Gateway</a>
     <a href="#geoai">GeoAI</a>
@@ -401,7 +447,7 @@
       <div class="meta-item"><span class="k">Prepared</span><span class="v">September 2, 2026 · Claude with David, SIG-NAL</span></div>
       <div class="meta-item"><span class="k">Source of record</span><span class="v">Master Architecture v1.7</span></div>
       <div class="meta-item"><span class="k">Status</span><span class="v">Engineering draft for review</span></div>
-      <div class="meta-item"><span class="k">Scope</span><span class="v">3 platforms · 1 gateway · 22 decisions · 230 repos · 123 services · 34 NASA assets</span></div>
+      <div class="meta-item"><span class="k">Scope</span><span class="v">3 platforms · 1 gateway · 22 decisions · 231 repos · 123 services · 34 NASA assets</span></div>
     </div>
     <div class="hub-strip">
       <span class="hub-chip">West Africa</span>
@@ -557,7 +603,7 @@
     </div>
 
     <h3 class="subhead">Migrating the scattered state into SERVIR-AI</h3>
-    <p>David named the org's actual GitHub footprint directly: <code>github.com/SERVIR-AI</code> is confirmed as &ldquo;the master one that everything will end up in and where people are building things&rdquo; (Decision #14). Four hub-level orgs hold the current, more scattered build activity — that inventory is now complete and carried in full below — 230 public repositories, each with a triage call (Decision #14's residual, closed).</p>
+    <p>David named the org's actual GitHub footprint directly: <code>github.com/SERVIR-AI</code> is confirmed as &ldquo;the master one that everything will end up in and where people are building things&rdquo; (Decision #14). Four hub-level orgs hold the current, more scattered build activity — that inventory is now complete and carried in full below — <b>231</b> public repositories, each with a triage call (Decision #14's residual, closed). The count moved from 230 on 9 September 2026 when <code class="mono">Platform-Inventory</code> itself was made public, taking SERVIR-AI from one repo to two — caught by the automated sweep, which is the intended behaviour. <b>The authoritative count is <code class="mono">data/servir-repos.json</code> in that repo, refreshed weekly; the figure quoted in this prose is a reading, not the record, and will drift between sweeps.</p>
     <div class="table-scroll">
       <table>
         <thead><tr><th>Org</th><th>Read as</th><th>Migration action</th></tr></thead>
@@ -628,7 +674,7 @@ auth: GRP_API_TOKEN bearer; LLM keys optional</div>
     <h3 class="subhead">The GitHub migration inventory</h3>
     <p>Decision #14 confirmed <code>github.com/SERVIR-AI</code> as the consolidation target and left the migration mapping as its residual — the first engineering task in the roadmap. That inventory is below: every public repository across the six organizations, with a triage call on each. It was compiled from the public GitHub organization listings on 2 September 2026; the REST API is unavailable from this environment, so the listings are the source, and private repositories do not appear.</p>
     <div class="stat-row">
-      <div class="stat"><div class="n">230</div><span class="k">public repos across 6 orgs</span></div>
+      <div class="stat"><div class="n">231</div><span class="k">public repos across 6 orgs <br><span style="text-transform:none;letter-spacing:0;">9 Sep 2026 sweep</span></span></div>
       <div class="stat"><div class="n">41</div><span class="k">Wrap as MCP</span></div>
       <div class="stat"><div class="n">15</div><span class="k">Migrate</span></div>
       <div class="stat"><div class="n">66</div><span class="k">Review</span></div>
@@ -636,7 +682,7 @@ auth: GRP_API_TOKEN bearer; LLM keys optional</div>
       <div class="stat"><div class="n">89</div><span class="k">Archive</span></div>
     </div>
     <div class="note gold">
-      <strong>The headline finding.</strong> Of 230 repositories, only <b>41 carry a platform capability worth wrapping as an MCP server</b>. The rest split into recent work that should move to SERVIR-AI as-is, capacity-building material that belongs in a training archive rather than a platform gateway, and a long tail of dormant single-purpose code. The migration is therefore much smaller than the repo count suggests — but the triage has to happen before Decision #9's first three agents start, because two of those three (Flood Risk, Land Cover &amp; Change) are wrapping code that lives in a hub org today.
+      <strong>The headline finding.</strong> Of 231 repositories, only <b>41 carry a platform capability worth wrapping as an MCP server</b>. The rest split into recent work that should move to SERVIR-AI as-is, capacity-building material that belongs in a training archive rather than a platform gateway, and a long tail of dormant single-purpose code. The migration is therefore much smaller than the repo count suggests — but the triage has to happen before Decision #9's first three agents start, because two of those three (Flood Risk, Land Cover &amp; Change) are wrapping code that lives in a hub org today.
     </div>
     <h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIR-AI</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 1 repos</span></h4>
     <p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">The confirmed consolidation target (Decision #14). One repo today — and it is the only repo of all 230 with an MCP endpoint.</p>
@@ -1159,7 +1205,7 @@ auth: GRP_API_TOKEN bearer; LLM keys optional</div>
         <!-- two clocks -->
         <rect class="dg-box-gold" x="20" y="378" width="500" height="74" rx="8"/>
         <text class="dg-title" x="40" y="402">Clock 1 — near-real-time engine</text>
-        <text class="dg-sub" x="40" y="422">Event-triggered. CLIMADA <tspan font-family="'IBM Plex Mono',monospace">Forecast</tspan> pattern.</text>
+        <text class="dg-sub" x="40" y="422">Event-triggered. CLIMADA <tspan font-family="var(--font-mono)">Forecast</tspan> pattern.</text>
         <text class="dg-sub" x="40" y="440">Answers: who is affected, right now.</text>
 
         <rect class="dg-box-gold" x="540" y="378" width="500" height="74" rx="8"/>
@@ -1519,22 +1565,22 @@ agent.gate     groundedness check before any number is published</div>
         <div class="mx-cell s-partner"><span class="lab">Partner</span>DSSAT soy — mature and widely calibrated</div>
 
         <div class="mx-rowhead">Cocoa<span>EUDR commodity</span></div>
-        <div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership / Google Earth AI — 10 m annual, pan-tropical</div>
+        <div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>cocoa_model_2026a</code> — 10 m pan-tropical <i>probability</i> surface (threshold it yourself), CC BY 4.0, built on Google's Satellite Embedding. Not yet peer-reviewed.</div>
         <div class="mx-cell s-na"><span class="lab">Different question</span>Tree crops are a compliance question, not a seasonal-yield question — see F6</div>
         <div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability shift in the West African cocoa belt — well-studied literature</div>
 
         <div class="mx-rowhead">Coffee<span>EUDR commodity</span></div>
-        <div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+        <div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>coffee_model_2026a</code> — same family: 10 m, CC BY 4.0, 2025a/2025b/2026a versions, backfill to 2017–2025 underway.</div>
         <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
         <div class="mx-cell s-partner"><span class="lab">Partner</span>Altitude-band suitability shift — the clearest climate signal of any commodity here</div>
 
         <div class="mx-rowhead">Rubber<span>EUDR commodity</span></div>
-        <div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+        <div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>rubber_model_2026a</code> — 10 m, CC BY 4.0. Plus <b>Forest Persistence v0</b> at 30 m as a companion layer.</div>
         <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
         <div class="mx-cell s-gap"><span class="lab">Gap</span>Little published suitability work to adopt</div>
 
         <div class="mx-rowhead">Palm oil<span>EUDR commodity</span></div>
-        <div class="mx-cell s-build"><span class="lab">New build</span>FDP covers cocoa/coffee/rubber — palm is the missing fourth</div>
+        <div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <b>palm</b> probability model — 10 m, <code>palm_model_2026a</code>. Earlier drafts called palm the missing fourth; it is not. Cocoa, coffee, palm and rubber are all published.</div>
         <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
         <div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability modelling exists in the deforestation-driver literature</div>
 
@@ -1739,6 +1785,32 @@ on outage or country exclusion
 </div>
     </div>
 
+    <div class="elem accent">
+      <h4><span class="eid">F7</span>Forest Data Partnership — consume the maps, or retrain the models</h4>
+      <p>Earlier drafts of this plan treated FDP as a <b>data feed</b>: pan-tropical commodity maps to pull in and
+      overlay. That understates it. FDP publishes the <b>trained models</b>, not only their outputs —
+      <code class="mono">google/forest-data-partnership</code> (MIT) carries downloadable TensorFlow models,
+      Earth Engine integration notebooks and a method paper (<code>arXiv:2405.09530</code>), and the maps
+      themselves are <b>CC BY 4.0</b>. Attribution is "Produced by Google for the Forest Data Partnership."</p>
+      <p><b>Why that matters here.</b> A published map is a fixed answer at a fixed threshold; a published model is
+      something a hub can fine-tune on its own reference data. §05's largest build item is regional crop-type
+      classifiers through <code>servir-aces</code> (Decision #20). For the four EUDR tree crops, that build may not
+      be necessary — the alternative is retraining an FDP model on hub reference plots, which is a materially
+      smaller task than training from scratch and inherits a pan-tropical baseline. <b>This should be tested
+      before Decision #20 prioritises tree crops for a from-scratch build.</b></p>
+      <p>The models are built on Google's <b>Satellite Embedding</b> (AlphaEarth Foundations), already named in
+      §03's foundation-model stack. FDP is therefore the plan's clearest example of that stack in production use
+      rather than in principle — worth reading as a template for how §03's other foundation models get applied.</p>
+      <p><b>The partnership opening, which is closer than it looks.</b> SERVIR is not listed as an FDP partner.
+      But FDP's published data contributors include the <b>Alliance of Bioversity International and CIAT</b> —
+      which is the lead institution of SERVIR's own <b>Tropical South America</b> hub (§07). The bridge already
+      exists at the institutional level. And the fit is two-way rather than a favour in one direction: FDP's
+      workstreams want validated regional reference data, which is precisely what SERVIR's hubs and Collect Earth
+      Online sample archives produce; SERVIR needs pan-tropical tree-crop coverage it would otherwise build.
+      One caveat to carry into any such conversation — FDP's own catalogue notes these datasets are
+      <b>not yet peer-reviewed</b>, so they are an operational input, not a citable ground truth.</p>
+    </div>
+
     <h3 class="subhead">Already built</h3>
     <div class="card-grid">
       <div class="card"><span class="tag">Prototype</span><h4>Starting Use Case pipeline</h4><p>Working, tested (Phases 1–2) LLM advisory pipeline against "Tell me about El Niño in [AOI]"; Phases 3–6 defined but not yet prompt-tested.</p></div>
@@ -1754,9 +1826,9 @@ on outage or country exclusion
         <tbody>
           <tr><td>Crop-type: rice, sorghum, millet, cassava, palm oil, soy</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>servir-aces</b> (internal, HKH) — working EE+TensorFlow toolkit, Bhutan rice precedent; needs regional training effort, not a new tool.</td></tr>
           <tr><td>Field-boundary layer</td><td><span class="pill pill-partner">Partner</span></td><td><b>Fields of the World</b> (Taylor Geospatial / Microsoft AI for Good) — open, CC BY-SA 4.0, ~3.17B polygons.</td></tr>
-          <tr><td>EUDR tree-crop coverage</td><td><span class="pill pill-partner">Partner</span></td><td><b>Google Earth AI / Forest Data Partnership</b> — open pan-tropical maps for cocoa/coffee/rubber.</td></tr>
+          <tr><td>EUDR tree-crop coverage</td><td><span class="pill pill-partner">Partner</span></td><td><b>Google Earth AI / Forest Data Partnership</b> — open pan-tropical maps for <b>cocoa, coffee, palm and rubber</b> (all four), CC BY 4.0, 10 m. The <b>trained models are downloadable</b> (<code class="mono">google/forest-data-partnership</code>, MIT), so these can be <i>retrained</i> on hub reference data rather than only consumed — see F7.</td></tr>
           <tr><td>Climate-adjusted crop calendars</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>DSSAT</b> or <b>PCSE/WOFOST</b> (both genuinely open) — APSIM Next-Gen is <b>not</b> redistributable.</td></tr>
-          <tr><td>EUDR compliance/due-diligence workflow</td><td><span class="pill pill-build">Partner + Adopt</span></td><td><b>Whisp</b> (Open Foris, MIT) for core risk-flagging; Satelligence/Nadar.earth/Agridence for full workflow features.</td></tr>
+          <tr><td>EUDR compliance/due-diligence workflow</td><td><span class="pill pill-build">Partner + Adopt</span></td><td><b>Whisp</b> — <code class="mono">forestdatapartnership/whisp</code>, MIT, on PyPI as <code class="mono">openforis-whisp</code> (Open Foris / FAO-associated, AIM4Forests). <b>Callable today:</b> live API at <code>whisp.openforis.org/api/docs</code> up to 5,000 geometries, plus a QGIS plugin and a TypeScript app. "Convergence of evidence" zonal stats producing <code>Risk_PCrop</code> / <code>Risk_ACrop</code> / <code>Risk_Timber</code>. Satelligence/Nadar.earth/Agridence for full workflow features.</td></tr>
           <tr><td>FEWS NET data access</td><td><span class="pill pill-partner">Partner</span></td><td><b>USAID / State Dept BHR</b> — formal attribution/data-sharing agreement required.</td></tr>
           <tr><td>Agricultural management practice</td><td><span class="pill pill-new">New build</span></td><td>No tool does all three: <b>OpenET</b> (irrigation) + <b>Sen4CAP</b> (SAR/soil-state) + <b>USGS LANID</b> methodology fused into a new model.</td></tr>
         </tbody>
@@ -2188,6 +2260,34 @@ on outage or country exclusion
       <p>A 2023 investigation (The Guardian, Die Zeit, SourceMaterial) found more than 90% of Verra's rainforest REDD+ offset credits likely did not represent genuine emissions reductions, largely due to inflated deforestation baselines. Verra disputed the findings but substantially overhauled its methodology afterwards, and its CEO resigned shortly after. That history is the direct reason for the boundary drawn in Fig. 7: the platform supplies rigorous MRV data into a contested downstream market, and does not issue, register or guarantee credits. The guardrail is architectural, not editorial — the MRV output path terminates at a report, and no agent in the system has a tool that mints a credit.</p>
     </div>
 
+    <div class="elem accent">
+      <h4><span class="eid">N7</span>The layer this plan does not have — intervention prioritisation</h4>
+      <p>Every capability specified across §04–06 answers a <b>monitoring</b> question: what is happening now,
+      what the annualised baseline is, how that baseline shifts under climate. That is the three-clock grammar,
+      and it is deliberate. But it stops one step short of the question a land manager actually arrives with —
+      <b>given a fixed budget, where do we intervene, and what do we get for it?</b> No element in this plan
+      answers that, and the omission is easy to miss because it is hidden in plain sight: three of the use cases
+      below already imply it. Where rangers patrol in Prey Lang. Which degraded mining sites in Ghana get
+      remediated first. Which stretches of Vietnamese coast get mangrove protection against shrimp aquaculture.
+      Each is the same constrained-optimisation problem, currently answered ad hoc, per use case, by hand.</p>
+      <p><b>The reference implementation already exists and is SIG's own.</b>
+      <code>github.com/OurPlanscape/Planscape</code> — a wildfire-resilience treatment planner built by SIG for
+      the US Forest Service, ~7,200 commits, Angular + Django + PostGIS, wrapping <b>ForSys</b> (Ager, Day and
+      Evers, USFS) for the optimisation itself alongside FVS, GridFire, TreeMap and PROMOTe. Its licence is
+      <b>CC0</b> — public domain, no attribution obligation, strictly more permissive than anything else in this
+      plan's dependency set.</p>
+      <p><b>And it carries the same constraint as <code>pyretechnics</code>, which is now a pattern rather than a
+      coincidence.</b> Planscape runs on California Regional Resource Kits — ten resilience pillars at 30 m,
+      California-only, with custom dataset upload still unbuilt. <code>pyretechnics</code> runs on LANDFIRE fuel
+      models, US-only. In both cases the <i>method</i> transfers and the <i>data pipeline</i> does not. SIG's fire
+      and land-treatment stack is portable in code and locked in data, and the recurring cost of adopting any of it
+      into SERVIR is the same line item every time: <b>build the regional input layer</b>. That is one procurement
+      question, not two, and it should be scoped as one.</p>
+      <p>What to do with this is a scoping decision, not an engineering one, so it is logged as Decision #23
+      rather than specified here. The architectural point stands regardless of that outcome: <b>if the platform
+      only ever tells governments what is happening, it stops exactly where their actual decision begins.</b></p>
+    </div>
+
     <h3 class="subhead">Already built</h3>
     <div class="card-grid">
       <div class="card"><span class="tag">Backbone</span><h4>RLCMS + CEO</h4><p>SERVIR's own land-cover product, plus Collect Earth Online for sample-based labeling and accuracy assessment. Repos: <code class="mono" style="font-size:0.85em;">SERVIR/RLCMS</code>, <code class="mono" style="font-size:0.85em;">Servir-Mekong/rlcms</code>.</p></div>
@@ -2462,6 +2562,7 @@ on outage or country exclusion
           <tr><td>19</td><td>EUDR application-date reconfirmation</td><td><span class="pill pill-open">Open</span></td><td>Not yet reconfirmed against official EU source.</td></tr>
           <tr><td>20</td><td>Crop-type coverage prioritization for servir-aces</td><td><span class="pill pill-open">Open</span></td><td>No prioritization made — largest build effort alongside #13.</td></tr>
           <tr><td>21</td><td>Chain-of-custody/traceability standard (logistics)</td><td><span class="pill pill-open">Open</span></td><td>No specialist conversation scoped yet.</td></tr>
+          <tr><td>23</td><td><b>Intervention-prioritisation layer</b> — adopt Planscape/ForSys, or leave optimisation to each use case (§06 N7)</td><td><span class="pill pill-new">New</span></td><td>Raised 10 Sep 2026. Planscape is CC0 and SIG-built, so adoption is unblocked technically. The cost is the regional input layer — the <i>same</i> cost as the non-US fuel-model layer in Decision #16. Scope them together.</td></tr>
           <tr><td>22</td><td>User-tiering for NRM Decision Support layer</td><td><span class="pill pill-open">Open</span></td><td>Still open internally per the PDD itself.</td></tr>
         </tbody>
       </table>
@@ -2840,7 +2941,8 @@ on outage or country exclusion
     <h3 class="subhead">Source documents</h3>
     <p><b>Internal (SERVIR shared Drive):</b> Global Risk PDD (v0.1); Food Security PDD Template, Starting Use Case, and Use Case Worksheet; Land Cover and Environmental Monitoring PDD (v0.1) and Prototype doc; SERVIR Global Platform Technical Integration Guide; SIG-NAL's SERVIR GeoAI Strategy (2026–2030); SERVIR Service Inventory, Jan 2026 (85+ services) and its linked GitHub-repo manifest.</p>
     <p><b>Code repository:</b> <code class="mono">github.com/SERVIR-AI/global-platform</code> — investigated directly (cloned, read source).</p>
-    <p><b>GitHub organizations</b> (named by David, all now inventoried in §02 — 230 public repos across six orgs, 2 September 2026): <code class="mono">github.com/SERVIR-AI</code> (confirmed consolidation target), <code class="mono">github.com/SERVIR-Amazonia</code>, <code class="mono">github.com/Servir-Mekong</code>, <code class="mono">github.com/SERVIRSEA</code>, <code class="mono">github.com/SERVIR</code>. Partner-tool org: <code class="mono">github.com/pyregence</code> (Pyregence/Pyrecast, wildfire — relevant to Decision #16).</p>
+    <p><b>GitHub organizations</b> (named by David, all now inventoried in §02 — 230 public repos across six orgs, 2 September 2026): <code class="mono">github.com/SERVIR-AI</code> (confirmed consolidation target), <code class="mono">github.com/SERVIR-Amazonia</code>, <code class="mono">github.com/Servir-Mekong</code>, <code class="mono">github.com/SERVIRSEA</code>, <code class="mono">github.com/SERVIR</code>. Forest Data Partnership (reviewed 10 September 2026, §05 F7): <a href="https://www.wri.org/initiatives/forest-data-partnership">wri.org</a> · <a href="https://www.fao.org/in-action/forest-data-partnership/en">fao.org</a> · <code class="mono">github.com/google/forest-data-partnership</code> (MIT, trained models) · <code class="mono">github.com/forestdatapartnership</code> (6 repos incl. Whisp, MIT) · Earth Engine catalogue <code class="mono">projects/forestdatapartnership/assets</code>.</p>
+    <p><b>Partner-tool orgs:</b> <code class="mono">github.com/pyregence</code> (Pyregence/Pyrecast and <code class="mono">pyretechnics</code>, wildfire behaviour — Decision #16, reviewed 4 September 2026) and <code class="mono">github.com/OurPlanscape</code> (Planscape — wildfire-resilience treatment planning, CC0, built by SIG for the US Forest Service; planscape.org; reviewed 10 September 2026, §06 N7 and Decision #23).</p>
     <p><b>Hub service catalogues</b> (crawled 3 September 2026, §09): servir.icimod.org · servir.adpc.net/tools · servir.icrisat.org · rcmrd.org and servirglobal.net/Regions/ESAfrica · servir.alliancebioversityciat.org · servir.catie.ac.cr · appcenter.servirglobal.net (n=1–82). 123 services across six hubs.</p>
     <p><b>Open-source landscape research:</b> OpenQuake, CLIMADA/climada_petals, IBF-system, TorchGeo, TerraTorch, PANGAEA-bench, Whisp, DSSAT, PCSE/WOFOST, AquaCrop-OS, Sen4CAP, OpenET, earthrise-media/mining-detector, MegaDetector, SMART, GBIF, Microsoft Planetary Computer biodiversity layers.</p>
     <p><b>Companion published documents:</b> Open-Source Gap-Fill Atlas · Decisions Log Action Plan (owners/target dates for the original nine residuals — not yet updated for the 13 additional residuals surfaced since).</p>

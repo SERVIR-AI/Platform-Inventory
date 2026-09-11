@@ -6,11 +6,19 @@
 <title>05 Food Security Platform — Engineering Detail — SERVIR Platform Inventory</title>
 <meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 </head>
 <body>
+<header class="servir-header">
+  <img class="servir-header__logo" src="assets/servir-logo.png" alt="SERVIR — Global Collaborative">
+  <div class="servir-header__rule" aria-hidden="true"></div>
+  <div>
+    <div class="servir-header__domain">Platform Ecosystem &mdash; Engineering Plan</div>
+    <div class="servir-header__scope">Global Risk &middot; Food Security &middot; Natural Resource Management</div>
+  </div>
+</header>
 <nav class="topnav"><div class="topnav-inner">
-<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<span class="topnav-brand">Platform Inventory</span>
 <a href="index.html">Overview</a>
 <a href="01-architecture.html">Build</a>
 <a href="02-gateway.html">Gateway</a>
@@ -61,19 +69,19 @@
 <div class="mx-cell s-partner"><span class="lab">Partner</span>USDA FAS PSD + NASA Harvest</div>
 <div class="mx-cell s-partner"><span class="lab">Partner</span>DSSAT soy — mature and widely calibrated</div>
 <div class="mx-rowhead">Cocoa<span>EUDR commodity</span></div>
-<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership / Google Earth AI — 10 m annual, pan-tropical</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>cocoa_model_2026a</code> — 10 m pan-tropical <i>probability</i> surface (threshold it yourself), CC BY 4.0, built on Google's Satellite Embedding. Not yet peer-reviewed.</div>
 <div class="mx-cell s-na"><span class="lab">Different question</span>Tree crops are a compliance question, not a seasonal-yield question — see F6</div>
 <div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability shift in the West African cocoa belt — well-studied literature</div>
 <div class="mx-rowhead">Coffee<span>EUDR commodity</span></div>
-<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>coffee_model_2026a</code> — same family: 10 m, CC BY 4.0, 2025a/2025b/2026a versions, backfill to 2017–2025 underway.</div>
 <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
 <div class="mx-cell s-partner"><span class="lab">Partner</span>Altitude-band suitability shift — the clearest climate signal of any commodity here</div>
 <div class="mx-rowhead">Rubber<span>EUDR commodity</span></div>
-<div class="mx-cell s-partner"><span class="lab">Partner</span>Forest Data Partnership pan-tropical map</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <code>rubber_model_2026a</code> — 10 m, CC BY 4.0. Plus <b>Forest Persistence v0</b> at 30 m as a companion layer.</div>
 <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
 <div class="mx-cell s-gap"><span class="lab">Gap</span>Little published suitability work to adopt</div>
 <div class="mx-rowhead">Palm oil<span>EUDR commodity</span></div>
-<div class="mx-cell s-build"><span class="lab">New build</span>FDP covers cocoa/coffee/rubber — palm is the missing fourth</div>
+<div class="mx-cell s-partner"><span class="lab">Partner</span>FDP <b>palm</b> probability model — 10 m, <code>palm_model_2026a</code>. Earlier drafts called palm the missing fourth; it is not. Cocoa, coffee, palm and rubber are all published.</div>
 <div class="mx-cell s-na"><span class="lab">Different question</span>Compliance, not seasonal yield — see F6</div>
 <div class="mx-cell s-partner"><span class="lab">Partner</span>Suitability modelling exists in the deforestation-driver literature</div>
 <div class="mx-rowhead">Rangeland forage<span>pastoral systems</span></div>
@@ -255,6 +263,31 @@ on outage or country exclusion
   → due-diligence statement, restricted channel, audit-logged
 </div>
 </div>
+<div class="elem accent">
+<h4><span class="eid">F7</span>Forest Data Partnership — consume the maps, or retrain the models</h4>
+<p>Earlier drafts of this plan treated FDP as a <b>data feed</b>: pan-tropical commodity maps to pull in and
+      overlay. That understates it. FDP publishes the <b>trained models</b>, not only their outputs —
+      <code class="mono">google/forest-data-partnership</code> (MIT) carries downloadable TensorFlow models,
+      Earth Engine integration notebooks and a method paper (<code>arXiv:2405.09530</code>), and the maps
+      themselves are <b>CC BY 4.0</b>. Attribution is "Produced by Google for the Forest Data Partnership."</p>
+<p><b>Why that matters here.</b> A published map is a fixed answer at a fixed threshold; a published model is
+      something a hub can fine-tune on its own reference data. §05's largest build item is regional crop-type
+      classifiers through <code>servir-aces</code> (Decision #20). For the four EUDR tree crops, that build may not
+      be necessary — the alternative is retraining an FDP model on hub reference plots, which is a materially
+      smaller task than training from scratch and inherits a pan-tropical baseline. <b>This should be tested
+      before Decision #20 prioritises tree crops for a from-scratch build.</b></p>
+<p>The models are built on Google's <b>Satellite Embedding</b> (AlphaEarth Foundations), already named in
+      §03's foundation-model stack. FDP is therefore the plan's clearest example of that stack in production use
+      rather than in principle — worth reading as a template for how §03's other foundation models get applied.</p>
+<p><b>The partnership opening, which is closer than it looks.</b> SERVIR is not listed as an FDP partner.
+      But FDP's published data contributors include the <b>Alliance of Bioversity International and CIAT</b> —
+      which is the lead institution of SERVIR's own <b>Tropical South America</b> hub (§07). The bridge already
+      exists at the institutional level. And the fit is two-way rather than a favour in one direction: FDP's
+      workstreams want validated regional reference data, which is precisely what SERVIR's hubs and Collect Earth
+      Online sample archives produce; SERVIR needs pan-tropical tree-crop coverage it would otherwise build.
+      One caveat to carry into any such conversation — FDP's own catalogue notes these datasets are
+      <b>not yet peer-reviewed</b>, so they are an operational input, not a citable ground truth.</p>
+</div>
 <h3 class="subhead">Already built</h3>
 <div class="card-grid">
 <div class="card"><span class="tag">Prototype</span><h4>Starting Use Case pipeline</h4><p>Working, tested (Phases 1–2) LLM advisory pipeline against "Tell me about El Niño in [AOI]"; Phases 3–6 defined but not yet prompt-tested.</p></div>
@@ -269,9 +302,9 @@ on outage or country exclusion
 <tbody>
 <tr><td>Crop-type: rice, sorghum, millet, cassava, palm oil, soy</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>servir-aces</b> (internal, HKH) — working EE+TensorFlow toolkit, Bhutan rice precedent; needs regional training effort, not a new tool.</td></tr>
 <tr><td>Field-boundary layer</td><td><span class="pill pill-partner">Partner</span></td><td><b>Fields of the World</b> (Taylor Geospatial / Microsoft AI for Good) — open, CC BY-SA 4.0, ~3.17B polygons.</td></tr>
-<tr><td>EUDR tree-crop coverage</td><td><span class="pill pill-partner">Partner</span></td><td><b>Google Earth AI / Forest Data Partnership</b> — open pan-tropical maps for cocoa/coffee/rubber.</td></tr>
+<tr><td>EUDR tree-crop coverage</td><td><span class="pill pill-partner">Partner</span></td><td><b>Google Earth AI / Forest Data Partnership</b> — open pan-tropical maps for <b>cocoa, coffee, palm and rubber</b> (all four), CC BY 4.0, 10 m. The <b>trained models are downloadable</b> (<code class="mono">google/forest-data-partnership</code>, MIT), so these can be <i>retrained</i> on hub reference data rather than only consumed — see F7.</td></tr>
 <tr><td>Climate-adjusted crop calendars</td><td><span class="pill pill-build">Partner + Build</span></td><td><b>DSSAT</b> or <b>PCSE/WOFOST</b> (both genuinely open) — APSIM Next-Gen is <b>not</b> redistributable.</td></tr>
-<tr><td>EUDR compliance/due-diligence workflow</td><td><span class="pill pill-build">Partner + Adopt</span></td><td><b>Whisp</b> (Open Foris, MIT) for core risk-flagging; Satelligence/Nadar.earth/Agridence for full workflow features.</td></tr>
+<tr><td>EUDR compliance/due-diligence workflow</td><td><span class="pill pill-build">Partner + Adopt</span></td><td><b>Whisp</b> — <code class="mono">forestdatapartnership/whisp</code>, MIT, on PyPI as <code class="mono">openforis-whisp</code> (Open Foris / FAO-associated, AIM4Forests). <b>Callable today:</b> live API at <code>whisp.openforis.org/api/docs</code> up to 5,000 geometries, plus a QGIS plugin and a TypeScript app. "Convergence of evidence" zonal stats producing <code>Risk_PCrop</code> / <code>Risk_ACrop</code> / <code>Risk_Timber</code>. Satelligence/Nadar.earth/Agridence for full workflow features.</td></tr>
 <tr><td>FEWS NET data access</td><td><span class="pill pill-partner">Partner</span></td><td><b>USAID / State Dept BHR</b> — formal attribution/data-sharing agreement required.</td></tr>
 <tr><td>Agricultural management practice</td><td><span class="pill pill-new">New build</span></td><td>No tool does all three: <b>OpenET</b> (irrigation) + <b>Sen4CAP</b> (SAR/soil-state) + <b>USGS LANID</b> methodology fused into a new model.</td></tr>
 </tbody>

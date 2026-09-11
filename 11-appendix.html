@@ -6,11 +6,19 @@
 <title>11 Appendix — SERVIR Platform Inventory</title>
 <meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 </head>
 <body>
+<header class="servir-header">
+  <img class="servir-header__logo" src="assets/servir-logo.png" alt="SERVIR — Global Collaborative">
+  <div class="servir-header__rule" aria-hidden="true"></div>
+  <div>
+    <div class="servir-header__domain">Platform Ecosystem &mdash; Engineering Plan</div>
+    <div class="servir-header__scope">Global Risk &middot; Food Security &middot; Natural Resource Management</div>
+  </div>
+</header>
 <nav class="topnav"><div class="topnav-inner">
-<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<span class="topnav-brand">Platform Inventory</span>
 <a href="index.html">Overview</a>
 <a href="01-architecture.html">Build</a>
 <a href="02-gateway.html">Gateway</a>
@@ -50,7 +58,8 @@
 <h3 class="subhead">Source documents</h3>
 <p><b>Internal (SERVIR shared Drive):</b> Global Risk PDD (v0.1); Food Security PDD Template, Starting Use Case, and Use Case Worksheet; Land Cover and Environmental Monitoring PDD (v0.1) and Prototype doc; SERVIR Global Platform Technical Integration Guide; SIG-NAL's SERVIR GeoAI Strategy (2026–2030); SERVIR Service Inventory, Jan 2026 (85+ services) and its linked GitHub-repo manifest.</p>
 <p><b>Code repository:</b> <code class="mono">github.com/SERVIR-AI/global-platform</code> — investigated directly (cloned, read source).</p>
-<p><b>GitHub organizations</b> (named by David, all now inventoried in §02 — 230 public repos across six orgs, 2 September 2026): <code class="mono">github.com/SERVIR-AI</code> (confirmed consolidation target), <code class="mono">github.com/SERVIR-Amazonia</code>, <code class="mono">github.com/Servir-Mekong</code>, <code class="mono">github.com/SERVIRSEA</code>, <code class="mono">github.com/SERVIR</code>. Partner-tool org: <code class="mono">github.com/pyregence</code> (Pyregence/Pyrecast, wildfire — relevant to Decision #16).</p>
+<p><b>GitHub organizations</b> (named by David, all now inventoried in §02 — 230 public repos across six orgs, 2 September 2026): <code class="mono">github.com/SERVIR-AI</code> (confirmed consolidation target), <code class="mono">github.com/SERVIR-Amazonia</code>, <code class="mono">github.com/Servir-Mekong</code>, <code class="mono">github.com/SERVIRSEA</code>, <code class="mono">github.com/SERVIR</code>. Forest Data Partnership (reviewed 10 September 2026, §05 F7): <a href="https://www.wri.org/initiatives/forest-data-partnership">wri.org</a> · <a href="https://www.fao.org/in-action/forest-data-partnership/en">fao.org</a> · <code class="mono">github.com/google/forest-data-partnership</code> (MIT, trained models) · <code class="mono">github.com/forestdatapartnership</code> (6 repos incl. Whisp, MIT) · Earth Engine catalogue <code class="mono">projects/forestdatapartnership/assets</code>.</p>
+<p><b>Partner-tool orgs:</b> <code class="mono">github.com/pyregence</code> (Pyregence/Pyrecast and <code class="mono">pyretechnics</code>, wildfire behaviour — Decision #16, reviewed 4 September 2026) and <code class="mono">github.com/OurPlanscape</code> (Planscape — wildfire-resilience treatment planning, CC0, built by SIG for the US Forest Service; planscape.org; reviewed 10 September 2026, §06 N7 and Decision #23).</p>
 <p><b>Hub service catalogues</b> (crawled 3 September 2026, §09): servir.icimod.org · servir.adpc.net/tools · servir.icrisat.org · rcmrd.org and servirglobal.net/Regions/ESAfrica · servir.alliancebioversityciat.org · servir.catie.ac.cr · appcenter.servirglobal.net (n=1–82). 123 services across six hubs.</p>
 <p><b>Open-source landscape research:</b> OpenQuake, CLIMADA/climada_petals, IBF-system, TorchGeo, TerraTorch, PANGAEA-bench, Whisp, DSSAT, PCSE/WOFOST, AquaCrop-OS, Sen4CAP, OpenET, earthrise-media/mining-detector, MegaDetector, SMART, GBIF, Microsoft Planetary Computer biodiversity layers.</p>
 <p><b>Companion published documents:</b> Open-Source Gap-Fill Atlas · Decisions Log Action Plan (owners/target dates for the original nine residuals — not yet updated for the 13 additional residuals surfaced since).</p>

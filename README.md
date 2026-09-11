@@ -40,6 +40,12 @@ running the files through Jekyll.
 - [`OPEN_DATA_SOURCES.md`](OPEN_DATA_SOURCES.md) — verified reference of open datasets and microservices
   the Gateway could integrate with: world population, building/settlement footprints, crop data, field
   boundaries, and adjacent open EO/hazard APIs — each with access method, license, and integration notes.
+- [`planscape-review.md`](planscape-review.md) — 10 Sept 2026 check of Planscape, Collect Earth Online and
+  Forest Data Partnership against the plan; Planscape was the gap, now §06 N7 and Decision #23.
+- [`fdp-review.md`](fdp-review.md) — 10 Sept 2026 correction: FDP is a code/model ecosystem, not a map
+  feed; palm oil moves from New build to Partner (`palm_model_2026a`), Whisp attribution fixed (§05 F7).
+- [`brand/README.md`](brand/README.md) — SERVIR design-system rules applied to the site and where the
+  logo (`assets/servir-logo.png`) came from.
 
 ## Maintenance
 

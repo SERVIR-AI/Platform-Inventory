@@ -6,11 +6,19 @@
 <title>02 Gateway &amp; Integration Architecture — SERVIR Platform Inventory</title>
 <meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 </head>
 <body>
+<header class="servir-header">
+  <img class="servir-header__logo" src="assets/servir-logo.png" alt="SERVIR — Global Collaborative">
+  <div class="servir-header__rule" aria-hidden="true"></div>
+  <div>
+    <div class="servir-header__domain">Platform Ecosystem &mdash; Engineering Plan</div>
+    <div class="servir-header__scope">Global Risk &middot; Food Security &middot; Natural Resource Management</div>
+  </div>
+</header>
 <nav class="topnav"><div class="topnav-inner">
-<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<span class="topnav-brand">Platform Inventory</span>
 <a href="index.html">Overview</a>
 <a href="01-architecture.html">Build</a>
 <a href="02-gateway.html" class="active">Gateway</a>
@@ -56,7 +64,7 @@
 <strong>Blocking dependency (Decision #12).</strong> David is reaching out to <code>SERVIR-AI/global-platform</code>'s three active maintainers directly — not yet done as of this plan. No agent build in §04–06 should start before that conversation happens, to avoid duplicating a Global Risk / Food Security MCP server that already exists.
     </div>
 <h3 class="subhead">Migrating the scattered state into SERVIR-AI</h3>
-<p>David named the org's actual GitHub footprint directly: <code>github.com/SERVIR-AI</code> is confirmed as “the master one that everything will end up in and where people are building things” (Decision #14). Four hub-level orgs hold the current, more scattered build activity — that inventory is now complete and carried in full below — 230 public repositories, each with a triage call (Decision #14's residual, closed).</p>
+<p>David named the org's actual GitHub footprint directly: <code>github.com/SERVIR-AI</code> is confirmed as “the master one that everything will end up in and where people are building things” (Decision #14). Four hub-level orgs hold the current, more scattered build activity — that inventory is now complete and carried in full below — <b>231</b> public repositories, each with a triage call (Decision #14's residual, closed). The count moved from 230 on 9 September 2026 when <code class="mono">Platform-Inventory</code> itself was made public, taking SERVIR-AI from one repo to two — caught by the automated sweep, which is the intended behaviour. <b>The authoritative count is <code class="mono">data/servir-repos.json</code> in that repo, refreshed weekly; the figure quoted in this prose is a reading, not the record, and will drift between sweeps.</b></p>
 <div class="table-scroll">
 <table>
 <thead><tr><th>Org</th><th>Read as</th><th>Migration action</th></tr></thead>
@@ -123,7 +131,7 @@ auth: GRP_API_TOKEN bearer; LLM keys optional</div>
 <h3 class="subhead">The GitHub migration inventory</h3>
 <p>Decision #14 confirmed <code>github.com/SERVIR-AI</code> as the consolidation target and left the migration mapping as its residual — the first engineering task in the roadmap. That inventory is below: every public repository across the six organizations, with a triage call on each. It was compiled from the public GitHub organization listings on 2 September 2026; the REST API is unavailable from this environment, so the listings are the source, and private repositories do not appear.</p>
 <div class="stat-row">
-<div class="stat"><div class="n">230</div><span class="k">public repos across 6 orgs</span></div>
+<div class="stat"><div class="n">231</div><span class="k">public repos across 6 orgs <br/><span style="text-transform:none;letter-spacing:0;">9 Sep 2026 sweep</span></span></div>
 <div class="stat"><div class="n">41</div><span class="k">Wrap as MCP</span></div>
 <div class="stat"><div class="n">15</div><span class="k">Migrate</span></div>
 <div class="stat"><div class="n">66</div><span class="k">Review</span></div>
@@ -131,7 +139,7 @@ auth: GRP_API_TOKEN bearer; LLM keys optional</div>
 <div class="stat"><div class="n">89</div><span class="k">Archive</span></div>
 </div>
 <div class="note gold">
-<strong>The headline finding.</strong> Of 230 repositories, only <b>41 carry a platform capability worth wrapping as an MCP server</b>. The rest split into recent work that should move to SERVIR-AI as-is, capacity-building material that belongs in a training archive rather than a platform gateway, and a long tail of dormant single-purpose code. The migration is therefore much smaller than the repo count suggests — but the triage has to happen before Decision #9's first three agents start, because two of those three (Flood Risk, Land Cover &amp; Change) are wrapping code that lives in a hub org today.
+<strong>The headline finding.</strong> Of 231 repositories, only <b>41 carry a platform capability worth wrapping as an MCP server</b>. The rest split into recent work that should move to SERVIR-AI as-is, capacity-building material that belongs in a training archive rather than a platform gateway, and a long tail of dormant single-purpose code. The migration is therefore much smaller than the repo count suggests — but the triage has to happen before Decision #9's first three agents start, because two of those three (Flood Risk, Land Cover &amp; Change) are wrapping code that lives in a hub org today.
     </div>
 <h4 style="font-family:var(--font-display);font-size:17px;margin:34px 0 6px;"><code class="mono">github.com/SERVIR-AI</code> <span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);font-weight:400;">— 1 repos</span></h4>
 <p style="font-size:0.9rem;color:var(--ink-soft);max-width:78ch;">The confirmed consolidation target (Decision #14). One repo today — and it is the only repo of all 230 with an MCP endpoint.</p>

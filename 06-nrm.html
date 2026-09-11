@@ -6,11 +6,19 @@
 <title>06 Natural Resource Management Platform — Engineering Detail — SERVIR Platform Inventory</title>
 <meta name="description" content="SERVIR Platform Ecosystem — engineering plan, hub service inventory and capability register.">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 </head>
 <body>
+<header class="servir-header">
+  <img class="servir-header__logo" src="assets/servir-logo.png" alt="SERVIR — Global Collaborative">
+  <div class="servir-header__rule" aria-hidden="true"></div>
+  <div>
+    <div class="servir-header__domain">Platform Ecosystem &mdash; Engineering Plan</div>
+    <div class="servir-header__scope">Global Risk &middot; Food Security &middot; Natural Resource Management</div>
+  </div>
+</header>
 <nav class="topnav"><div class="topnav-inner">
-<span class="topnav-brand">SERVIR · Platform Inventory</span>
+<span class="topnav-brand">Platform Inventory</span>
 <a href="index.html">Overview</a>
 <a href="01-architecture.html">Build</a>
 <a href="02-gateway.html">Gateway</a>
@@ -251,6 +259,33 @@
 <div class="elem accent">
 <h4><span class="eid">N6</span> The credibility guardrail</h4>
 <p>A 2023 investigation (The Guardian, Die Zeit, SourceMaterial) found more than 90% of Verra's rainforest REDD+ offset credits likely did not represent genuine emissions reductions, largely due to inflated deforestation baselines. Verra disputed the findings but substantially overhauled its methodology afterwards, and its CEO resigned shortly after. That history is the direct reason for the boundary drawn in Fig. 7: the platform supplies rigorous MRV data into a contested downstream market, and does not issue, register or guarantee credits. The guardrail is architectural, not editorial — the MRV output path terminates at a report, and no agent in the system has a tool that mints a credit.</p>
+</div>
+<div class="elem accent">
+<h4><span class="eid">N7</span>The layer this plan does not have — intervention prioritisation</h4>
+<p>Every capability specified across §04–06 answers a <b>monitoring</b> question: what is happening now,
+      what the annualised baseline is, how that baseline shifts under climate. That is the three-clock grammar,
+      and it is deliberate. But it stops one step short of the question a land manager actually arrives with —
+      <b>given a fixed budget, where do we intervene, and what do we get for it?</b> No element in this plan
+      answers that, and the omission is easy to miss because it is hidden in plain sight: three of the use cases
+      below already imply it. Where rangers patrol in Prey Lang. Which degraded mining sites in Ghana get
+      remediated first. Which stretches of Vietnamese coast get mangrove protection against shrimp aquaculture.
+      Each is the same constrained-optimisation problem, currently answered ad hoc, per use case, by hand.</p>
+<p><b>The reference implementation already exists and is SIG's own.</b>
+<code>github.com/OurPlanscape/Planscape</code> — a wildfire-resilience treatment planner built by SIG for
+      the US Forest Service, ~7,200 commits, Angular + Django + PostGIS, wrapping <b>ForSys</b> (Ager, Day and
+      Evers, USFS) for the optimisation itself alongside FVS, GridFire, TreeMap and PROMOTe. Its licence is
+      <b>CC0</b> — public domain, no attribution obligation, strictly more permissive than anything else in this
+      plan's dependency set.</p>
+<p><b>And it carries the same constraint as <code>pyretechnics</code>, which is now a pattern rather than a
+      coincidence.</b> Planscape runs on California Regional Resource Kits — ten resilience pillars at 30 m,
+      California-only, with custom dataset upload still unbuilt. <code>pyretechnics</code> runs on LANDFIRE fuel
+      models, US-only. In both cases the <i>method</i> transfers and the <i>data pipeline</i> does not. SIG's fire
+      and land-treatment stack is portable in code and locked in data, and the recurring cost of adopting any of it
+      into SERVIR is the same line item every time: <b>build the regional input layer</b>. That is one procurement
+      question, not two, and it should be scoped as one.</p>
+<p>What to do with this is a scoping decision, not an engineering one, so it is logged as Decision #23
+      rather than specified here. The architectural point stands regardless of that outcome: <b>if the platform
+      only ever tells governments what is happening, it stops exactly where their actual decision begins.</b></p>
 </div>
 <h3 class="subhead">Already built</h3>
 <div class="card-grid">

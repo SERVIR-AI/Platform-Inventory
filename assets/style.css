@@ -1,90 +1,97 @@
 
   :root{
-    --paper:#f2f5f3;
+    /* --- surfaces (SERVIR base ramp) --- */
+    --paper:#f1f4f7;
     --paper-raised:#ffffff;
-    --ink:#0f201b;
-    --ink-soft:#425650;
-    --ink-faint:#6d7f79;
-    --line:#d6ddd9;
-    --line-soft:#e6eae7;
-    --accent:#0e6d61;
-    --accent-strong:#0a5148;
-    --accent-soft:#e2efec;
-    --space:#0b3258;
-    --space-soft:#e5ecf3;
-    --gold:#a8721f;
-    --gold-soft:#f4e9d6;
-    --resolved:#2c7a52;
-    --resolved-soft:#e3f1e8;
-    --open:#a83f22;
-    --open-soft:#f6e6e0;
-    --status-partner:#2a6f93;
-    --status-partner-soft:#e2edf3;
-    --status-build:#8a5a12;
-    --status-build-soft:#f2e7d3;
-    --status-new:#8f3a4a;
-    --status-new-soft:#f4e2e6;
-    --shadow: 0 1px 2px rgba(15,32,27,.06), 0 8px 24px rgba(15,32,27,.06);
-    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ink:#1c212a;
+    --ink-soft:#4d5763;
+    --ink-faint:#6d6e71;          /* Servir_Gray */
+    --line:#e0e6ec;
+    --line-soft:#eef2f6;
+    /* --- brand: blue leads, green supports --- */
+    --accent:#2380b0;             /* Servir_Blue */
+    --accent-strong:#1a6389;
+    --accent-soft:#e7f1f8;
+    --space:#1c212a;              /* identity navy — headers/hero only */
+    --servir-bar:#1c212a;         /* platform header — dark in BOTH themes */
+    --space-soft:#e8edf3;
+    --gold:#91af3d;               /* Servir_Green — supporting accent */
+    --gold-soft:#eef4e0;
+    /* --- status scale: deliberately NOT brand blue/green --- */
+    --resolved:#1f6b52;
+    --resolved-soft:#e4efea;
+    --open:#9b2c2c;
+    --open-soft:#f7e8e8;
+    --status-partner:#485e88;     /* slate, not brand blue */
+    --status-partner-soft:#eaeef5;
+    --status-build:#8f5e06;
+    --status-build-soft:#f7ecd9;
+    --status-new:#7c5cbf;
+    --status-new-soft:#efeafa;
+    --shadow: 0 1px 2px rgba(28,33,42,.06), 0 8px 24px rgba(28,33,42,.07);
+    --font-display: 'Roboto Condensed', 'Arial Narrow', Arial, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#0c1613;
-      --paper-raised:#12211d;
-      --ink:#eaf1ee;
-      --ink-soft:#aebdb7;
-      --ink-faint:#7f938c;
-      --line:#25352f;
-      --line-soft:#1b2a25;
-      --accent:#4fc3b0;
-      --accent-strong:#7cd8c8;
-      --accent-soft:#123832;
+      --paper:#11151b;
+      --paper-raised:#171d25;
+      --ink:#eef2f5;
+      --ink-soft:#b3bcc6;
+      --ink-faint:#8b929b;
+      --line:#2a323c;
+      --line-soft:#20272f;
+      --accent:#57b0da;
+      --accent-strong:#8ccbe9;
+      --accent-soft:#12303f;
       --space:#a9c6e5;
-      --space-soft:#152b41;
-      --gold:#e0b263;
-      --gold-soft:#3a2c14;
-      --resolved:#6fcf9a;
-      --resolved-soft:#123322;
-      --open:#e58a6c;
-      --open-soft:#3a1f16;
-      --status-partner:#7fb9dd;
-      --status-partner-soft:#132938;
-      --status-build:#e0b263;
-      --status-build-soft:#332711;
-      --status-new:#e79aa8;
-      --status-new-soft:#391f26;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --servir-bar:#161b22;
+      --space-soft:#16222f;
+      --gold:#b6d466;
+      --gold-soft:#2a3316;
+      --resolved:#5fbf98;
+      --resolved-soft:#12301f;
+      --open:#e08585;
+      --open-soft:#361a1a;
+      --status-partner:#93a8cf;
+      --status-partner-soft:#1b2337;
+      --status-build:#d9a445;
+      --status-build-soft:#33270f;
+      --status-new:#b39ae6;
+      --status-new-soft:#241c3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#0c1613;
-    --paper-raised:#12211d;
-    --ink:#eaf1ee;
-    --ink-soft:#aebdb7;
-    --ink-faint:#7f938c;
-    --line:#25352f;
-    --line-soft:#1b2a25;
-    --accent:#4fc3b0;
-    --accent-strong:#7cd8c8;
-    --accent-soft:#123832;
-    --space:#a9c6e5;
-    --space-soft:#152b41;
-    --gold:#e0b263;
-    --gold-soft:#3a2c14;
-    --resolved:#6fcf9a;
-    --resolved-soft:#123322;
-    --open:#e58a6c;
-    --open-soft:#3a1f16;
-    --status-partner:#7fb9dd;
-    --status-partner-soft:#132938;
-    --status-build:#e0b263;
-    --status-build-soft:#332711;
-    --status-new:#e79aa8;
-    --status-new-soft:#391f26;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
-  }
+      --paper:#11151b;
+      --paper-raised:#171d25;
+      --ink:#eef2f5;
+      --ink-soft:#b3bcc6;
+      --ink-faint:#8b929b;
+      --line:#2a323c;
+      --line-soft:#20272f;
+      --accent:#57b0da;
+      --accent-strong:#8ccbe9;
+      --accent-soft:#12303f;
+      --space:#a9c6e5;
+      --servir-bar:#161b22;
+      --space-soft:#16222f;
+      --gold:#b6d466;
+      --gold-soft:#2a3316;
+      --resolved:#5fbf98;
+      --resolved-soft:#12301f;
+      --open:#e08585;
+      --open-soft:#361a1a;
+      --status-partner:#93a8cf;
+      --status-partner-soft:#1b2337;
+      --status-build:#d9a445;
+      --status-build-soft:#33270f;
+      --status-new:#b39ae6;
+      --status-new-soft:#241c3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+    }
+
 
   *{box-sizing:border-box;}
   body{
@@ -92,12 +99,42 @@
     font-family:var(--font-body); font-size:16px; line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; text-wrap:balance; color:var(--ink); margin:0;}
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; letter-spacing:-.005em; text-wrap:balance; color:var(--ink); margin:0;}
   p{margin:0 0 1em; max-width:70ch;}
   a{color:var(--accent-strong);}
   code, .mono{font-family:var(--font-mono);}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
   @media (max-width:720px){ .wrap{padding:0 18px;} }
+
+
+  /* ---------- SERVIR platform header (required on every page) ---------- */
+  .servir-header{
+    display:flex; align-items:center; gap:16px;
+    padding:10px 32px; background:var(--servir-bar); color:#eef2f5;
+    font-family:var(--font-body); font-size:13px; line-height:1.4;
+  }
+  .servir-header__logo{
+    height:30px; width:auto; display:block; flex:0 0 auto;
+  }
+  /* slot styling while the mark is pending — see brand/README */
+  .servir-header__logo--pending{
+    height:32px; min-width:104px; border:1px dashed rgba(238,242,245,.45);
+    border-radius:4px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:9px; letter-spacing:.1em;
+    color:rgba(238,242,245,.75);
+  }
+  .servir-header__rule{
+    width:1px; align-self:stretch; min-height:30px;
+    background:rgba(238,242,245,.28);
+  }
+  .servir-header__domain{
+    font-family:var(--font-display); font-weight:600; font-size:15px; letter-spacing:.01em;
+  }
+  .servir-header__scope{font-size:11.5px; opacity:.72; margin-top:1px;}
+  @media (max-width:720px){
+    .servir-header{padding:10px 18px; gap:12px;}
+    .servir-header__scope{display:none;}
+  }
 
   /* ---------- top nav ---------- */
   .topnav{
@@ -247,12 +284,12 @@
   .dg-line{stroke:var(--ink-faint); stroke-width:1.4; fill:none;}
   .dg-line-accent{stroke:var(--accent); stroke-width:1.6; fill:none;}
   .dg-dash{stroke:var(--ink-faint); stroke-width:1.2; fill:none; stroke-dasharray:4 4;}
-  .dg-title{font-family:'Public Sans',sans-serif; font-weight:600; fill:var(--ink); font-size:13.5px;}
-  .dg-label{font-family:'IBM Plex Mono',monospace; fill:var(--ink-faint); font-size:10px; letter-spacing:.03em;}
-  .dg-label-accent{font-family:'IBM Plex Mono',monospace; fill:var(--accent-strong); font-size:10.5px; letter-spacing:.04em;}
-  .dg-sub{font-family:'Public Sans',sans-serif; fill:var(--ink-soft); font-size:11.5px;}
+  .dg-title{font-family:var(--font-display); font-weight:600; fill:var(--ink); font-size:13.5px;}
+  .dg-label{font-family:var(--font-mono); fill:var(--ink-faint); font-size:10px; letter-spacing:.03em;}
+  .dg-label-accent{font-family:var(--font-mono); fill:var(--accent-strong); font-size:10.5px; letter-spacing:.04em;}
+  .dg-sub{font-family:var(--font-body); fill:var(--ink-soft); font-size:11.5px;}
   .dg-chip{fill:var(--paper); stroke:var(--line);}
-  .dg-chip-text{font-family:'IBM Plex Mono',monospace; fill:var(--ink-soft); font-size:9.5px;}
+  .dg-chip-text{font-family:var(--font-mono); fill:var(--ink-soft); font-size:9.5px;}
 
   /* ---------- build matrix (the drawn status grid) ---------- */
   .mx-wrap{
