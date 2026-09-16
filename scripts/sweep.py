@@ -4,7 +4,7 @@
 Two things go stale fastest and are purely factual, so they are the two things
 worth automating:
 
-  1. The SERVIR GitHub org repository inventory (six orgs).
+  1. The SERVIR GitHub org repository inventory (seven orgs, including the pyregence and geoglows partner-tool orgs).
   2. The SERVIR Global App Center, which is the only source that carries an
      explicit status badge per service.
 
@@ -19,7 +19,7 @@ Stdlib only. No requirements file.
 import html, json, os, re, sys, time, urllib.request, urllib.error
 from datetime import datetime, timezone
 
-ORGS = ["SERVIR-AI", "SERVIR", "Servir-Mekong", "SERVIR-Amazonia", "SERVIRSEA", "pyregence"]
+ORGS = ["SERVIR-AI", "SERVIR", "Servir-Mekong", "SERVIR-Amazonia", "SERVIRSEA", "pyregence", "geoglows"]
 DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 UA = "SERVIR-Platform-Inventory-sweep/1.0 (+https://github.com/SERVIR-AI/Platform-Inventory)"
 
