@@ -56,7 +56,7 @@ Install: unzip into the repo (root or `/docs`), push, then
 `.github/workflows/inventory-sweep.yml`, Mondays 14:00 UTC plus `workflow_dispatch`. Runs
 `scripts/sweep.py`, which refreshes the two purely-factual things that go stale fastest:
 
-1. SERVIR org repository inventory, all six orgs → `data/servir-repos.json`
+1. SERVIR org repository inventory, all seven orgs → `data/servir-repos.json`
    *(the org API endpoints blocked from a sandbox work fine inside Actions with the built-in token)*
 2. SERVIR Global App Center detail pages → `data/appcenter.json`
    *(the only source publishing an explicit status badge per service)*

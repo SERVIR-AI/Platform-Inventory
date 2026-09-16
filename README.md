@@ -14,7 +14,7 @@ on a specific claude.ai conversation.
 |---|---|
 | [`index.html`](index.html) | Overview and contents |
 | [`01-architecture.html`](01-architecture.html) | How to build this — the shared build order |
-| [`02-gateway.html`](02-gateway.html) | Gateway & integration architecture · 230-repo triage |
+| [`02-gateway.html`](02-gateway.html) | Gateway & integration architecture · 259-repo triage |
 | [`03-geoai.html`](03-geoai.html) | GeoAI strategy alignment |
 | [`04-global-risk.html`](04-global-risk.html) | Global Risk (RiskMap) — 12 perils × 3 clocks |
 | [`05-food-security.html`](05-food-security.html) | Food Security (AgriNexus) |
