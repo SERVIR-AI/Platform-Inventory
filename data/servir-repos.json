@@ -816,7 +816,7 @@
       "language": "Jupyter Notebook",
       "license": "MIT",
       "name": "ForestStandHeight",
-      "stars": 17,
+      "stars": 16,
       "updated_at": "2020-01-08"
     },
     {
@@ -1192,21 +1192,21 @@
   "SERVIR-AI": [
     {
       "archived": false,
-      "description": "",
-      "language": "HTML",
-      "license": "",
-      "name": "Platform-Inventory",
-      "stars": 0,
-      "updated_at": "2026-09-11"
-    },
-    {
-      "archived": false,
       "description": "AI-assisted geospatial platform for environmental decision support (source-available, non-commercial)",
       "language": "Python",
       "license": "EPL-2.0",
       "name": "global-platform",
       "stars": 0,
-      "updated_at": "2026-09-10"
+      "updated_at": "2026-10-08"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "HTML",
+      "license": "",
+      "name": "Platform-Inventory",
+      "stars": 0,
+      "updated_at": "2026-10-05"
     }
   ],
   "SERVIR-Amazonia": [
@@ -1234,7 +1234,7 @@
       "language": "Jupyter Notebook",
       "license": "",
       "name": "MANGLEE",
-      "stars": 1,
+      "stars": 2,
       "updated_at": "2025-07-14"
     },
     {
@@ -1557,11 +1557,11 @@
     {
       "archived": false,
       "description": "",
-      "language": "JavaScript",
+      "language": "Python",
       "license": "",
-      "name": "airquality_backend",
-      "stars": 1,
-      "updated_at": "2025-02-24"
+      "name": "mangrove-sprint-lab",
+      "stars": 0,
+      "updated_at": "2026-10-02"
     },
     {
       "archived": false,
@@ -1643,7 +1643,7 @@
       "language": "Python",
       "license": "MIT",
       "name": "hydra-floods",
-      "stars": 187,
+      "stars": 189,
       "updated_at": "2025-07-18"
     },
     {
@@ -1796,7 +1796,7 @@
       "language": "Python",
       "license": "MIT",
       "name": "GPM-BICO",
-      "stars": 11,
+      "stars": 12,
       "updated_at": "2022-07-12"
     },
     {
@@ -2016,6 +2016,269 @@
       "updated_at": "2016-07-21"
     }
   ],
+  "geoglows": [
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "",
+      "name": "training.geoglows.org",
+      "stars": 0,
+      "updated_at": "2026-10-09"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "webapp-grace-groundwater",
+      "stars": 0,
+      "updated_at": "2026-10-09"
+    },
+    {
+      "archived": false,
+      "description": "Multi-Model Global Flood Early Warning System.",
+      "language": "JavaScript",
+      "license": "",
+      "name": "webapp-fews4all",
+      "stars": 0,
+      "updated_at": "2026-10-08"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "BSD-3-Clause-Clear",
+      "name": "tdxhydro-postprocessing",
+      "stars": 2,
+      "updated_at": "2026-09-27"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "HTML",
+      "license": "BSD-3-Clause",
+      "name": "apps.geoglows",
+      "stars": 0,
+      "updated_at": "2026-09-23"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "webapp-rfs-v3",
+      "stars": 0,
+      "updated_at": "2026-09-23"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "data-store-app",
+      "stars": 0,
+      "updated_at": "2026-09-23"
+    },
+    {
+      "archived": false,
+      "description": "Main geoglows.org page",
+      "language": "Astro",
+      "license": "",
+      "name": "geoglows.org",
+      "stars": 0,
+      "updated_at": "2026-09-22"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "webapp-rfs-hydrosos",
+      "stars": 0,
+      "updated_at": "2026-09-17"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "rfs-v2-hydroviewer",
+      "stars": 1,
+      "updated_at": "2026-09-04"
+    },
+    {
+      "archived": false,
+      "description": "Geoglows auth Ts library",
+      "language": "TypeScript",
+      "license": "",
+      "name": "geoglows-auth",
+      "stars": 0,
+      "updated_at": "2026-09-01"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "JavaScript",
+      "license": "",
+      "name": "webapp-rfs-hydrography",
+      "stars": 0,
+      "updated_at": "2026-08-31"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Jupyter Notebook",
+      "license": "MIT",
+      "name": "aquiferx",
+      "stars": 0,
+      "updated_at": "2026-07-15"
+    },
+    {
+      "archived": false,
+      "description": "A GitHub repo used to manage HydroServer deployments.",
+      "language": "HCL",
+      "license": "BSD-3-Clause",
+      "name": "hydroserver-ops",
+      "stars": 0,
+      "updated_at": "2026-06-27"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "BSD-3-Clause",
+      "name": "geoglows_ecflow",
+      "stars": 1,
+      "updated_at": "2026-06-24"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "",
+      "name": "rfs-v2-retrospective-update",
+      "stars": 0,
+      "updated_at": "2026-04-23"
+    },
+    {
+      "archived": false,
+      "description": "Hydrologic river routing of gridded runoff depths or catchment volumes on vector stream networks",
+      "language": "Python",
+      "license": "BSD-3-Clause-Clear",
+      "name": "river-route",
+      "stars": 1,
+      "updated_at": "2026-04-17"
+    },
+    {
+      "archived": false,
+      "description": "A flask app for the GEOGLOWS River Forecast System web data service",
+      "language": "Python",
+      "license": "BSD-3-Clause",
+      "name": "geoglows-rest-api",
+      "stars": 8,
+      "updated_at": "2026-04-13"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Jupyter Notebook",
+      "license": "",
+      "name": "ggst_backend",
+      "stars": 0,
+      "updated_at": "2026-04-07"
+    },
+    {
+      "archived": false,
+      "description": "A python package of tools coming from the GEOGLOWS initiative",
+      "language": "Python",
+      "license": "BSD-3-Clause",
+      "name": "pygeoglows",
+      "stars": 18,
+      "updated_at": "2025-12-02"
+    },
+    {
+      "archived": false,
+      "description": "The serious game for RFS forecasts",
+      "language": "HTML",
+      "license": "",
+      "name": "forecast-game",
+      "stars": 0,
+      "updated_at": "2025-07-19"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "",
+      "name": "hydrosos_maps",
+      "stars": 0,
+      "updated_at": "2025-05-20"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "",
+      "name": "basininflow",
+      "stars": 0,
+      "updated_at": "2024-11-23"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "",
+      "license": "",
+      "name": "toc.geoglows.docs",
+      "stars": 1,
+      "updated_at": "2024-10-10"
+    },
+    {
+      "archived": false,
+      "description": "A web app for interacting with all components of the GEOGloWS ECMWF Streamflow Model",
+      "language": "HTML",
+      "license": "BSD-3-Clause-Clear",
+      "name": "geoglows-hydroviewer",
+      "stars": 9,
+      "updated_at": "2024-10-01"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Python",
+      "license": "",
+      "name": "model-workflows",
+      "stars": 0,
+      "updated_at": "2024-03-22"
+    },
+    {
+      "archived": false,
+      "description": "RAPIDpy is a python interface for RAPID that assists to prepare inputs, runs the RAPID program, and provides post-processing utilities.",
+      "language": "Python",
+      "license": "BSD-3-Clause",
+      "name": "RAPIDpy",
+      "stars": 2,
+      "updated_at": "2024-03-15"
+    },
+    {
+      "archived": false,
+      "description": "",
+      "language": "Dockerfile",
+      "license": "",
+      "name": "rapid-docker",
+      "stars": 0,
+      "updated_at": "2023-12-07"
+    },
+    {
+      "archived": true,
+      "description": "source for the training.geoglows.org website",
+      "language": "Python",
+      "license": "BSD-3-Clause",
+      "name": "old-training.geoglows.org",
+      "stars": 1,
+      "updated_at": "2022-11-06"
+    }
+  ],
   "pyregence": [
     {
       "archived": false,
@@ -2024,7 +2287,7 @@
       "license": "EPL-2.0",
       "name": "pyregence",
       "stars": 9,
-      "updated_at": "2026-09-11"
+      "updated_at": "2026-10-12"
     },
     {
       "archived": false,
@@ -2033,25 +2296,25 @@
       "license": "EPL-2.0",
       "name": "geosync",
       "stars": 0,
-      "updated_at": "2026-09-10"
+      "updated_at": "2026-10-06"
     },
     {
       "archived": false,
       "description": "A new, more scriptable fire model",
       "language": "HTML",
-      "license": "EPL-2.0",
+      "license": "NOASSERTION",
       "name": "pyretechnics",
-      "stars": 22,
-      "updated_at": "2026-08-10"
+      "stars": 24,
+      "updated_at": "2026-10-05"
     },
     {
       "archived": false,
       "description": "Official GeoServer repository",
-      "language": "",
+      "language": "Java",
       "license": "NOASSERTION",
       "name": "geoserver",
       "stars": 0,
-      "updated_at": "2026-07-15"
+      "updated_at": "2026-09-16"
     },
     {
       "archived": false,
