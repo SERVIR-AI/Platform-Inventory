@@ -1,12 +1,48 @@
-# Inventory sweep — 2026-09-11
+# Inventory sweep — 2026-11-16
 
-**231** public repositories across 6 organizations · **79** App Center services reachable.
+**262** public repositories across 7 organizations · **79** App Center services reachable.
 
 ## Changes since last sweep
-- activity: `SERVIR-AI/Platform-Inventory` last push 2026-09-09 → 2026-09-11
-- activity: `SERVIR-AI/global-platform` last push 2026-09-09 → 2026-09-10
-- activity: `pyregence/geosync` last push 2026-09-01 → 2026-09-10
-- activity: `pyregence/pyregence` last push 2026-09-08 → 2026-09-11
+- **NEW REPO** `SERVIR-AI/geo-cloudify` — Convert geospatial data to cloud-native formats and check that the results are valid.
+- **NEW REPO** `SERVIR-AI/stac-lite` — Lightweight, zero-infrastructure STAC API and browser for exploring static STAC catalogs with CQL2 search and filter support. No database required.
+- activity: `SERVIR-AI/Platform-Inventory` last push 2026-09-11 → 2026-11-09
+- activity: `SERVIR-AI/global-platform` last push 2026-09-10 → 2026-11-16
+- activity: `Servir-Mekong/rainstorm-tracker` last push 2025-09-23 → 2026-11-12
+- **NEW REPO** `SERVIRSEA/mangrove-sprint-lab` — no description
+- **REPO GONE** `SERVIRSEA/airquality_backend` (made private, renamed or deleted)
+- activity: `pyregence/geoserver` last push 2026-07-15 → 2026-09-16
+- activity: `pyregence/geosync` last push 2026-09-10 → 2026-10-30
+- activity: `pyregence/pyregence` last push 2026-09-11 → 2026-11-16
+- activity: `pyregence/pyretechnics` last push 2026-08-10 → 2026-11-16
+- **NEW REPO** `geoglows/RAPIDpy` — RAPIDpy is a python interface for RAPID that assists to prepare inputs, runs the RAPID program, and provides post-processing utilities.
+- **NEW REPO** `geoglows/apps.geoglows` — no description
+- **NEW REPO** `geoglows/aquiferx` — no description
+- **NEW REPO** `geoglows/basininflow` — no description
+- **NEW REPO** `geoglows/data-store-app` — no description
+- **NEW REPO** `geoglows/forecast-game` — The serious game for RFS forecasts
+- **NEW REPO** `geoglows/geoglows-auth` — Geoglows auth Ts library
+- **NEW REPO** `geoglows/geoglows-hydroviewer` — A web app for interacting with all components of the GEOGloWS ECMWF Streamflow Model
+- **NEW REPO** `geoglows/geoglows-rest-api` — A flask app for the GEOGLOWS River Forecast System web data service
+- **NEW REPO** `geoglows/geoglows.org` — Main geoglows.org page
+- **NEW REPO** `geoglows/geoglows_ecflow` — no description
+- **NEW REPO** `geoglows/ggst_backend` — no description
+- **NEW REPO** `geoglows/hydroserver-ops` — A GitHub repo used to manage HydroServer deployments.
+- **NEW REPO** `geoglows/hydrosos_maps` — no description
+- **NEW REPO** `geoglows/model-workflows` — no description
+- **NEW REPO** `geoglows/old-training.geoglows.org` — source for the training.geoglows.org website
+- **NEW REPO** `geoglows/pygeoglows` — A python package of tools coming from the GEOGLOWS initiative
+- **NEW REPO** `geoglows/rapid-docker` — no description
+- **NEW REPO** `geoglows/rfs-v2-hydroviewer` — no description
+- **NEW REPO** `geoglows/rfs-v2-retrospective-update` — no description
+- **NEW REPO** `geoglows/river-route` — Hydrologic river routing of gridded runoff depths or catchment volumes on vector stream networks
+- **NEW REPO** `geoglows/tdxhydro-postprocessing` — no description
+- **NEW REPO** `geoglows/toc.geoglows.docs` — no description
+- **NEW REPO** `geoglows/training.geoglows.org` — no description
+- **NEW REPO** `geoglows/webapp-fews4all` — Multi-Model Global Flood Early Warning System.
+- **NEW REPO** `geoglows/webapp-grace-groundwater` — no description
+- **NEW REPO** `geoglows/webapp-rfs-hydrography` — no description
+- **NEW REPO** `geoglows/webapp-rfs-hydrosos` — no description
+- **NEW REPO** `geoglows/webapp-rfs-v3` — no description
 
 ---
 
